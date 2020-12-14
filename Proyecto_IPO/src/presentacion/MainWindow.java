@@ -22,6 +22,7 @@ import java.awt.Insets;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class MainWindow extends JFrame {
 
@@ -98,7 +99,7 @@ public class MainWindow extends JFrame {
 		MenuOpciones.add(mnDibujarRuta);
 		
 		bannerUsuario = new JPanel();
-		bannerUsuario.setBackground(Color.DARK_GRAY);
+		bannerUsuario.setBackground(Color.LIGHT_GRAY);
 		panelSuperior.add(bannerUsuario, BorderLayout.NORTH);
 		GridBagLayout gbl_bannerUsuario = new GridBagLayout();
 		gbl_bannerUsuario.columnWidths = new int[]{685, 66, 0};
@@ -107,8 +108,9 @@ public class MainWindow extends JFrame {
 		gbl_bannerUsuario.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bannerUsuario.setLayout(gbl_bannerUsuario);
 		
-		banner = new JLabel("BANNER");
-		banner.setBackground(Color.GRAY);
+		banner = new JLabel("");
+		banner.setHorizontalAlignment(SwingConstants.CENTER);
+		banner.setBackground(Color.WHITE);
 		banner.setIgnoreRepaint(true);
 		banner.setIconTextGap(7);
 		banner.setSize(new Dimension(3, 3));

@@ -6,6 +6,10 @@ import javax.swing.JFrame;
 import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+
+import dominio.Usuario;
+import persistencia.GestorFicheros;
+
 import java.awt.Color;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -15,10 +19,13 @@ import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JTextPane;
-import javax.swing.border.BevelBorder;
 import javax.swing.JMenu;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+
 
 public class LoginWindow {
 
@@ -53,6 +60,8 @@ public class LoginWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		GestorFicheros gf = new GestorFicheros();
+		
 		frmGestorDeCamping = new JFrame();
 		frmGestorDeCamping.setFont(new Font("Hack NF", Font.PLAIN, 12));
 		frmGestorDeCamping.setTitle("Gestor de Camping");
@@ -87,9 +96,24 @@ public class LoginWindow {
 		JButton btnAcceder = new JButton("Acceder");
 		btnAcceder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainWindow window = new MainWindow();
-				window.setVisible(true);
-				frmGestorDeCamping.dispose();
+				Usuario[] listaUsuarios=gf.getUsuarios();
+				
+				for(int i=0; i<=listaUsuarios.length; i++) {
+					Usuario usuario=listaUsuarios[i];
+					System.out.print(usuario.toString());
+					if(usuario.getNick().equals(txtFUsuario.getText()) && usuario.getContraseña().equals(String.valueOf(txtFContraseña.getPassword()))) {
+						btnAcceder.setForeground(Color.GREEN);
+						txtFeedback.setForeground(Color.GREEN);
+						MainWindow window = new MainWindow();
+						window.setVisible(true);
+						frmGestorDeCamping.dispose();
+					}else {
+						txtFeedback.setText("Usuario o contraseña mal.");
+						txtFeedback.setForeground(Color.RED);
+						btnAcceder.setForeground(Color.RED);
+					}
+				}
+				
 			}
 		});
 		btnAcceder.setBounds(148, 130, 85, 21);
