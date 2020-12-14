@@ -3,35 +3,28 @@ package presentacion;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.JComboBox;
-import javax.swing.JTextArea;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Color;
-import java.awt.SystemColor;
+import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import javax.swing.JLayeredPane;
-import javax.swing.JInternalFrame;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.Rectangle;
-import javax.swing.JTextPane;
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Label;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
+import java.awt.Color;
 import javax.swing.JPasswordField;
-import java.awt.Toolkit;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
+import javax.swing.JMenuBar;
+import javax.swing.JTextPane;
+import javax.swing.border.BevelBorder;
+import javax.swing.JMenu;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LoginWindow {
 
-	private JFrame frmGestionDeCamping;
-	private JPanel panelCentral;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JFrame frmGestorDeCamping;
+	private JTextField txtFUsuario;
+	private JPasswordField txtFContraseña;
 
 	/**
 	 * Launch the application.
@@ -41,13 +34,14 @@ public class LoginWindow {
 			public void run() {
 				try {
 					LoginWindow window = new LoginWindow();
-					window.frmGestionDeCamping.setVisible(true);
+					window.frmGestorDeCamping.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
+
 	/**
 	 * Create the application.
 	 */
@@ -59,99 +53,71 @@ public class LoginWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmGestionDeCamping = new JFrame();
-		frmGestionDeCamping.setResizable(false);
-		frmGestionDeCamping.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginWindow.class.getResource("/presentacion/\u00EDndice.png")));
-		frmGestionDeCamping.setTitle("Gestion de Camping");
-		frmGestionDeCamping.setBounds(100, 100, 712, 402);
-		frmGestionDeCamping.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmGestorDeCamping = new JFrame();
+		frmGestorDeCamping.setFont(new Font("Hack NF", Font.PLAIN, 12));
+		frmGestorDeCamping.setTitle("Gestor de Camping");
+		frmGestorDeCamping.setResizable(false);
+		frmGestorDeCamping.setBounds(100, 100, 697, 466);
+		frmGestorDeCamping.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmGestorDeCamping.getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		panelCentral = new JPanel();
-		frmGestionDeCamping.getContentPane().add(panelCentral, BorderLayout.CENTER);
-		panelCentral.setLayout(null);
+		JTextPane txtFeedback = new JTextPane();
+		txtFeedback.setText("Bienvenido al Gestor de Camping");
+		frmGestorDeCamping.getContentPane().add(txtFeedback, BorderLayout.SOUTH);
 		
-		JTextArea txtrGestorDe = new JTextArea();
-		txtrGestorDe.setEditable(false);
-		txtrGestorDe.setBackground(SystemColor.control);
-		txtrGestorDe.setForeground(Color.BLACK);
-		txtrGestorDe.setFont(new Font("Monospaced", Font.PLAIN, 30));
-		txtrGestorDe.setBounds(36, 36, 310, 55);
-		txtrGestorDe.setText("GESTOR DE CAMPING");
-		panelCentral.add(txtrGestorDe);
+		JPanel panelTitulo = new JPanel();
+		frmGestorDeCamping.getContentPane().add(panelTitulo, BorderLayout.NORTH);
+		panelTitulo.setLayout(null);
 		
-		JTextArea txtrDatosDeUsuario = new JTextArea();
-		txtrDatosDeUsuario.setEditable(false);
-		txtrDatosDeUsuario.setBounds(384, 65, 132, 19);
-		panelCentral.add(txtrDatosDeUsuario);
-		txtrDatosDeUsuario.setBackground(SystemColor.control);
-		txtrDatosDeUsuario.setText("Datos de usuario");
+		JLabel Titulo = new JLabel("GESTOR CAMPING");
+		Titulo.setFont(new Font("Hack NF", Font.PLAIN, 28));
+		Titulo.setBounds(0, 0, 336, 125);
+		panelTitulo.add(Titulo);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		panel.setBounds(384, 92, 301, 177);
-		panelCentral.add(panel);
-		panel.setLayout(null);
+		JPanel presentacionPanel = new JPanel();
+		frmGestorDeCamping.getContentPane().add(presentacionPanel, BorderLayout.CENTER);
+		presentacionPanel.setLayout(null);
 		
-		JTextArea txtrUsuario = new JTextArea();
-		txtrUsuario.setEditable(false);
-		txtrUsuario.setBackground(SystemColor.control);
-		txtrUsuario.setText("Usuario:");
-		txtrUsuario.setBounds(68, 31, 68, 22);
-		panel.add(txtrUsuario);
+		JPanel datosUsuario = new JPanel();
+		datosUsuario.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		datosUsuario.setBounds(372, 114, 243, 161);
+		presentacionPanel.add(datosUsuario);
+		datosUsuario.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(173, 31, 116, 22);
-		panel.add(textField);
-		textField.setColumns(10);
+		JButton btnAcceder = new JButton("Acceder");
+		btnAcceder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainWindow window = new MainWindow();
+				window.setVisible(true);
+				frmGestorDeCamping.dispose();
+			}
+		});
+		btnAcceder.setBounds(148, 130, 85, 21);
+		datosUsuario.add(btnAcceder);
 		
-		JTextArea txtrContrasea = new JTextArea();
-		txtrContrasea.setEditable(false);
-		txtrContrasea.setBackground(SystemColor.control);
-		txtrContrasea.setText("Contrase\u00F1a:");
-		txtrContrasea.setBounds(43, 66, 93, 22);
-		panel.add(txtrContrasea);
+		txtFUsuario = new JTextField();
+		txtFUsuario.setBounds(88, 30, 145, 19);
+		datosUsuario.add(txtFUsuario);
+		txtFUsuario.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Limpiar");
-		btnNewButton.setBounds(68, 135, 97, 25);
-		panel.add(btnNewButton);
+		txtFContraseña = new JPasswordField();
+		txtFContraseña.setBounds(88, 84, 145, 19);
+		datosUsuario.add(txtFContraseña);
 		
-		JButton btnEntrar = new JButton("Entrar");
-		btnEntrar.setBounds(192, 135, 97, 25);
-		panel.add(btnEntrar);
+		JLabel lblUsuario = new JLabel("Usuario:");
+		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblUsuario.setBounds(-18, 36, 96, 13);
+		datosUsuario.add(lblUsuario);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(173, 66, 116, 22);
-		panel.add(passwordField);
+		JLabel lblContraseña = new JLabel("Contraseña:");
+		lblContraseña.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblContraseña.setBounds(-18, 90, 96, 13);
+		datosUsuario.add(lblContraseña);
 		
-		JPanel panelSur = new JPanel();
-		panelSur.setBorder(new LineBorder(SystemColor.desktop, 2));
-		panelCentral.add(panelSur);
-		panelSur.setBounds(new Rectangle(0, 331, 706, 34));
-		panelSur.setLayout(null);
+		JMenuBar menuBar = new JMenuBar();
+		frmGestorDeCamping.setJMenuBar(menuBar);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Espa\u00F1ol", "Ingl\u00E9s"}));
-		comboBox.setBounds(77, 5, 87, 21);
-		panelSur.add(comboBox);
-		
-		JTextArea txtrIdioma = new JTextArea();
-		txtrIdioma.setEditable(false);
-		txtrIdioma.setBackground(SystemColor.control);
-		txtrIdioma.setText("Idioma:");
-		txtrIdioma.setBounds(21, 4, 60, 22);
-		panelSur.add(txtrIdioma);
-		
-		JTextPane txtpnAquSeMuestran = new JTextPane();
-		txtpnAquSeMuestran.setEditable(false);
-		txtpnAquSeMuestran.setBackground(SystemColor.control);
-		txtpnAquSeMuestran.setText("Aqu\u00ED se muestran los errores");
-		txtpnAquSeMuestran.setBounds(24, 299, 322, 19);
-		panelCentral.add(txtpnAquSeMuestran);
-		
-		JLabel lblLogo = new JLabel("");
-		lblLogo.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLogo.setIcon(new ImageIcon(LoginWindow.class.getResource("/presentacion/Camping-portada.jpg")));
-		lblLogo.setBounds(46, 92, 300, 177);
-		panelCentral.add(lblLogo);
+		JMenu mnIdioma = new JMenu("Idioma");
+		menuBar.add(mnIdioma);
 	}
 }
