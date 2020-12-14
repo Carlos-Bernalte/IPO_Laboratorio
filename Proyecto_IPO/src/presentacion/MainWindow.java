@@ -22,6 +22,7 @@ import java.awt.Insets;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class MainWindow extends JFrame {
 
@@ -48,6 +49,8 @@ public class MainWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public MainWindow() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/Iconos/003-tent.png")));
+		setTitle("Gestor Camping");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 789, 494);
 		
@@ -55,12 +58,15 @@ public class MainWindow extends JFrame {
 		setJMenuBar(barraOpciones);
 		
 		mnIdioma = new JMenu("Idioma");
+		this.mnIdioma.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/007-language.png")));
 		barraOpciones.add(mnIdioma);
 		
 		mntmEspañol = new JMenuItem("Español");
+		this.mntmEspañol.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/001-spain.png")));
 		mnIdioma.add(mntmEspañol);
 		
 		mntmIngles = new JMenuItem("Ingles");
+		this.mntmIngles.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/002-united-kingdom.png")));
 		mnIdioma.add(mntmIngles);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -134,6 +140,7 @@ public class MainWindow extends JFrame {
 		barraUsuario.add(mnUsuario);
 		
 		mntmCerrarSesion = new JMenuItem("Cerrar sesión");
+		this.mntmCerrarSesion.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/006-logout.png")));
 		mnUsuario.add(mntmCerrarSesion);
 	}
 
