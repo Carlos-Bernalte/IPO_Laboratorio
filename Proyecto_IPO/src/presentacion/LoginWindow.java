@@ -24,6 +24,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
 
 
 
@@ -32,6 +34,7 @@ public class LoginWindow {
 	private JFrame frmGestorDeCamping;
 	private JTextField txtFUsuario;
 	private JPasswordField txtFContraseña;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -94,6 +97,7 @@ public class LoginWindow {
 		datosUsuario.setLayout(null);
 		
 		JButton btnAcceder = new JButton("Acceder");
+		btnAcceder.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/005-enter.png")));
 		btnAcceder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Usuario[] listaUsuarios=gf.getUsuarios();
@@ -116,7 +120,7 @@ public class LoginWindow {
 				
 			}
 		});
-		btnAcceder.setBounds(148, 130, 85, 21);
+		btnAcceder.setBounds(130, 130, 103, 21);
 		datosUsuario.add(btnAcceder);
 		
 		txtFUsuario = new JTextField();
@@ -138,10 +142,24 @@ public class LoginWindow {
 		lblContraseña.setBounds(-18, 90, 96, 13);
 		datosUsuario.add(lblContraseña);
 		
+		lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(LoginWindow.class.getResource("/imagenes/camping.jpg")));
+		lblNewLabel.setBounds(20, 10, 186, 205);
+		presentacionPanel.add(lblNewLabel);
+		
 		JMenuBar menuBar = new JMenuBar();
 		frmGestorDeCamping.setJMenuBar(menuBar);
 		
 		JMenu mnIdioma = new JMenu("Idioma");
+		mnIdioma.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/007-language.png")));
 		menuBar.add(mnIdioma);
+		
+		JMenuItem mntmEspañol = new JMenuItem("Español");
+		mntmEspañol.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/001-spain.png")));
+		mnIdioma.add(mntmEspañol);
+		
+		JMenuItem mntmIngles = new JMenuItem("Ingles");
+		mntmIngles.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/002-united-kingdom.png")));
+		mnIdioma.add(mntmIngles);
 	}
 }
