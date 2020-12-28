@@ -15,20 +15,32 @@ import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JTextPane;
-import javax.swing.border.BevelBorder;
 import javax.swing.JMenu;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class LoginWindow {
 
 	private JFrame frmGestorDeCamping;
 	private JTextField txtFUsuario;
 	private JPasswordField txtFContraseña;
-
+	private JButton btnAcceder;
+	private JPanel datosUsuario;
+	private JPanel panelTitulo;
+	private JPanel presentacionPanel;
+	private JLabel Titulo;
+	private JLabel lblUsuario;
+	private JLabel lblContraseña;
+	private JTextPane txtFeedback;
+	private JMenuBar menuBar;
+	private JMenu mnIdioma;
+	private JMenuItem mnInglés;
+	private JMenuItem mnEspañol;
 	/**
 	 * Launch the application.
 	 */
@@ -65,30 +77,31 @@ public class LoginWindow {
 		frmGestorDeCamping.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmGestorDeCamping.getContentPane().setLayout(new BorderLayout(0, 0));
 		
-		JTextPane txtFeedback = new JTextPane();
-		txtFeedback.setText("Bienvenido al Gestor de Camping");
+		txtFeedback = new JTextPane();
+		txtFeedback.setText("Bienvenido al Gestor de Camping. Introduzca sus credenciales para acceder al sistema.");
 		frmGestorDeCamping.getContentPane().add(txtFeedback, BorderLayout.SOUTH);
 		
-		JPanel panelTitulo = new JPanel();
+		panelTitulo = new JPanel();
 		frmGestorDeCamping.getContentPane().add(panelTitulo, BorderLayout.NORTH);
 		panelTitulo.setLayout(null);
 		
-		JLabel Titulo = new JLabel("GESTOR CAMPING");
+		Titulo = new JLabel("GESTOR CAMPING");
 		Titulo.setFont(new Font("Hack NF", Font.PLAIN, 28));
 		Titulo.setBounds(0, 0, 336, 125);
 		panelTitulo.add(Titulo);
 		
-		JPanel presentacionPanel = new JPanel();
+		presentacionPanel = new JPanel();
 		frmGestorDeCamping.getContentPane().add(presentacionPanel, BorderLayout.CENTER);
 		presentacionPanel.setLayout(null);
 		
-		JPanel datosUsuario = new JPanel();
+		datosUsuario = new JPanel();
 		datosUsuario.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		datosUsuario.setBounds(372, 114, 243, 161);
 		presentacionPanel.add(datosUsuario);
 		datosUsuario.setLayout(null);
 		
-		JButton btnAcceder = new JButton("Acceder");
+		btnAcceder = new JButton("Acceder");
+		btnAcceder.setEnabled(false);
 		btnAcceder.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/005-enter.png")));
 		btnAcceder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -104,34 +117,46 @@ public class LoginWindow {
 		txtFUsuario.setBounds(88, 30, 145, 19);
 		datosUsuario.add(txtFUsuario);
 		txtFUsuario.setColumns(10);
+		txtFUsuario.setText("");
 		
 		txtFContraseña = new JPasswordField();
+		txtFContraseña.addKeyListener(new TxtFContraseñaKeyListener());
 		txtFContraseña.setBounds(88, 84, 145, 19);
 		datosUsuario.add(txtFContraseña);
+		txtFContraseña.setText("");
 		
-		JLabel lblUsuario = new JLabel("Usuario:");
+		lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblUsuario.setBounds(-18, 36, 96, 13);
 		datosUsuario.add(lblUsuario);
 		
-		JLabel lblContraseña = new JLabel("Contraseña:");
+		lblContraseña = new JLabel("Contraseña:");
 		lblContraseña.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblContraseña.setBounds(-18, 90, 96, 13);
 		datosUsuario.add(lblContraseña);
 		
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		frmGestorDeCamping.setJMenuBar(menuBar);
 		
-		JMenu mnIdioma = new JMenu("Idioma");
+		mnIdioma = new JMenu("Idioma");
 		mnIdioma.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/007-language.png")));
 		menuBar.add(mnIdioma);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("Español");
-		mntmNewMenuItem.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/001-spain.png")));
-		mnIdioma.add(mntmNewMenuItem);
+		mnEspañol = new JMenuItem("Español");
+		mnEspañol.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/001-spain.png")));
+		mnIdioma.add(mnEspañol);
 		
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Inglés");
-		mntmNewMenuItem_1.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/002-united-kingdom.png")));
-		mnIdioma.add(mntmNewMenuItem_1);
+		mnInglés = new JMenuItem("Inglés");
+		mnInglés.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/002-united-kingdom.png")));
+		mnIdioma.add(mnInglés);
+	}
+	private class TxtFContraseñaKeyListener extends KeyAdapter {
+		@SuppressWarnings("deprecation")
+		@Override
+		public void keyTyped(KeyEvent e) {
+			if(txtFUsuario.getText()!="" && txtFContraseña.getText()!=""){
+					btnAcceder.setEnabled(true);
+		}
+	}
 	}
 }
