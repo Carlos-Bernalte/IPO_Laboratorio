@@ -19,6 +19,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JMenu;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.TitledBorder;
 
 public class LoginWindow {
 
@@ -79,7 +80,7 @@ public class LoginWindow {
 		presentacionPanel.setLayout(null);
 		
 		JPanel datosUsuario = new JPanel();
-		datosUsuario.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		datosUsuario.setBorder(new TitledBorder(null, "Datos de Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		datosUsuario.setBounds(372, 114, 243, 161);
 		presentacionPanel.add(datosUsuario);
 		datosUsuario.setLayout(null);
