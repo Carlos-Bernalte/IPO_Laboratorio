@@ -19,6 +19,9 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JMenu;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import java.awt.Toolkit;
 
 public class LoginWindow {
 
@@ -54,6 +57,7 @@ public class LoginWindow {
 	 */
 	private void initialize() {
 		frmGestorDeCamping = new JFrame();
+		frmGestorDeCamping.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginWindow.class.getResource("/Iconos/003-tent.png")));
 		frmGestorDeCamping.setFont(new Font("Hack NF", Font.PLAIN, 12));
 		frmGestorDeCamping.setTitle("Gestor de Camping");
 		frmGestorDeCamping.setResizable(false);
@@ -85,6 +89,7 @@ public class LoginWindow {
 		datosUsuario.setLayout(null);
 		
 		JButton btnAcceder = new JButton("Acceder");
+		btnAcceder.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/005-enter.png")));
 		btnAcceder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MainWindow window = new MainWindow();
@@ -92,7 +97,7 @@ public class LoginWindow {
 				frmGestorDeCamping.dispose();
 			}
 		});
-		btnAcceder.setBounds(148, 130, 85, 21);
+		btnAcceder.setBounds(124, 130, 109, 21);
 		datosUsuario.add(btnAcceder);
 		
 		txtFUsuario = new JTextField();
@@ -118,6 +123,15 @@ public class LoginWindow {
 		frmGestorDeCamping.setJMenuBar(menuBar);
 		
 		JMenu mnIdioma = new JMenu("Idioma");
+		mnIdioma.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/007-language.png")));
 		menuBar.add(mnIdioma);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Español");
+		mntmNewMenuItem.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/001-spain.png")));
+		mnIdioma.add(mntmNewMenuItem);
+		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Inglés");
+		mntmNewMenuItem_1.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/002-united-kingdom.png")));
+		mnIdioma.add(mntmNewMenuItem_1);
 	}
 }
