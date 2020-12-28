@@ -1,11 +1,14 @@
 package presentacion;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -31,6 +34,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame {
+
+
 
 	private JPanel contentPane;
 	private JPanel panelCentral;
@@ -67,6 +72,20 @@ public class MainWindow extends JFrame {
 		
 		panelCentral = new JPanel();
 		contentPane.add(panelCentral, BorderLayout.CENTER);
+		panelCentral.setLayout(new CardLayout(0, 0));
+		
+		//Inicializar los paneles y añadirlos al panel central
+		ConsultarInformacion consultar_informacion= new ConsultarInformacion();
+		panelCentral.add(consultar_informacion, "Consultar Información");
+		
+		RealizarReserva realizar_reserva= new RealizarReserva();
+		panelCentral.add(realizar_reserva, "Realizar Reserva");
+		
+		Personal personal = new Personal();
+		panelCentral.add(personal, "Personal");
+		
+		DibujarRuta dibujar_ruta =new DibujarRuta();
+		panelCentral.add(dibujar_ruta, "Dibujar Ruta");
 		
 		lblFeedback = new JLabel("Bienvenido");
 		contentPane.add(lblFeedback, BorderLayout.SOUTH);
@@ -108,9 +127,6 @@ public class MainWindow extends JFrame {
 		gbc_barraUsuario.gridy = 0;
 		bannerUsuario.add(barraUsuario, gbc_barraUsuario);
 		
-		//Inicializacion de los paneles
-		RealizarReserva rr= new RealizarReserva();
-		
 		mnUsuario = new JMenu("");
 		mnUsuario.setIcon(new ImageIcon(MainWindow.class.getResource("/imagenes/usuario.png")));
 		barraUsuario.add(mnUsuario);
@@ -139,19 +155,45 @@ public class MainWindow extends JFrame {
 		pnlOpciones.setLayout(new BorderLayout(0, 0));
 		
 		tbAcciones = new JToolBar();
+		tbAcciones.setFloatable(false);
 		pnlOpciones.add(tbAcciones);
 		
 		btnConsultarInformacion = new JButton("Consultar Información");
+		btnConsultarInformacion.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnConsultarInformacion);
 		
 		btnRealizarReserva = new JButton("Realizar Reserva");
+		btnRealizarReserva.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnRealizarReserva);
 		
 		btnPersonal = new JButton("Personal");
+		btnPersonal.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnPersonal);
 		
 		btnDibujarRuta = new JButton("Dibujar Ruta");
+		btnDibujarRuta.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnDibujarRuta);
+	}
+	private class btnComunAcciones implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			CardLayout panelSeleccionado = (CardLayout) panelCentral.getLayout();
+			if(e.getActionCommand()=="Consultar Información") {
+				panelSeleccionado.show(panelCentral, "Consultar Información");
+			}
+			if(e.getActionCommand()=="Realizar Reserva") {
+				panelSeleccionado.show(panelCentral, "Realizar Reserva");
+			}
+			if(e.getActionCommand()=="Personal") {
+				panelSeleccionado.show(panelCentral, "Personal");
+			}
+			if(e.getActionCommand()=="Dibujar Ruta") {
+				panelSeleccionado.show(panelCentral, "Dibujar Ruta");
+			}
+
+		}
+
 	}
 
 }

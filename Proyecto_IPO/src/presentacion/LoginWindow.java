@@ -24,6 +24,8 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+
+
 public class LoginWindow {
 
 	private JFrame frmGestorDeCamping;
@@ -92,10 +94,11 @@ public class LoginWindow {
 		
 		presentacionPanel = new JPanel();
 		frmGestorDeCamping.getContentPane().add(presentacionPanel, BorderLayout.CENTER);
-		presentacionPanel.setLayout(null);
-		
-		datosUsuario = new JPanel();
-		datosUsuario.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+		presentacionPanel.setLayout(null);	
+
+		JPanel datosUsuario = new JPanel();
+		datosUsuario.setBorder(new TitledBorder(null, "Datos de Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+
 		datosUsuario.setBounds(372, 114, 243, 161);
 		presentacionPanel.add(datosUsuario);
 		datosUsuario.setLayout(null);
