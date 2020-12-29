@@ -146,7 +146,7 @@ public class MainWindow extends JFrame {
 		this.mntmEspañol.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/001-spain.png")));
 		mnIdioma.add(mntmEspañol);
 		
-		mntmIngles = new JMenuItem("Ingles");
+		mntmIngles = new JMenuItem("Inglés");
 		this.mntmIngles.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/002-united-kingdom.png")));
 		mnIdioma.add(mntmIngles);
 		
