@@ -3,21 +3,40 @@ package presentacion;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import javax.swing.border.TitledBorder;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JTabbedPane;
+import java.awt.Component;
 
 public class ConsultarInformacion extends JPanel {
+	private JTabbedPane tabbedPaneConsultarInformacion;
+	private JPanel tabParcelas;
+	private JPanel tabBungalows;
+	private JPanel tabRutas;
+	private JPanel tabActividades;
 
 	/**
 	 * Create the panel.
 	 */
 	public ConsultarInformacion() {
-		setBorder(new TitledBorder(null, "Consultar Informaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0};
-		gridBagLayout.rowHeights = new int[]{0};
-		gridBagLayout.columnWeights = new double[]{Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{Double.MIN_VALUE};
-		setLayout(gridBagLayout);
+		setBorder(new TitledBorder(null, "ConsultarInformacion", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setLayout(null);
+		
+		tabbedPaneConsultarInformacion = new JTabbedPane(JTabbedPane.LEFT);
+		tabbedPaneConsultarInformacion.setBounds(10, 21, 745, 252);
+		add(tabbedPaneConsultarInformacion);
+		
+		tabParcelas = new JPanel();
+		tabbedPaneConsultarInformacion.addTab("Parcelas", null, tabParcelas, null);
+		
+		tabBungalows = new JPanel();
+		tabbedPaneConsultarInformacion.addTab("Bungalows", null, tabBungalows, null);
+		
+		tabRutas = new JPanel();
+		tabbedPaneConsultarInformacion.addTab("Rutas", null, tabRutas, null);
+		
+		tabActividades = new JPanel();
+		tabbedPaneConsultarInformacion.addTab("Actividades", null, tabActividades, null);
 
 	}
-
 }
