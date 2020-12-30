@@ -23,6 +23,9 @@ import javax.swing.JMenuItem;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+
+import javax.swing.border.TitledBorder;
 
 
 
@@ -96,8 +99,8 @@ public class LoginWindow {
 		frmGestorDeCamping.getContentPane().add(presentacionPanel, BorderLayout.CENTER);
 		presentacionPanel.setLayout(null);	
 
-		JPanel datosUsuario = new JPanel();
-		datosUsuario.setBorder(new TitledBorder(null, "Datos de Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		datosUsuario = new JPanel();
+		datosUsuario.setBorder(new TitledBorder(null, "Datos de usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		datosUsuario.setBounds(372, 114, 243, 161);
 		presentacionPanel.add(datosUsuario);
@@ -108,9 +111,14 @@ public class LoginWindow {
 		btnAcceder.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/005-enter.png")));
 		btnAcceder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainWindow window = new MainWindow();
-				window.setVisible(true);
-				frmGestorDeCamping.dispose();
+				MainWindow window;
+				try {
+					window = new MainWindow();
+					window.setVisible(true);
+					frmGestorDeCamping.dispose();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnAcceder.setBounds(124, 130, 109, 21);

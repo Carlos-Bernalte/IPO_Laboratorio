@@ -20,6 +20,8 @@ import java.awt.GridBagConstraints;
 import javax.swing.JMenuItem;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+
 import javax.swing.JPopupMenu;
 import java.awt.Insets;
 import java.awt.Component;
@@ -59,12 +61,13 @@ public class MainWindow extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws ParseException 
 	 */
-	public MainWindow() {
+	public MainWindow() throws ParseException {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/Iconos/003-tent.png")));
 		setTitle("Gestor Camping");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 789, 494);
+		setBounds(100, 100, 789, 560);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
