@@ -23,9 +23,13 @@ import javax.swing.JMenuItem;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Iterator;
+import java.util.Vector;
 import java.text.ParseException;
-
 import javax.swing.border.TitledBorder;
+
+import dominio.GenericDAO;
+import dominio.Usuario;
 
 
 
@@ -99,6 +103,7 @@ public class LoginWindow {
 		frmGestorDeCamping.getContentPane().add(presentacionPanel, BorderLayout.CENTER);
 		presentacionPanel.setLayout(null);	
 
+
 		datosUsuario = new JPanel();
 		datosUsuario.setBorder(new TitledBorder(null, "Datos de usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
@@ -162,10 +167,8 @@ public class LoginWindow {
 		mnIdioma.add(mnInglés);
 	}
 	private class TxtFContraseñaKeyListener extends KeyAdapter {
-		@SuppressWarnings("deprecation")
-		@Override
 		public void keyTyped(KeyEvent e) {
-			if(txtFUsuario.getText()!="" && txtFContraseña.getText()!=""){
+			if(txtFUsuario.getText()!="" && String.valueOf(txtFContraseña.getPassword())!=""){
 					btnAcceder.setEnabled(true);
 		}
 	}

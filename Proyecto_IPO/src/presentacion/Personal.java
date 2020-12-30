@@ -12,6 +12,10 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.BorderLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class Personal extends JPanel {
 	private JPanel pnlPersonal;
@@ -27,12 +31,14 @@ public class Personal extends JPanel {
 	private JLabel lblTelefono;
 	private JTextField textFieldEmail;
 	private JLabel lblEmail;
+	private JScrollPane scrollPane;
+	private JTable table;
 
 	/**
 	 * Create the panel.
 	 */
 	public Personal() {
-		setBorder(new TitledBorder(null, "Personal", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setBorder(null);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 304, -13, 393, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
@@ -48,6 +54,21 @@ public class Personal extends JPanel {
 		gbc_pnlPersonal.gridx = 1;
 		gbc_pnlPersonal.gridy = 1;
 		add(pnlPersonal, gbc_pnlPersonal);
+		pnlPersonal.setLayout(new BorderLayout(0, 0));
+		
+		scrollPane = new JScrollPane();
+		pnlPersonal.add(scrollPane, BorderLayout.CENTER);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(new Object[][] {},new String[] {"Foto", "Nombre", "Apellidos"}) {
+			Class[] columnTypes = new Class[] {
+				Object.class, String.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		scrollPane.setViewportView(table);
 		
 		pnlInformacionPersonal = new JPanel();
 		pnlInformacionPersonal.setBorder(new TitledBorder(null, "Datos Empleado", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -160,5 +181,6 @@ public class Personal extends JPanel {
 		textFieldEmail.setColumns(10);
 
 	}
+
 
 }
