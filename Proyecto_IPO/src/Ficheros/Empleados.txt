@@ -1,0 +1,2 @@
+Raúl;Cimas;12345678A;999888666;raulcimas@gmail.com;raulcimas.jpg;M;
+Manolo;Lama;87654321Z;manololama@gmail.com;manololama;G;

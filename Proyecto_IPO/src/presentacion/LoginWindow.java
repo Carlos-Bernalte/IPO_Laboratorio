@@ -23,6 +23,13 @@ import javax.swing.JMenuItem;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Iterator;
+import java.util.Vector;
+
+import javax.swing.border.TitledBorder;
+
+import dominio.GenericDAO;
+import dominio.Usuario;
 
 
 
@@ -97,7 +104,7 @@ public class LoginWindow {
 		presentacionPanel.setLayout(null);	
 
 		JPanel datosUsuario = new JPanel();
-		datosUsuario.setBorder(new TitledBorder(null, "Datos de Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		datosUsuario.setBorder(new TitledBorder(null, "Datos Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		datosUsuario.setBounds(372, 114, 243, 161);
 		presentacionPanel.add(datosUsuario);
@@ -108,6 +115,8 @@ public class LoginWindow {
 		btnAcceder.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/005-enter.png")));
 		btnAcceder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				GenericDAO gDAO=new GenericDAO();
+				//Vector<Usuario> lu=gDAO.getListaUsuarios();
 				MainWindow window = new MainWindow();
 				window.setVisible(true);
 				frmGestorDeCamping.dispose();
@@ -154,10 +163,8 @@ public class LoginWindow {
 		mnIdioma.add(mnInglés);
 	}
 	private class TxtFContraseñaKeyListener extends KeyAdapter {
-		@SuppressWarnings("deprecation")
-		@Override
 		public void keyTyped(KeyEvent e) {
-			if(txtFUsuario.getText()!="" && txtFContraseña.getText()!=""){
+			if(txtFUsuario.getText()!="" && String.valueOf(txtFContraseña.getPassword())!=""){
 					btnAcceder.setEnabled(true);
 		}
 	}
