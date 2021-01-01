@@ -76,4 +76,10 @@ public class Empleado {
 		this.empleo = empleo;
 	}
 
+	@Override
+	public String toString() {
+		return "<html><body>"+nombre + " " + apellido +"<br>"+empleo+ "<br> Telefono: " + telefono + "<br> Email: " + email+"</body></html>";
+	}
+	
+
 }

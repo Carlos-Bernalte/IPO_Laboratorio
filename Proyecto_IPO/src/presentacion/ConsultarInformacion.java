@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTabbedPane;
 import java.awt.Component;
+import java.awt.BorderLayout;
 
 public class ConsultarInformacion extends JPanel {
 	private JTabbedPane tabbedPaneConsultarInformacion;
@@ -20,10 +21,9 @@ public class ConsultarInformacion extends JPanel {
 	 */
 	public ConsultarInformacion() {
 		setBorder(new TitledBorder(null, "ConsultarInformacion", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		setLayout(null);
+		setLayout(new BorderLayout(0, 0));
 		
 		tabbedPaneConsultarInformacion = new JTabbedPane(JTabbedPane.LEFT);
-		tabbedPaneConsultarInformacion.setBounds(10, 21, 745, 252);
 		add(tabbedPaneConsultarInformacion);
 		
 		tabParcelas = new JPanel();

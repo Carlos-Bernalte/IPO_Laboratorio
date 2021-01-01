@@ -1,2 +1,3 @@
-Raúl;Cimas;12345678A;999888666;raulcimas@gmail.com;raulcimas.jpg;M;
-Manolo;Lama;87654321Z;manololama@gmail.com;manololama;G;
+Raúl;Cimas;12345678A;999888666;raulcimas@gmail.com;raulcimas;Monitor
+Manolo;Lama;87654321Z;434554771;manololama@gmail.com;manololama;Guia
+Ismael;Talava;82423431Z;989898989;ismatalava@gmail.com;ismaeltalava;Guia

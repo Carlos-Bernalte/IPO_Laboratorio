@@ -17,7 +17,7 @@ public class GenericDAO {
 	
 	public GenericDAO() {
 		this.listaUsuarios = leerUsuarios("src/Ficheros/Usuarios.txt");
-//		this.listaEmpleados = leerEmpleados("src/Ficheros/");
+		this.listaEmpleados = leerEmpleados("src/Ficheros/Empleados.txt");
 //		this.listaActividad = leerActividades("src/Ficheros/");
 //		this.listaRutas = leerRutas("src/Ficheros/");
 //		this.listaAlojamientos = leerAlojamientos("src/Ficheros/");
@@ -90,7 +90,20 @@ public class GenericDAO {
 	}
 	public Vector<Empleado> leerEmpleados(String ruta){
 		
-		return null;
+		Vector<Empleado> resultado = new Vector<Empleado>();
+		Scanner lector = null;
+		try {
+			lector = new Scanner(new FileReader(new File(ruta)));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		while(lector.hasNext()) {
+			StringTokenizer datos = new StringTokenizer(lector.nextLine(),";");
+			Empleado e = new Empleado(datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken());
+			resultado.add(e);
+		}
+		return resultado;
 	}
 
 	public Vector<Actividad> leerActividades(String ruta){

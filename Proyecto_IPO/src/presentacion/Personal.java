@@ -5,6 +5,8 @@ import java.awt.GridBagLayout;
 import javax.swing.border.TitledBorder;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.Vector;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
@@ -17,8 +19,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import dominio.Empleado;
+import dominio.GenericDAO;
+
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+
 public class Personal extends JPanel {
-	private JPanel pnlPersonal;
 	private JPanel pnlInformacionPersonal;
 	private JLabel imgPersonal;
 	private JLabel lblNombre;
@@ -32,52 +43,19 @@ public class Personal extends JPanel {
 	private JTextField textFieldEmail;
 	private JLabel lblEmail;
 	private JScrollPane scrollPane;
-	private JTable table;
+	private JList listaPersonal;
 
 	/**
 	 * Create the panel.
 	 */
-	public Personal() {
+	public Personal(GenericDAO gdao) {
 		setBorder(null);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 304, -13, 393, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		setLayout(gridBagLayout);
-		
-		pnlPersonal = new JPanel();
-		pnlPersonal.setBorder(new TitledBorder(null, "Lista de Personal", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_pnlPersonal = new GridBagConstraints();
-		gbc_pnlPersonal.insets = new Insets(0, 0, 5, 5);
-		gbc_pnlPersonal.fill = GridBagConstraints.BOTH;
-		gbc_pnlPersonal.gridx = 1;
-		gbc_pnlPersonal.gridy = 1;
-		add(pnlPersonal, gbc_pnlPersonal);
-		pnlPersonal.setLayout(new BorderLayout(0, 0));
-		
-		scrollPane = new JScrollPane();
-		pnlPersonal.add(scrollPane, BorderLayout.CENTER);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(new Object[][] {},new String[] {"Foto", "Nombre", "Apellidos"}) {
-			Class[] columnTypes = new Class[] {
-				Object.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		scrollPane.setViewportView(table);
+		setLayout(new BorderLayout(0, 0));
 		
 		pnlInformacionPersonal = new JPanel();
+		pnlInformacionPersonal.setBackground(Paleta.fuente);
 		pnlInformacionPersonal.setBorder(new TitledBorder(null, "Datos Empleado", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		GridBagConstraints gbc_pnlInformacionPersonal = new GridBagConstraints();
-		gbc_pnlInformacionPersonal.insets = new Insets(0, 0, 5, 5);
-		gbc_pnlInformacionPersonal.fill = GridBagConstraints.BOTH;
-		gbc_pnlInformacionPersonal.gridx = 3;
-		gbc_pnlInformacionPersonal.gridy = 1;
-		add(pnlInformacionPersonal, gbc_pnlInformacionPersonal);
+		add(pnlInformacionPersonal, BorderLayout.EAST);
 		GridBagLayout gbl_pnlInformacionPersonal = new GridBagLayout();
 		gbl_pnlInformacionPersonal.columnWidths = new int[]{37, 65, 71, 199, 28, 0};
 		gbl_pnlInformacionPersonal.rowHeights = new int[]{37, 0, 0, 0, 0, 0, 0, 0};
@@ -179,8 +157,38 @@ public class Personal extends JPanel {
 		gbc_textFieldEmail.gridy = 6;
 		pnlInformacionPersonal.add(textFieldEmail, gbc_textFieldEmail);
 		textFieldEmail.setColumns(10);
+		
+		scrollPane = new JScrollPane();
+		add(scrollPane, BorderLayout.CENTER);
+		
+		listaPersonal = new JList();
+		listaPersonal.setValueIsAdjusting(true);
+		refresh(gdao);
+		listaPersonal.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				Empleado empleado = (Empleado) listaPersonal.getSelectedValue();
+				txtFieldNombre.setText(empleado.getNombre());
+				textFieldApellidos.setText(empleado.getApellido());
+				textFieldDNI.setText(empleado.getDni());
+				textFieldTelefono.setText(empleado.getTelefono());
+				textFieldEmail.setText(empleado.getEmail());
+			}
+		});
+		
+		listaPersonal.setCellRenderer(new RenderizadoPersonal());
+		
+		scrollPane.setViewportView(listaPersonal);
 
 	}
-
+	public void refresh(GenericDAO gdao) {
+		DefaultListModel modeloLista = new DefaultListModel();
+		listaPersonal.setModel(modeloLista);
+		Vector<Empleado> lEmpleados=gdao.getListaEmpleados();
+		for(int i=0; i<lEmpleados.size(); i++) {
+			modeloLista.addElement(lEmpleados.get(i));
+			
+		}
+		
+	}
 
 }
