@@ -45,8 +45,6 @@ import javax.swing.ButtonGroup;
 
 public class MainWindow extends JFrame {
 
-
-
 	private JPanel contentPane;
 	private JPanel panelCentral;
 	private JLabel lblFeedback;
@@ -84,6 +82,7 @@ public class MainWindow extends JFrame {
 	 * @throws ParseException 
 	 */
 	public MainWindow() throws ParseException {
+		setBackground(Paleta.azul_turquesa2);
 		setUndecorated(true);
 		
 		GenericDAO gdao = new GenericDAO();
@@ -91,13 +90,15 @@ public class MainWindow extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/Iconos/003-tent.png")));
 		setTitle("Gestor Camping");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1262, 793);
+		setBounds(100, 100, 1536, 793);
 		contentPane = new JPanel();
+		contentPane.setBackground(Paleta.azul_oscuro);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		panelCentral = new JPanel();
+		panelCentral.setBackground(Paleta.azul_turquesa);
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		panelCentral.setLayout(new CardLayout(0, 0));
 		
@@ -115,6 +116,8 @@ public class MainWindow extends JFrame {
 		panelCentral.add(dibujar_ruta, "Dibujar Ruta");
 		
 		lblFeedback = new JLabel("Bienvenido");
+		lblFeedback.setBorder(new EmptyBorder(5, 5, 5, 5));
+		lblFeedback.setForeground(Color.WHITE);
 		contentPane.add(lblFeedback, BorderLayout.SOUTH);
 		
 		panelSuperior = new JPanel();
@@ -122,7 +125,8 @@ public class MainWindow extends JFrame {
 		panelSuperior.setLayout(new BorderLayout(0, 0));
 		
 		bannerUsuario = new JPanel();
-		bannerUsuario.setBackground(Color.LIGHT_GRAY);
+		bannerUsuario.setBorder(new EmptyBorder(5, 5, 5, 5));
+		bannerUsuario.setBackground(Paleta.azul_turquesa2);
 		panelSuperior.add(bannerUsuario, BorderLayout.CENTER);
 		GridBagLayout gbl_bannerUsuario = new GridBagLayout();
 		gbl_bannerUsuario.columnWidths = new int[]{685, 66, 0};
@@ -133,7 +137,7 @@ public class MainWindow extends JFrame {
 		
 		banner = new JLabel("");
 		banner.setHorizontalAlignment(SwingConstants.CENTER);
-		banner.setBackground(Color.WHITE);
+		banner.setBackground(Paleta.azul_turquesa2);
 		banner.setIgnoreRepaint(true);
 		banner.setIconTextGap(7);
 		banner.setSize(new Dimension(3, 3));
@@ -147,6 +151,8 @@ public class MainWindow extends JFrame {
 		bannerUsuario.add(banner, gbc_banner);
 		
 		barraUsuario = new JMenuBar();
+		barraUsuario.setBorder(new EmptyBorder(5, 5, 5, 5));
+		barraUsuario.setBackground(Paleta.azul_turquesa2);
 		barraUsuario.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		GridBagConstraints gbc_barraUsuario = new GridBagConstraints();
 		gbc_barraUsuario.fill = GridBagConstraints.BOTH;
@@ -155,17 +161,31 @@ public class MainWindow extends JFrame {
 		bannerUsuario.add(barraUsuario, gbc_barraUsuario);
 		
 		mnUsuario = new JMenu("");
+		mnUsuario.setBackground(Paleta.azul_turquesa2);
 		mnUsuario.setIcon(new ImageIcon(MainWindow.class.getResource("/imagenes/usuario.png")));
 		barraUsuario.add(mnUsuario);
 		
 		mntmCerrarSesion = new JMenuItem("Cerrar sesión");
+		mntmCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				LoginWindow window = new LoginWindow();
+				window.frmGestorDeCamping.setVisible(true);
+				dispose();
+			}
+		});;
+		mntmCerrarSesion.setForeground(Color.WHITE);
+		mntmCerrarSesion.setBackground(Color.GRAY);
 		this.mntmCerrarSesion.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/006-logout.png")));
 		mnUsuario.add(mntmCerrarSesion);
 		
 		barraOpciones = new JMenuBar();
+		barraOpciones.setBackground(Paleta.azul_oscuro);
+		barraOpciones.setBorderPainted(false);
 		panelSuperior.add(barraOpciones, BorderLayout.NORTH);
 		
 		mnIdioma = new JMenu("Idioma");
+		mnIdioma.setForeground(Color.WHITE);
 		this.mnIdioma.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/007-language.png")));
 		barraOpciones.add(mnIdioma);
 		
@@ -178,6 +198,7 @@ public class MainWindow extends JFrame {
 		mnIdioma.add(mntmIngles);
 		
 		mnAjustes = new JMenu("Ajustes");
+		mnAjustes.setForeground(Color.WHITE);
 		mnAjustes.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/004-settings.png")));
 		barraOpciones.add(mnAjustes);
 		
@@ -214,15 +235,18 @@ public class MainWindow extends JFrame {
 		mnTFuente20.addActionListener(new fuenteListener());
 		mnTamañoFuente.add(mnTFuente20);
 		
-		barraOpciones.add(Box.createHorizontalGlue());
+		Component horizontalGlue = Box.createHorizontalGlue();
+		horizontalGlue.setForeground(Color.WHITE);
+		barraOpciones.add(horizontalGlue);
 		
 		btnSalir = new JButton("Salir");
+		btnSalir.setForeground(Color.WHITE);
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		btnSalir.setBorder(null);
+		btnSalir.setBorder(new EmptyBorder(5, 5, 5, 5));
 		btnSalir.setBackground(new Color(0,0,0,0));
 		btnSalir.setOpaque(false);
 		btnSalir.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/006-logout.png")));
@@ -234,22 +258,53 @@ public class MainWindow extends JFrame {
 		pnlOpciones.setLayout(new BorderLayout(0, 0));
 		
 		tbAcciones = new JToolBar();
+		tbAcciones.setBorder(null);
+		tbAcciones.setBackground(Paleta.azul_turquesa2);
 		tbAcciones.setFloatable(false);
 		pnlOpciones.add(tbAcciones);
 		
 		btnConsultarInformacion = new JButton("Consultar Información");
+		btnConsultarInformacion.setVerifyInputWhenFocusTarget(false);
+		btnConsultarInformacion.setIgnoreRepaint(true);
+		btnConsultarInformacion.setFocusable(false);
+		btnConsultarInformacion.setFocusTraversalKeysEnabled(false);
+		btnConsultarInformacion.setFocusPainted(false);
+		btnConsultarInformacion.setBorder(new EmptyBorder(5, 5, 5, 5));
+		btnConsultarInformacion.setBackground(Paleta.azul_oscuro);
+		btnConsultarInformacion.setForeground(Color.WHITE);
 		btnConsultarInformacion.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnConsultarInformacion);
 		
 		btnRealizarReserva = new JButton("Realizar Reserva");
+		btnRealizarReserva.setFocusable(false);
+		btnRealizarReserva.setFocusTraversalKeysEnabled(false);
+		btnRealizarReserva.setFocusPainted(false);
+		btnRealizarReserva.setVerifyInputWhenFocusTarget(false);
+		btnRealizarReserva.setBorder(new EmptyBorder(5, 5, 5, 5));
+		btnRealizarReserva.setBackground(Paleta.azul_turquesa2);
+		btnRealizarReserva.setForeground(Color.WHITE);
 		btnRealizarReserva.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnRealizarReserva);
 		
 		btnPersonal = new JButton("Personal");
+		btnPersonal.setFocusable(false);
+		btnPersonal.setFocusTraversalKeysEnabled(false);
+		btnPersonal.setFocusPainted(false);
+		btnPersonal.setVerifyInputWhenFocusTarget(false);
+		btnPersonal.setBorder(new EmptyBorder(5, 5, 5, 5));
+		btnPersonal.setBackground(Paleta.azul_turquesa2);
+		btnPersonal.setForeground(Color.WHITE);
 		btnPersonal.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnPersonal);
 		
 		btnDibujarRuta = new JButton("Dibujar Ruta");
+		btnDibujarRuta.setFocusPainted(false);
+		btnDibujarRuta.setFocusTraversalKeysEnabled(false);
+		btnDibujarRuta.setFocusable(false);
+		btnDibujarRuta.setVerifyInputWhenFocusTarget(false);
+		btnDibujarRuta.setBorder(new EmptyBorder(5, 5, 5, 5));
+		btnDibujarRuta.setBackground(Paleta.azul_turquesa2);
+		btnDibujarRuta.setForeground(Color.WHITE);
 		btnDibujarRuta.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnDibujarRuta);
 	}
@@ -259,20 +314,34 @@ public class MainWindow extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			CardLayout panelSeleccionado = (CardLayout) panelCentral.getLayout();
 			if(e.getActionCommand()=="Consultar Información") {
+				resetearColor();				
+				btnConsultarInformacion.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, "Consultar Información");
 			}
 			if(e.getActionCommand()=="Realizar Reserva") {
+				resetearColor();				
+				btnRealizarReserva.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, "Realizar Reserva");
 			}
 			if(e.getActionCommand()=="Personal") {
+				resetearColor();				
+				btnPersonal.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, "Personal");
 			}
 			if(e.getActionCommand()=="Dibujar Ruta") {
+				resetearColor();				
+				btnDibujarRuta.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, "Dibujar Ruta");
 			}
 
 		}
 
+	}
+	private void resetearColor() {
+		btnConsultarInformacion.setBackground(Paleta.azul_turquesa2);
+		btnRealizarReserva.setBackground(Paleta.azul_turquesa2);
+		btnPersonal.setBackground(Paleta.azul_turquesa2);
+		btnDibujarRuta.setBackground(Paleta.azul_turquesa2);
 	}
 	private class fuenteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {

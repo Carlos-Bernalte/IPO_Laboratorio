@@ -33,12 +33,15 @@ import javax.swing.Box;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ButtonGroup;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 
 
 
 public class LoginWindow {
 
-	private JFrame frmGestorDeCamping;
+	public JFrame frmGestorDeCamping;
 	private JTextField txtFUsuario;
 	private JPasswordField txtFContraseña;
 	private JButton btnAcceder;
@@ -85,6 +88,7 @@ public class LoginWindow {
 	 * Create the application.
 	 */
 	public LoginWindow() {
+		frmGestorDeCamping = new JFrame();
 		initialize();
 	}
 
@@ -92,15 +96,17 @@ public class LoginWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmGestorDeCamping = new JFrame();
+		
 		frmGestorDeCamping.setUndecorated(true);
-		fuenteDefault = new Font("Arial", 0, 12);
+		fuenteDefault = new Font("Avenir Next LT Pro", 0, 12);
 		nuevaFuente(new FontUIResource(fuenteDefault));
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		frmGestorDeCamping.setBounds(pantalla.width/3, pantalla.height/3, 614, 300);
 		frmGestorDeCamping.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		txtFeedback = new JTextPane();
+		txtFeedback.setBackground(Paleta.azul_oscuro);
+		txtFeedback.setForeground(Color.WHITE);
 		txtFeedback.setText("Bienvenido al Gestor de Camping. Introduzca sus credenciales para acceder al sistema.");
 		frmGestorDeCamping.getContentPane().add(txtFeedback, BorderLayout.SOUTH);
 		
@@ -113,18 +119,24 @@ public class LoginWindow {
 		panelTitulo.add(Titulo);
 		
 		presentacionPanel = new JPanel();
+		presentacionPanel.setBackground(Paleta.blanco_gris);
 		frmGestorDeCamping.getContentPane().add(presentacionPanel, BorderLayout.CENTER);
 		presentacionPanel.setLayout(null);	
 
 
 		datosUsuario = new JPanel();
-		datosUsuario.setBorder(new TitledBorder(null, "Datos de usuario", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		datosUsuario.setForeground(Color.WHITE);
+		datosUsuario.setBackground(Paleta.azul_turquesa2);
+		datosUsuario.setBorder(new TitledBorder(null, "Datos de usuario", TitledBorder.LEADING, TitledBorder.TOP, null, Color.WHITE));
 
 		datosUsuario.setBounds(272, 40, 243, 161);
 		presentacionPanel.add(datosUsuario);
 		datosUsuario.setLayout(null);
 		
 		btnAcceder = new JButton("Acceder");
+		btnAcceder.setForeground(Color.WHITE);
+		btnAcceder.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnAcceder.setBackground(Paleta.azul_turquesa);
 		btnAcceder.setEnabled(false);
 		btnAcceder.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/005-enter.png")));
 		btnAcceder.addActionListener(new ActionListener() {
@@ -143,31 +155,37 @@ public class LoginWindow {
 		datosUsuario.add(btnAcceder);
 		
 		txtFUsuario = new JTextField();
+		txtFUsuario.setBorder(new LineBorder(new Color(171, 173, 179)));
 		txtFUsuario.setBounds(88, 30, 145, 19);
 		datosUsuario.add(txtFUsuario);
 		txtFUsuario.setColumns(10);
 		txtFUsuario.setText("");
 		
 		txtFContraseña = new JPasswordField();
+		txtFContraseña.setBorder(new LineBorder(new Color(171, 173, 179)));
 		txtFContraseña.addKeyListener(new TxtFContraseñaKeyListener());
 		txtFContraseña.setBounds(88, 84, 145, 19);
 		datosUsuario.add(txtFContraseña);
 		txtFContraseña.setText("");
 		
 		lblUsuario = new JLabel("Usuario:");
+		lblUsuario.setForeground(Color.WHITE);
 		lblUsuario.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblUsuario.setBounds(-18, 36, 96, 13);
 		datosUsuario.add(lblUsuario);
 		
 		lblContraseña = new JLabel("Contraseña:");
+		lblContraseña.setForeground(Color.WHITE);
 		lblContraseña.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblContraseña.setBounds(-18, 90, 96, 13);
 		datosUsuario.add(lblContraseña);
 		
 		menuBar = new JMenuBar();
+		menuBar.setBackground(Paleta.azul_oscuro);
 		frmGestorDeCamping.setJMenuBar(menuBar);
 		
 		mnIdioma = new JMenu("Idioma");
+		mnIdioma.setForeground(Color.WHITE);
 		mnIdioma.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/007-language.png")));
 		menuBar.add(mnIdioma);
 		
@@ -180,6 +198,7 @@ public class LoginWindow {
 		mnIdioma.add(mnInglés);
 		
 		mnAjustes = new JMenu("Ajustes");
+		mnAjustes.setForeground(Color.WHITE);
 		mnAjustes.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/004-settings.png")));
 		menuBar.add(mnAjustes);
 		
@@ -217,12 +236,13 @@ public class LoginWindow {
 		mnTamañoFuente.add(mnTFuente20);
 		
 		btnSalir = new JButton("Salir");
+		btnSalir.setForeground(Color.WHITE);
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmGestorDeCamping.dispose();
 			}
 		});
-		btnSalir.setBorder(null);
+		btnSalir.setBorder(new EmptyBorder(5, 5, 5, 5));
 		btnSalir.setBackground(new Color(0,0,0,0));
 		btnSalir.setOpaque(false);
 		btnSalir.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/006-logout.png")));

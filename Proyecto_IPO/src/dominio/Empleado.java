@@ -78,7 +78,7 @@ public class Empleado {
 
 	@Override
 	public String toString() {
-		return "<html><body>"+nombre + " " + apellido +"<br>"+empleo+ "<br> Telefono: " + telefono + "<br> Email: " + email+"</body></html>";
+		return "<html><body> &nbsp;"+nombre + " " + apellido +"<br>  &nbsp;"+empleo+ "<br>  &nbsp;Telefono: " + telefono + "<br>  &nbsp;Email: " + email+"</body></html>";
 	}
 	
 
