@@ -42,6 +42,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
+import java.awt.ComponentOrientation;
 
 public class MainWindow extends JFrame {
 
@@ -51,11 +52,6 @@ public class MainWindow extends JFrame {
 	private JMenuBar barraOpciones;
 	private JMenu mnIdioma;
 	private JPanel panelSuperior;
-	private JPanel bannerUsuario;
-	private JLabel banner;
-	private JMenuBar barraUsuario;
-	private JMenu mnUsuario;
-	private JMenuItem mntmCerrarSesion;
 	private JMenuItem mntmEspañol;
 	private JMenuItem mntmIngles;
 	private JPanel pnlOpciones;
@@ -76,13 +72,16 @@ public class MainWindow extends JFrame {
 	private Font fuenteDefault;
 	private final ButtonGroup btnGroupFuente = new ButtonGroup();
 	private JButton btnSalir;
+	private JMenu mnUser;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
 	public MainWindow() throws ParseException {
-		setBackground(Paleta.azul_turquesa2);
+
 		setUndecorated(true);
 		
 		GenericDAO gdao = new GenericDAO();
@@ -90,7 +89,7 @@ public class MainWindow extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/Iconos/003-tent.png")));
 		setTitle("Gestor Camping");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1536, 793);
+		setBounds(100, 100, 808, 734);
 		contentPane = new JPanel();
 		contentPane.setBackground(Paleta.azul_oscuro);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -122,62 +121,7 @@ public class MainWindow extends JFrame {
 		
 		panelSuperior = new JPanel();
 		contentPane.add(panelSuperior, BorderLayout.NORTH);
-		panelSuperior.setLayout(new BorderLayout(0, 0));
-		
-		bannerUsuario = new JPanel();
-		bannerUsuario.setBorder(new EmptyBorder(5, 5, 5, 5));
-		bannerUsuario.setBackground(Paleta.azul_turquesa2);
-		panelSuperior.add(bannerUsuario, BorderLayout.CENTER);
-		GridBagLayout gbl_bannerUsuario = new GridBagLayout();
-		gbl_bannerUsuario.columnWidths = new int[]{685, 66, 0};
-		gbl_bannerUsuario.rowHeights = new int[]{89, 0};
-		gbl_bannerUsuario.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		gbl_bannerUsuario.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		bannerUsuario.setLayout(gbl_bannerUsuario);
-		
-		banner = new JLabel("");
-		banner.setHorizontalAlignment(SwingConstants.CENTER);
-		banner.setBackground(Paleta.azul_turquesa2);
-		banner.setIgnoreRepaint(true);
-		banner.setIconTextGap(7);
-		banner.setSize(new Dimension(3, 3));
-		banner.setAlignmentX(Component.CENTER_ALIGNMENT);
-		banner.setIcon(null);
-		GridBagConstraints gbc_banner = new GridBagConstraints();
-		gbc_banner.fill = GridBagConstraints.HORIZONTAL;
-		gbc_banner.insets = new Insets(0, 0, 0, 5);
-		gbc_banner.gridx = 0;
-		gbc_banner.gridy = 0;
-		bannerUsuario.add(banner, gbc_banner);
-		
-		barraUsuario = new JMenuBar();
-		barraUsuario.setBorder(new EmptyBorder(5, 5, 5, 5));
-		barraUsuario.setBackground(Paleta.azul_turquesa2);
-		barraUsuario.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		GridBagConstraints gbc_barraUsuario = new GridBagConstraints();
-		gbc_barraUsuario.fill = GridBagConstraints.BOTH;
-		gbc_barraUsuario.gridx = 1;
-		gbc_barraUsuario.gridy = 0;
-		bannerUsuario.add(barraUsuario, gbc_barraUsuario);
-		
-		mnUsuario = new JMenu("");
-		mnUsuario.setBackground(Paleta.azul_turquesa2);
-		mnUsuario.setIcon(new ImageIcon(MainWindow.class.getResource("/imagenes/usuario.png")));
-		barraUsuario.add(mnUsuario);
-		
-		mntmCerrarSesion = new JMenuItem("Cerrar sesión");
-		mntmCerrarSesion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				LoginWindow window = new LoginWindow();
-				window.frmGestorDeCamping.setVisible(true);
-				dispose();
-			}
-		});;
-		mntmCerrarSesion.setForeground(Color.WHITE);
-		mntmCerrarSesion.setBackground(Color.GRAY);
-		this.mntmCerrarSesion.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/006-logout.png")));
-		mnUsuario.add(mntmCerrarSesion);
+		panelSuperior.setLayout(new BorderLayout(0, 0));;
 		
 		barraOpciones = new JMenuBar();
 		barraOpciones.setBackground(Paleta.azul_oscuro);
@@ -246,6 +190,25 @@ public class MainWindow extends JFrame {
 				dispose();
 			}
 		});
+		
+		mnUser = new JMenu("<usuario>");
+		mnUser.setHorizontalAlignment(SwingConstants.TRAILING);
+		mnUser.setBorder(new EmptyBorder(5, 5, 5, 5));
+		mnUser.setForeground(Color.WHITE);
+		barraOpciones.add(mnUser);
+		
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setIcon(new ImageIcon(MainWindow.class.getResource("/imagenes/usuario.png")));
+		mnUser.add(lblNewLabel_1);
+		
+		lblNewLabel = new JLabel("Última vez conectado: ");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setPreferredSize(new Dimension(200, 13));
+		mnUser.add(lblNewLabel);
+		
+		
+		
 		btnSalir.setBorder(new EmptyBorder(5, 5, 5, 5));
 		btnSalir.setBackground(new Color(0,0,0,0));
 		btnSalir.setOpaque(false);

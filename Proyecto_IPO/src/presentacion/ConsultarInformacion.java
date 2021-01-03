@@ -8,6 +8,8 @@ import java.awt.Insets;
 import javax.swing.JTabbedPane;
 import java.awt.Component;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.border.EmptyBorder;
 
 public class ConsultarInformacion extends JPanel {
 	private JTabbedPane tabbedPaneConsultarInformacion;
@@ -20,7 +22,8 @@ public class ConsultarInformacion extends JPanel {
 	 * Create the panel.
 	 */
 	public ConsultarInformacion() {
-		setBorder(new TitledBorder(null, "ConsultarInformacion", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setBackground(Paleta.azul_oscuro);
+		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(new BorderLayout(0, 0));
 		
 		tabbedPaneConsultarInformacion = new JTabbedPane(JTabbedPane.LEFT);

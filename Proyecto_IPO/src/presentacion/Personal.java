@@ -53,9 +53,9 @@ public class Personal extends JPanel {
 		setForeground(Paleta.azul_oscuro);
 		setBorder(null);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{1155, 10, 80, 10, 0};
+		gridBagLayout.columnWidths = new int[]{1155, 10, 80, 0};
 		gridBagLayout.rowHeights = new int[]{10, 590, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -96,7 +96,6 @@ public class Personal extends JPanel {
 		pnlInfoPersonal = new JPanel();
 		pnlInfoPersonal.setBackground(Paleta.azul_turquesa2);
 		GridBagConstraints gbc_pnlInfoPersonal = new GridBagConstraints();
-		gbc_pnlInfoPersonal.insets = new Insets(0, 0, 0, 5);
 		gbc_pnlInfoPersonal.fill = GridBagConstraints.BOTH;
 		gbc_pnlInfoPersonal.gridx = 2;
 		gbc_pnlInfoPersonal.gridy = 1;
