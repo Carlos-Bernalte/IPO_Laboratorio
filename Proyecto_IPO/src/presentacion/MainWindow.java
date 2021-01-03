@@ -105,7 +105,7 @@ public class MainWindow extends JFrame {
 		ConsultarInformacion consultar_informacion= new ConsultarInformacion();
 		panelCentral.add(consultar_informacion, "Consultar Información");
 		
-		RealizarReserva realizar_reserva= new RealizarReserva();
+		RealizarReserva realizar_reserva= new RealizarReserva(gdao);
 		panelCentral.add(realizar_reserva, "Realizar Reserva");
 		
 		Personal personal = new Personal(gdao);

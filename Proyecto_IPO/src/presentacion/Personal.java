@@ -246,7 +246,6 @@ public class Personal extends JPanel {
 		Vector<Empleado> lEmpleados=gdao.getListaEmpleados();
 		for(int i=0; i<lEmpleados.size(); i++) {
 			modeloLista.addElement(lEmpleados.get(i));
-			
 		}
 		
 	}

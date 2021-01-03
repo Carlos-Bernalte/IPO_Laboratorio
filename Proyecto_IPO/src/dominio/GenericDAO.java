@@ -20,7 +20,7 @@ public class GenericDAO {
 		this.listaEmpleados = leerEmpleados("src/Ficheros/Empleados.txt");
 //		this.listaActividad = leerActividades("src/Ficheros/");
 //		this.listaRutas = leerRutas("src/Ficheros/");
-//		this.listaAlojamientos = leerAlojamientos("src/Ficheros/");
+		this.listaAlojamientos = leerAlojamientos("src/Ficheros/Alojamientos.txt");
 //		this.listaReservas = leerReservas("src/Ficheros/");
 	}
 	
@@ -117,8 +117,29 @@ public class GenericDAO {
 	}
 	
 	public Vector<Alojamiento> leerAlojamientos(String ruta){
-		
-		return null;
+		Vector<Alojamiento> resultado= new Vector<Alojamiento>();
+		Scanner lector= null;
+		String tipo;
+		try {
+			lector= new Scanner(new FileReader(new File(ruta)));
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		while(lector.hasNext()) {
+			StringTokenizer datos = new StringTokenizer(lector.nextLine(),";");
+			if (datos.nextToken().equals("Parcela")) {
+				tipo= "Parcela";
+				Alojamiento a = new Parcela(tipo,datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken());
+				resultado.add(a);
+			} else {
+				tipo= "Bungalow";
+				Alojamiento a = new Bungalow(tipo,datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken());
+				resultado.add(a);
+			}
+			
+			
+		}
+		return resultado;
 	}
 	
 	public Vector<Reserva> leerReservas(String ruta){
