@@ -1,8 +1,11 @@
 package dominio;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -147,6 +150,13 @@ public class GenericDAO {
 		return null;
 	}
 	
-	
+	public int reservar(Reserva r) throws IOException {
+		int valor=0;
+		FileWriter fw = new FileWriter("src/ficheros/Reservas.txt");
+		BufferedWriter bw= new BufferedWriter(fw);
+		bw.write(r.toString());
+		bw.close();
+		return valor;
+	}
 
 }

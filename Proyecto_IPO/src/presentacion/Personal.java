@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 import java.util.Vector;
 
 import java.awt.Color;
-import java.awt.BorderLayout;
 import javax.swing.JScrollPane;
 
 import dominio.Empleado;
@@ -13,13 +12,10 @@ import dominio.GenericDAO;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.BoxLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;

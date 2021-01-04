@@ -1,5 +1,7 @@
 package dominio;
 
+import java.util.StringTokenizer;
+
 public class Alojamiento {
 	public Alojamiento(String nombreAlojamiento, String tipoAlojamiento, String precioPorNoche, String tamaño,
 			String descripcion, String capacidadMaxima) {
@@ -56,7 +58,10 @@ public class Alojamiento {
 	}
 	@Override
 	public String toString() {
-		return "<html><body> &nbsp;"+tipoAlojamiento + "<br> &nbsp;Nombre " + nombreAlojamiento +"<br>  &nbsp;Precio por noche: "+precioPorNoche+ "<br>  &nbsp;Tamaño: " + tamaño + "<br>  &nbsp;Descripcion: " + descripcion+ "<br> &nbsp;Capacidad máxima: "+capacidadMaxima+"</body></html>";
+		return "<html><body> &nbsp;"+tipoAlojamiento + " <br> &nbsp;Nombre: " + nombreAlojamiento +" <br>  &nbsp;Precio por noche: "+precioPorNoche+ "<br>  &nbsp;Tamaño: " + tamaño + "<br>  &nbsp;Descripcion: " + descripcion+ "<br> &nbsp;Capacidad máxima: "+capacidadMaxima+"</body></html>";
 	}
-
+	public String toStringNombreAlojamiento(String cadena) {
+		String subString= cadena.substring(cadena.indexOf("Nombre:")+8,cadena.indexOf("Precio")-13);
+		return subString;
+	}
 }

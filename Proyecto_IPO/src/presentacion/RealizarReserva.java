@@ -20,6 +20,7 @@ import com.toedter.calendar.JDateChooser;
 import dominio.Alojamiento;
 import dominio.Empleado;
 import dominio.GenericDAO;
+import dominio.Reserva;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -32,6 +33,7 @@ import javax.swing.JFormattedTextField;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.beans.PropertyChangeEvent;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
@@ -264,6 +266,7 @@ public class RealizarReserva extends JPanel {
 		add(btnLimpiarReserva, gbc_btnLimpiarReserva);
 		
 		btnReservar = new JButton("Reservar");
+		btnReservar.addActionListener(new BtnReservarActionListener());
 		btnReservar.setFocusTraversalKeysEnabled(false);
 		btnReservar.setFocusPainted(false);
 		btnReservar.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -333,6 +336,29 @@ public class RealizarReserva extends JPanel {
 				dateChooserComingDay.setDate(null);
 				dateChooserExitDate.setDate(null);
 			}
+	}
+	private class BtnReservarActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int valor=0;
+			try {
+				String nombreAlojamiento =listAlojamientos.getSelectedValue().toStringNombreAlojamiento(listAlojamientos.getSelectedValue().toString());
+				Reserva r = new Reserva(nombreAlojamiento ,textNombre.getText(),textTelefono.getText(),textCorreo.getText(),spinnerNumeroOcupantes.getValue().toString(),dateChooserComingDay.getDate(),dateChooserExitDate.getDate(),textAreaSolicitudesEspeciales.getText());
+				valor=r.guardarReserva(r);
+				ErrorReserva windowError;
+				AciertoReserva windowAcierto;
+				if (valor ==1) {
+					 windowAcierto = new AciertoReserva();
+					windowAcierto.setVisible(true);
+				}else {
+					windowError = new ErrorReserva();
+					windowError.setVisible(true);
+				}
+			} catch (IOException e1) {
+				ErrorReserva windowError = new ErrorReserva();
+				windowError.setVisible(true);
+				e1.printStackTrace();
+			}
+		}
 	}
 	public void refresh(GenericDAO gdao) {
 		DefaultListModel<Alojamiento> modeloLista = new DefaultListModel<Alojamiento>();
