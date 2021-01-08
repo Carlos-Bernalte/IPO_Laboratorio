@@ -1,11 +1,13 @@
 package dominio;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -178,4 +180,21 @@ public class GenericDAO {
 		bw.close();
 		return valor;
 		}
+	public int borrarActividad(Actividad a) throws IOException {
+		int valor=0;
+		File inFile = new File("src/ficheros/Actividades.txt");
+		BufferedReader br = new BufferedReader(new FileReader("src/ficheros/Actividades.txt"));
+		PrintWriter pw= new PrintWriter(new FileWriter(inFile));
+		String line= null;
+		while ((line = br.readLine()) != null) {
+			if(!line.equals(a.toString3())){
+				System.out.println("Makina");
+				pw.println(line);
+				pw.flush();
+			}
+		}
+		pw.close();
+		br.close();
+		return valor;
+	}
 }

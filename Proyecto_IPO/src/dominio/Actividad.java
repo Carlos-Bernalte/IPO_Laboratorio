@@ -107,4 +107,13 @@ public class Actividad {
 		public String toString2() {
 			return nombre+";"+monitor+";"+horario+";"+cupoMínimo+";"+cupoMaximo+";"+destinatarios+";"+precioPorHora+";"+descripcion+";"+materialNecesario+";"+foto+"\n";
 		}
+		public int borrarActividad(Actividad a) throws IOException {
+			int borrado=0;
+			GenericDAO gdao= new GenericDAO();
+			borrado=gdao.borrarActividad(a);
+			return borrado;
+		}
+		public String toString3() {
+			return nombre+";"+monitor+";"+horario+";"+cupoMínimo+";"+cupoMaximo+";"+destinatarios+";"+precioPorHora+";"+descripcion+";"+materialNecesario+";"+foto;
+		}
 }

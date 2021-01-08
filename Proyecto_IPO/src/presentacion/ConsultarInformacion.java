@@ -336,6 +336,7 @@ public class ConsultarInformacion extends JPanel {
 		panel.add(btnEditarActividad);
 		
 		btnBorrarActividad = new JButton("Borrar Actividad");
+		btnBorrarActividad.addActionListener(new BtnBorrarActividadActionListener());
 		btnBorrarActividad.setBounds(223, 582, 135, 21);
 		panel.add(btnBorrarActividad);
 		
@@ -424,15 +425,13 @@ public class ConsultarInformacion extends JPanel {
 	private class BtnElegirIconoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fileChooser = new JFileChooser();
-			 FileFilter filtro = new FileNameExtensionFilter("Imagenes (png)", ".png");
-			 fileChooser.setFileFilter(filtro);
+			FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("JPG, PNG & GIF","jpg","png","gif");
+			 fileChooser.setFileFilter(filtroImagen);
 			try {
 				fileChooser.showOpenDialog(fileChooser);
 		      textFieldPathIcono.setText(fileChooser.getSelectedFile().getAbsolutePath());
 			} catch (NullPointerException ex) {
-				System.out.println("Elige un archivo");
 			}
-	        
 		}
 	}
 	private class TextFieldNombreKeyListener extends KeyAdapter {
@@ -516,6 +515,16 @@ public class ConsultarInformacion extends JPanel {
 		}
 	}
 }
+	private class BtnBorrarActividadActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			Actividad a =(Actividad) listActividades.getSelectedValue();
+			try {
+				a.borrarActividad(a);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
 }
 	
 	
