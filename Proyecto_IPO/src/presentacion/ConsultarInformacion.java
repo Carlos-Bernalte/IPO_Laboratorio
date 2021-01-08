@@ -438,56 +438,70 @@ public class ConsultarInformacion extends JPanel {
 	private class TextFieldNombreKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
 				btnCrearActividad.setEnabled(true);
+			} else {
+				btnCrearActividad.setEnabled(false);
 			}
 		}
 	}
 	private class TextFieldMonitorKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
 				btnCrearActividad.setEnabled(true);
+			}else {
+				btnCrearActividad.setEnabled(false);
 			}
-		}
+			}
 	}
 	private class TextFieldHorarioKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
 				btnCrearActividad.setEnabled(true);
+			}else {
+				btnCrearActividad.setEnabled(false);
 			}
 		}
 	}
 	private class TextFieldPrecioKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
 				btnCrearActividad.setEnabled(true);
+			}else {
+				btnCrearActividad.setEnabled(false);
 			}
 		}
 	}
 	private class TextFieldDestinatarioKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
 				btnCrearActividad.setEnabled(true);
+			}else {
+				btnCrearActividad.setEnabled(false);
 			}
 		}
 	}
 	private class TextFieldDescripcionKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
 				btnCrearActividad.setEnabled(true);
+			}else {
+				btnCrearActividad.setEnabled(false);
 			}
 		}
 	}
 	private class TextFieldMaterialKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
 				btnCrearActividad.setEnabled(true);
+			}else {
+				btnCrearActividad.setEnabled(false);
 			}
 		}
 		
@@ -495,9 +509,13 @@ public class ConsultarInformacion extends JPanel {
 	private class TextFieldPathIconoKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
 				btnCrearActividad.setEnabled(true);
-			}
+		}else {
+			btnCrearActividad.setEnabled(false);
 		}
 	}
 }
+}
+	
+	
