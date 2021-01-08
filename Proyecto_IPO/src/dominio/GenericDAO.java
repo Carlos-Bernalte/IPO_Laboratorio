@@ -1,8 +1,11 @@
 package dominio;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -17,10 +20,10 @@ public class GenericDAO {
 	
 	public GenericDAO() {
 		this.listaUsuarios = leerUsuarios("src/Ficheros/Usuarios.txt");
-//		this.listaEmpleados = leerEmpleados("src/Ficheros/");
+		this.listaEmpleados = leerEmpleados("src/Ficheros/Empleados.txt");
 //		this.listaActividad = leerActividades("src/Ficheros/");
 //		this.listaRutas = leerRutas("src/Ficheros/");
-//		this.listaAlojamientos = leerAlojamientos("src/Ficheros/");
+		this.listaAlojamientos = leerAlojamientos("src/Ficheros/Alojamientos.txt");
 //		this.listaReservas = leerReservas("src/Ficheros/");
 	}
 	
@@ -90,7 +93,20 @@ public class GenericDAO {
 	}
 	public Vector<Empleado> leerEmpleados(String ruta){
 		
-		return null;
+		Vector<Empleado> resultado = new Vector<Empleado>();
+		Scanner lector = null;
+		try {
+			lector = new Scanner(new FileReader(new File(ruta)));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		while(lector.hasNext()) {
+			StringTokenizer datos = new StringTokenizer(lector.nextLine(),";");
+			Empleado e = new Empleado(datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken());
+			resultado.add(e);
+		}
+		return resultado;
 	}
 
 	public Vector<Actividad> leerActividades(String ruta){
@@ -104,8 +120,29 @@ public class GenericDAO {
 	}
 	
 	public Vector<Alojamiento> leerAlojamientos(String ruta){
-		
-		return null;
+		Vector<Alojamiento> resultado= new Vector<Alojamiento>();
+		Scanner lector= null;
+		String tipo;
+		try {
+			lector= new Scanner(new FileReader(new File(ruta)));
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		while(lector.hasNext()) {
+			StringTokenizer datos = new StringTokenizer(lector.nextLine(),";");
+			if (datos.nextToken().equals("Parcela")) {
+				tipo= "Parcela";
+				Alojamiento a = new Parcela(tipo,datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken());
+				resultado.add(a);
+			} else {
+				tipo= "Bungalow";
+				Alojamiento a = new Bungalow(tipo,datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken());
+				resultado.add(a);
+			}
+			
+			
+		}
+		return resultado;
 	}
 	
 	public Vector<Reserva> leerReservas(String ruta){
@@ -113,6 +150,13 @@ public class GenericDAO {
 		return null;
 	}
 	
-	
+	public int reservar(Reserva r) throws IOException {
+		int valor=0;
+		FileWriter fw = new FileWriter("src/ficheros/Reservas.txt");
+		BufferedWriter bw= new BufferedWriter(fw);
+		bw.write(r.toString());
+		bw.close();
+		return valor;
+	}
 
 }
