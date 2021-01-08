@@ -1,20 +1,22 @@
 package dominio;
 
+import java.io.IOException;
 import java.util.Date;
 
 public class Reserva {
 	
-	
+	private String nombreAlojamiento;
 	private String nombre;
-	private long telefono;
+	private String telefono;
 	private String email;
-	private int numeroOcupantes;
+	private String numeroOcupantes;
 	private Date fechaEntrada;
 	private Date fechaSalida;
 	private String solicitudes;
 	
-	public Reserva(String nombre, long telefono, String email, int numeroOcupantes, Date fechaEntrada, Date fechaSalida,
+	public Reserva(String nombreAlojamiento,String nombre, String telefono, String email, String numeroOcupantes, Date fechaEntrada, Date fechaSalida,
 			String solicitudes) {
+		this.nombreAlojamiento= nombreAlojamiento;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.email = email;
@@ -24,17 +26,25 @@ public class Reserva {
 		this.solicitudes = solicitudes;
 	}
 	
-	
+	public String getNombreAlojamiento() {
+		return nombreAlojamiento;
+	}
+
+
+	public void setNombreAlojamiento(String nombreAlojamiento) {
+		this.nombreAlojamiento = nombreAlojamiento;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public long getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(long telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	public String getEmail() {
@@ -43,10 +53,10 @@ public class Reserva {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getNumeroOcupantes() {
+	public String getNumeroOcupantes() {
 		return numeroOcupantes;
 	}
-	public void setNumeroOcupantes(int numeroOcupantes) {
+	public void setNumeroOcupantes(String numeroOcupantes) {
 		this.numeroOcupantes = numeroOcupantes;
 	}
 	public Date getFechaEntrada() {
@@ -68,4 +78,14 @@ public class Reserva {
 		this.solicitudes = solicitudes;
 	}
 	
+	public int guardarReserva(Reserva r) throws IOException {
+		int guardado=0;
+		GenericDAO gdao= new GenericDAO();
+		guardado=gdao.reservar(r);
+		return guardado;
+	}
+	
+	public String toString() {
+		return ""+nombreAlojamiento+";"+nombre+";"+telefono+";"+email+";"+numeroOcupantes+";"+fechaEntrada+";"+fechaSalida+";"+solicitudes+";\n";
+	}
 }

@@ -1,0 +1,6 @@
+Bungalow;Dakiti;45;60;Menaje, microondas, secador, Wi-Fi, ropa de cama, toallas y lavadora;10;adsads
+Bungalow;Bombai;35;50;Menaje, secador, toallas y lavadora;7;adsasd
+Bungalow;Hawai;60;100;Menaje, ropa de cama, toallas, lavadora, secador, lavavajillas y frigorifico;8;adasdasd
+Parcela;Truji;70;120;Agua, luz, desagüe, cerca de la piscina, delimitada por setos, a la sombra;10;adssad
+Parcela;Jimena;60;90;Agua, luz, cerca de la piscina, al sol;9;dasda
+Parcela;Medinaceli;90;150;Agua caliente, luz, baño privado,cerca de la piscina, sol y sombra, delimitada por setos;12;asdasd
