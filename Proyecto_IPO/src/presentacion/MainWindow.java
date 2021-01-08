@@ -102,7 +102,7 @@ public class MainWindow extends JFrame {
 		panelCentral.setLayout(new CardLayout(0, 0));
 		
 		//Inicializar los paneles y añadirlos al panel central
-		ConsultarInformacion consultar_informacion= new ConsultarInformacion();
+		ConsultarInformacion consultar_informacion= new ConsultarInformacion(gdao);
 		panelCentral.add(consultar_informacion, "Consultar Información");
 		
 		RealizarReserva realizar_reserva= new RealizarReserva(gdao);

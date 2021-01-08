@@ -4,7 +4,7 @@ import java.util.StringTokenizer;
 
 public class Alojamiento {
 	public Alojamiento(String nombreAlojamiento, String tipoAlojamiento, String precioPorNoche, String tamaño,
-			String descripcion, String capacidadMaxima) {
+			String descripcion, String capacidadMaxima, String foto) {
 		super();
 		this.tipoAlojamiento = tipoAlojamiento;
 		this.nombreAlojamiento = nombreAlojamiento;
@@ -12,6 +12,7 @@ public class Alojamiento {
 		this.tamaño = tamaño;
 		this.descripcion = descripcion;
 		this.capacidadMaxima = capacidadMaxima;
+		this.foto= foto;
 	}
 	protected String nombreAlojamiento;
 	protected String tipoAlojamiento; 
@@ -19,7 +20,14 @@ public class Alojamiento {
 	protected String tamaño;
 	protected String descripcion;
 	protected String capacidadMaxima;
+	protected String foto;
 	
+	public String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 	public String getNombreAlojamiento() {
 		return nombreAlojamiento;
 	}

@@ -132,11 +132,11 @@ public class GenericDAO {
 			StringTokenizer datos = new StringTokenizer(lector.nextLine(),";");
 			if (datos.nextToken().equals("Parcela")) {
 				tipo= "Parcela";
-				Alojamiento a = new Parcela(tipo,datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken());
+				Alojamiento a = new Parcela(tipo,datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken());
 				resultado.add(a);
 			} else {
 				tipo= "Bungalow";
-				Alojamiento a = new Bungalow(tipo,datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken());
+				Alojamiento a = new Bungalow(tipo,datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken());
 				resultado.add(a);
 			}
 			
