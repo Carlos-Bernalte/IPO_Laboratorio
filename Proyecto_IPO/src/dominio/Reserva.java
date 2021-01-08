@@ -9,18 +9,16 @@ public class Reserva {
 	private String nombre;
 	private String telefono;
 	private String email;
-	private String numeroOcupantes;
 	private Date fechaEntrada;
 	private Date fechaSalida;
 	private String solicitudes;
 	
-	public Reserva(String nombreAlojamiento,String nombre, String telefono, String email, String numeroOcupantes, Date fechaEntrada, Date fechaSalida,
+	public Reserva(String nombreAlojamiento,String nombre, String telefono, String email, Date fechaEntrada, Date fechaSalida,
 			String solicitudes) {
 		this.nombreAlojamiento= nombreAlojamiento;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.email = email;
-		this.numeroOcupantes = numeroOcupantes;
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
 		this.solicitudes = solicitudes;
@@ -53,12 +51,6 @@ public class Reserva {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getNumeroOcupantes() {
-		return numeroOcupantes;
-	}
-	public void setNumeroOcupantes(String numeroOcupantes) {
-		this.numeroOcupantes = numeroOcupantes;
-	}
 	public Date getFechaEntrada() {
 		return fechaEntrada;
 	}
@@ -86,6 +78,6 @@ public class Reserva {
 	}
 	
 	public String toString() {
-		return ""+nombreAlojamiento+";"+nombre+";"+telefono+";"+email+";"+numeroOcupantes+";"+fechaEntrada+";"+fechaSalida+";"+solicitudes+";\n";
+		return ""+nombreAlojamiento+";"+nombre+";"+telefono+";"+email+";"+fechaEntrada+";"+fechaSalida+";"+solicitudes+";\n";
 	}
 }

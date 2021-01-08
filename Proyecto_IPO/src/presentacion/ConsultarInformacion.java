@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.NoSuchElementException;
 import java.util.Vector;
 
 import javax.swing.JTabbedPane;
@@ -13,6 +14,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 
+import dominio.Actividad;
 import dominio.Alojamiento;
 import dominio.Empleado;
 import dominio.GenericDAO;
@@ -22,9 +24,23 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ConsultarInformacion extends JPanel {
 	private JTabbedPane tabbedPaneConsultarInformacion;
@@ -33,7 +49,7 @@ public class ConsultarInformacion extends JPanel {
 	private JPanel tabRutas;
 	private JPanel tabActividades;
 	private JScrollPane scrollPane_2;
-	private JScrollPane scrollPane_3;
+	private JScrollPane scrollPaneActividades;
 	private JLabel lblLabelLocalizacion;
 	private JLabel lblImagen;
 	private JLabel lblLabelLocalizacion1;
@@ -42,6 +58,32 @@ public class ConsultarInformacion extends JPanel {
 	private JList listaParcelas;
 	private JScrollPane scrollPane;
 	private JList listaBungalows;
+	private JList list;
+	private JList listActividades;
+	private JPanel panel;
+	private JLabel lblNombreActividad;
+	private JLabel lblMonitor;
+	private JLabel lblHorario;
+	private JLabel lblCupoMinimo;
+	private JLabel lblCupoMaximo;
+	private JLabel lblPrecioPorHora;
+	private JTextField textFieldNombre;
+	private JTextField textFieldMonitor;
+	private JTextField textFieldHorario;
+	private JTextField textFieldPrecio;
+	private JSpinner spinnerCupoMinimo;
+	private JSpinner spinnerCupoMaximo;
+	private JLabel lblDescripcion;
+	private JTextField textFieldDescripcion;
+	private JLabel lblMaterialNecesario;
+	private JTextField textFieldMaterial;
+	private JButton btnEditarActividad;
+	private JButton btnBorrarActividad;
+	private JButton btnCrearActividad;
+	private JButton btnElegirIcono;
+	private JTextField textFieldPathIcono;
+	private JLabel lblDestinatarios;
+	private JTextField textFieldDestinatario;
 
 	/**
 	 * Create the panel.
@@ -129,7 +171,6 @@ public class ConsultarInformacion extends JPanel {
 		listaBungalows.setSelectedIndex(0);
 		listaBungalows.setBackground(new Color(0, 88, 122));
 		scrollPane.setViewportView(listaBungalows);
-		refresh(gdao);
 		listaBungalows.setCellRenderer(new RenderizadoAlojamiento());
 		
 		lblLabelLocalizacion1 = new JLabel("Localizacion");
@@ -150,21 +191,188 @@ public class ConsultarInformacion extends JPanel {
 		tabRutas = new JPanel();
 		tabRutas.setBackground(Paleta.azul_turquesa);
 		tabbedPaneConsultarInformacion.addTab("Rutas", null, tabRutas, null);
-		
+		refreshAlojamiento(gdao);
 		scrollPane_2 = new JScrollPane();
 		tabRutas.add(scrollPane_2);
 		
 		tabActividades = new JPanel();
 		tabActividades.setBackground(Paleta.azul_turquesa);
 		tabbedPaneConsultarInformacion.addTab("Actividades", null, tabActividades, null);
+		GridBagLayout gbl_tabActividades = new GridBagLayout();
+		gbl_tabActividades.columnWidths = new int[]{800, 194, 0};
+		gbl_tabActividades.rowHeights = new int[]{222, 252, 0};
+		gbl_tabActividades.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_tabActividades.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		tabActividades.setLayout(gbl_tabActividades);
 		
-		scrollPane_3 = new JScrollPane();
-		tabActividades.add(scrollPane_3);
+		scrollPaneActividades = new JScrollPane();
+		GridBagConstraints gbc_scrollPaneActividades = new GridBagConstraints();
+		gbc_scrollPaneActividades.fill = GridBagConstraints.BOTH;
+		gbc_scrollPaneActividades.gridheight = 2;
+		gbc_scrollPaneActividades.insets = new Insets(0, 0, 0, 5);
+		gbc_scrollPaneActividades.gridx = 0;
+		gbc_scrollPaneActividades.gridy = 0;
+		tabActividades.add(scrollPaneActividades, gbc_scrollPaneActividades);
 		
+		listActividades = new JList();
+		listActividades.setBackground(Paleta.azul_turquesa);
+		GridBagConstraints gbc_listActividades = new GridBagConstraints();
+		gbc_listActividades.insets = new Insets(0, 0, 5, 0);
+		gbc_listActividades.fill = GridBagConstraints.BOTH;
+		gbc_listActividades.gridx = 1;
+		gbc_listActividades.gridy = 0;
+		scrollPaneActividades.setViewportView(listActividades);
+		listActividades.setCellRenderer(new RenderizadoActividades());
+		
+		panel = new JPanel();
+		panel.setBackground(Paleta.azul_turquesa2);
+		panel.setLayout(null);
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.gridheight = 2;
+		gbc_panel.insets = new Insets(0, 0, 5, 0);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 0;
+		tabActividades.add(panel, gbc_panel);
+		
+		lblNombreActividad = new JLabel("Nombre:");
+		lblNombreActividad.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNombreActividad.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNombreActividad.setForeground(Color.WHITE);
+		lblNombreActividad.setBounds(91, 95, 45, 13);
+		panel.add(lblNombreActividad);
+		
+		lblMonitor = new JLabel("Monitor:");
+		lblMonitor.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMonitor.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblMonitor.setForeground(Color.WHITE);
+		lblMonitor.setBounds(91, 164, 45, 13);
+		panel.add(lblMonitor);
+		
+		lblHorario = new JLabel("Horario:");
+		lblHorario.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblHorario.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblHorario.setForeground(Color.WHITE);
+		lblHorario.setBounds(91, 225, 45, 13);
+		panel.add(lblHorario);
+		
+		lblCupoMinimo = new JLabel("Cupo mínimo:");
+		lblCupoMinimo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCupoMinimo.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblCupoMinimo.setForeground(Color.WHITE);
+		lblCupoMinimo.setBounds(61, 308, 75, 13);
+		panel.add(lblCupoMinimo);
+		
+		lblCupoMaximo = new JLabel("Cupo máximo:");
+		lblCupoMaximo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCupoMaximo.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblCupoMaximo.setForeground(Color.WHITE);
+		lblCupoMaximo.setBounds(61, 364, 75, 13);
+		panel.add(lblCupoMaximo);
+		
+		lblPrecioPorHora = new JLabel("Precio/Hora:");
+		lblPrecioPorHora.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblPrecioPorHora.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblPrecioPorHora.setForeground(Color.WHITE);
+		lblPrecioPorHora.setBounds(61, 435, 75, 13);
+		panel.add(lblPrecioPorHora);
+		
+		textFieldNombre = new JTextField();
+		textFieldNombre.addKeyListener(new TextFieldNombreKeyListener());
+		textFieldNombre.setBounds(146, 92, 96, 19);
+		panel.add(textFieldNombre);
+		textFieldNombre.setColumns(10);
+		
+		textFieldMonitor = new JTextField();
+		textFieldMonitor.addKeyListener(new TextFieldMonitorKeyListener());
+		textFieldMonitor.setBounds(146, 161, 96, 19);
+		panel.add(textFieldMonitor);
+		textFieldMonitor.setColumns(10);
+		
+		textFieldHorario = new JTextField();
+		textFieldHorario.addKeyListener(new TextFieldHorarioKeyListener());
+		textFieldHorario.setBounds(146, 222, 96, 19);
+		panel.add(textFieldHorario);
+		textFieldHorario.setColumns(10);
+		
+		textFieldPrecio = new JTextField();
+		textFieldPrecio.addKeyListener(new TextFieldPrecioKeyListener());
+		textFieldPrecio.setBounds(146, 432, 96, 19);
+		panel.add(textFieldPrecio);
+		textFieldPrecio.setColumns(10);
+		
+		spinnerCupoMinimo = new JSpinner();
+		spinnerCupoMinimo.setBounds(180, 305, 30, 20);
+		panel.add(spinnerCupoMinimo);
+		
+		spinnerCupoMaximo = new JSpinner();
+		spinnerCupoMaximo.setBounds(180, 361, 30, 20);
+		panel.add(spinnerCupoMaximo);
+		
+		lblDescripcion = new JLabel("Descripcion:");
+		lblDescripcion.setForeground(Color.WHITE);
+		lblDescripcion.setBounds(304, 95, 85, 13);
+		panel.add(lblDescripcion);
+		
+		textFieldDescripcion = new JTextField();
+		textFieldDescripcion.addKeyListener(new TextFieldDescripcionKeyListener());
+		textFieldDescripcion.setBounds(304, 118, 155, 160);
+		panel.add(textFieldDescripcion);
+		textFieldDescripcion.setColumns(10);
+		
+		lblMaterialNecesario = new JLabel("Material necesario:");
+		lblMaterialNecesario.setForeground(Color.WHITE);
+		lblMaterialNecesario.setBounds(304, 405, 117, 13);
+		panel.add(lblMaterialNecesario);
+		
+		textFieldMaterial = new JTextField();
+		textFieldMaterial.addKeyListener(new TextFieldMaterialKeyListener());
+		textFieldMaterial.setBounds(304, 428, 155, 50);
+		panel.add(textFieldMaterial);
+		textFieldMaterial.setColumns(10);
+		
+		btnEditarActividad = new JButton("Editar Actividad");
+		btnEditarActividad.setBounds(51, 582, 135, 21);
+		panel.add(btnEditarActividad);
+		
+		btnBorrarActividad = new JButton("Borrar Actividad");
+		btnBorrarActividad.setBounds(223, 582, 135, 21);
+		panel.add(btnBorrarActividad);
+		
+		btnCrearActividad = new JButton("Añadir Actividad");
+		btnCrearActividad.setEnabled(false);
+		btnCrearActividad.addActionListener(new BtnCrearActividadActionListener());
+		btnCrearActividad.setBounds(399, 582, 135, 21);
+		panel.add(btnCrearActividad);
+		
+		btnElegirIcono = new JButton("Seleccionar Icono");
+		btnElegirIcono.addActionListener(new BtnElegirIconoActionListener());
+		btnElegirIcono.setBounds(304, 332, 141, 21);
+		panel.add(btnElegirIcono);
+		
+		textFieldPathIcono = new JTextField();
+		textFieldPathIcono.addKeyListener(new TextFieldPathIconoKeyListener());
+		textFieldPathIcono.setBounds(466, 333, 124, 19);
+		panel.add(textFieldPathIcono);
+		textFieldPathIcono.setColumns(10);
+		
+		lblDestinatarios = new JLabel("Destinatario:");
+		lblDestinatarios.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblDestinatarios.setForeground(Color.WHITE);
+		lblDestinatarios.setBounds(70, 511, 66, 13);
+		panel.add(lblDestinatarios);
+		
+		textFieldDestinatario = new JTextField();
+		textFieldDestinatario.addKeyListener(new TextFieldDestinatarioKeyListener());
+		textFieldDestinatario.setBounds(146, 508, 96, 19);
+		panel.add(textFieldDestinatario);
+		textFieldDestinatario.setColumns(10);
+		
+		refreshActividades(gdao);
 		listaParcelas.setSelectedIndex(0);
 		listaBungalows.setSelectedIndex(0);
 	}
-	public void refresh(GenericDAO gdao) {
+	public void refreshAlojamiento(GenericDAO gdao) {
 		DefaultListModel<Alojamiento> modeloLista = new DefaultListModel<Alojamiento>();
 		listaParcelas.setModel(modeloLista);
 		DefaultListModel<Alojamiento> modeloLista2 = new DefaultListModel<Alojamiento>();
@@ -178,6 +386,14 @@ public class ConsultarInformacion extends JPanel {
 			}
 		}
 	}
+	public void refreshActividades(GenericDAO gdao) {
+		DefaultListModel<Actividad> modeloLista3 = new DefaultListModel<Actividad>();
+		listActividades.setModel(modeloLista3);
+		Vector<Actividad> lActividades=gdao.getListaActividad();
+		for(int i=0; i<lActividades.size(); i++) {
+			modeloLista3.addElement(lActividades.elementAt(i));
+	}
+	}
 	private class ListaParcelasListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent e) {
 			Alojamiento a = (Alojamiento) listaParcelas.getSelectedValue();
@@ -188,6 +404,100 @@ public class ConsultarInformacion extends JPanel {
 		public void valueChanged(ListSelectionEvent e) {
 			Alojamiento a = (Alojamiento) listaBungalows.getSelectedValue();
 			lblImagen1.setIcon(new ImageIcon(MainWindow.class.getResource(a.getFoto())));
+		}
+	}
+	private class BtnCrearActividadActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int valor=0;
+			try {
+				Actividad a = new Actividad(textFieldNombre.getText(),textFieldMonitor.getText(),textFieldHorario.getText(),spinnerCupoMinimo.getValue().toString(),spinnerCupoMaximo.getValue().toString(),textFieldDestinatario.getText(), textFieldPrecio.getText(), textFieldDescripcion.getText(),textFieldMaterial.getText(),textFieldPathIcono.getText());
+				valor=a.guardarActividad(a);
+				GenericDAO gdao= new GenericDAO();
+				refreshActividades(gdao);
+			} catch (NoSuchElementException e1) {
+				System.out.println("Hay algun dato vacio, por favor rellenalo");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+	private class BtnElegirIconoActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser fileChooser = new JFileChooser();
+			 FileFilter filtro = new FileNameExtensionFilter("Imagenes (png)", ".png");
+			 fileChooser.setFileFilter(filtro);
+			try {
+				fileChooser.showOpenDialog(fileChooser);
+		      textFieldPathIcono.setText(fileChooser.getSelectedFile().getAbsolutePath());
+			} catch (NullPointerException ex) {
+				System.out.println("Elige un archivo");
+			}
+	        
+		}
+	}
+	private class TextFieldNombreKeyListener extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent e) {
+			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+				btnCrearActividad.setEnabled(true);
+			}
+		}
+	}
+	private class TextFieldMonitorKeyListener extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent e) {
+			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+				btnCrearActividad.setEnabled(true);
+			}
+		}
+	}
+	private class TextFieldHorarioKeyListener extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent e) {
+			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+				btnCrearActividad.setEnabled(true);
+			}
+		}
+	}
+	private class TextFieldPrecioKeyListener extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent e) {
+			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+				btnCrearActividad.setEnabled(true);
+			}
+		}
+	}
+	private class TextFieldDestinatarioKeyListener extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent e) {
+			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+				btnCrearActividad.setEnabled(true);
+			}
+		}
+	}
+	private class TextFieldDescripcionKeyListener extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent e) {
+			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+				btnCrearActividad.setEnabled(true);
+			}
+		}
+	}
+	private class TextFieldMaterialKeyListener extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent e) {
+			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+				btnCrearActividad.setEnabled(true);
+			}
+		}
+		
+	}
+	private class TextFieldPathIconoKeyListener extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent e) {
+			if(!textFieldNombre.getText().equals(null) && !textFieldMaterial.getText().equals(null) && !textFieldNombre.getText().equals(null) && !textFieldMonitor.getText().equals(null) && !textFieldHorario.getText().equals(null) && !textFieldDestinatario.getText().equals(null) && !textFieldDescripcion.getText().equals(null) && !textFieldPathIcono.getText().equals(null) ) {
+				btnCrearActividad.setEnabled(true);
+			}
 		}
 	}
 }
