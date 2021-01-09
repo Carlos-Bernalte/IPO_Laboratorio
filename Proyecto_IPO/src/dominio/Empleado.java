@@ -1,5 +1,7 @@
 package dominio;
 
+import java.util.Vector;
+
 public class Empleado {
 	private String nombre;
 	private String apellido;
@@ -18,6 +20,9 @@ public class Empleado {
 		this.email = email;
 		this.foto = foto;
 		this.empleo = empleo;
+	}
+
+	public Empleado() {
 	}
 
 	public String getNombre() {
@@ -80,6 +85,17 @@ public class Empleado {
 	public String toString() {
 		return "<html><body> &nbsp;"+nombre + " " + apellido +"<br>  &nbsp;"+empleo+ "<br>  &nbsp;Telefono: " + telefono + "<br>  &nbsp;Email: " + email+"</body></html>";
 	}
-	
+	public Vector<Empleado> leerMonitores() {
+		Vector<Empleado> e = new Vector<Empleado>();
+		Vector<Empleado> e1 = new Vector<Empleado>();
+		GenericDAO gdao = new GenericDAO();
+		e1=gdao.getListaEmpleados();
+		for(int i=0;i<e1.size();i++) {
+			if (e1.elementAt(i).getEmpleo().equals("Monitor")) {
+				e.add(e1.elementAt(i));
+			}
+		}
+		return e;
+	}
 
 }
