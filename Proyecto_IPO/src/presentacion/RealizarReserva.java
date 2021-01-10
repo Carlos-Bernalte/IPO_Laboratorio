@@ -34,11 +34,11 @@ import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import java.awt.List;
 import javax.swing.border.EmptyBorder;
 import java.awt.Label;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class RealizarReserva extends JPanel {
 	private JLabel lblNombre;
 	private JLabel lblTelefono;

@@ -35,14 +35,9 @@ import dominio.Usuario;
 
 import java.awt.Dimension;
 import javax.swing.Box;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
-
-
 
 public class LoginWindow {
 
@@ -146,7 +141,7 @@ public class LoginWindow {
 		btnAcceder.setEnabled(false);
 		btnAcceder.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/005-enter.png")));
 		btnAcceder.addActionListener(new ActionListener() {
-			@SuppressWarnings("unlikely-arg-type")
+			
 			public void actionPerformed(ActionEvent e) {
 				MainWindow window;
 				try {
@@ -310,7 +305,8 @@ public class LoginWindow {
 	}
 	
 	public static void nuevaFuente(FontUIResource f) {
-        Enumeration keys = UIManager.getDefaults().keys();
+        @SuppressWarnings("rawtypes")
+		Enumeration keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);

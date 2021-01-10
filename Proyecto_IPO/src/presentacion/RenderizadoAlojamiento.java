@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
 
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class RenderizadoAlojamiento extends DefaultListCellRenderer{
 	protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 	private int escenario;
@@ -16,6 +17,7 @@ public class RenderizadoAlojamiento extends DefaultListCellRenderer{
 		this.escenario=escenario;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus){
 		JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
 		if (value.getClass().toString().equals("class dominio.Parcela")) {
