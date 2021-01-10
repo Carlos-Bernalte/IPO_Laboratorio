@@ -8,6 +8,7 @@ import javax.swing.border.LineBorder;
 
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class RenderizadoPersonal extends DefaultListCellRenderer{
 	protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 	
@@ -15,7 +16,7 @@ public class RenderizadoPersonal extends DefaultListCellRenderer{
 		
 	}
 	
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus){
+	public Component getListCellRendererComponent(@SuppressWarnings("rawtypes") JList list, Object value, int index, boolean isSelected, boolean hasFocus){
 		JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
 		renderer.setIcon(new ImageIcon(RenderizadoPersonal.class.getResource("/imagenes/usuario.png")));
 		renderer.setBorder(new CompoundBorder(new LineBorder(Paleta.azul_oscuro, 8), new EmptyBorder(5, 5, 5, 5)));

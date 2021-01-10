@@ -3,6 +3,7 @@ package editorGrafico;
 import java.awt.Color;
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class lineaGrafico extends ObjetoGrafico implements Serializable{
 	private Color color;
 	private int x1,y1;

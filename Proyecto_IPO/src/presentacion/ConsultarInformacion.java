@@ -18,6 +18,7 @@ import dominio.GenericDAO;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 
+@SuppressWarnings("serial")
 public class ConsultarInformacion extends JPanel {
 	private JTabbedPane tabbedPaneConsultarInformacion;
 	private JPanel tabParcelas;
@@ -27,11 +28,13 @@ public class ConsultarInformacion extends JPanel {
 	private JScrollPane scrollPane_1;
 	private JScrollPane scrollPane_2;
 	private JScrollPane scrollPane_3;
+	@SuppressWarnings("rawtypes")
 	private JList listParcelas;
 
 	/**
 	 * Create the panel.
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsultarInformacion(GenericDAO gdao) {
 		setBackground(Paleta.azul_oscuro);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -86,6 +89,7 @@ public class ConsultarInformacion extends JPanel {
 		tabActividades.add(scrollPane_3);
 
 	}
+	@SuppressWarnings("unchecked")
 	public void refresh(GenericDAO gdao) {
 		DefaultListModel<Alojamiento> modeloLista = new DefaultListModel<Alojamiento>();
 		listParcelas.setModel(modeloLista);

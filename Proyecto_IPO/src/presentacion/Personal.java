@@ -23,6 +23,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class Personal extends JPanel {
 	private JScrollPane scrollPane;
 	private JList<Empleado> listaPersonal;

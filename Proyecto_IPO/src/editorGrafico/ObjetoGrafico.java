@@ -2,6 +2,7 @@ package editorGrafico;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class ObjetoGrafico implements Serializable{
 	private int x,y;
 	

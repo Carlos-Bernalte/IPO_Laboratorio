@@ -22,7 +22,7 @@ public class GenericDAO {
 		this.listaUsuarios = leerUsuarios("src/Ficheros/Usuarios.txt");
 		this.listaEmpleados = leerEmpleados("src/Ficheros/Empleados.txt");
 //		this.listaActividad = leerActividades("src/Ficheros/");
-//		this.listaRutas = leerRutas("src/Ficheros/");
+		this.listaRutas = leerRutas("src/Ficheros/Rutas.txt");
 		this.listaAlojamientos = leerAlojamientos("src/Ficheros/Alojamientos.txt");
 //		this.listaReservas = leerReservas("src/Ficheros/");
 	}
@@ -152,11 +152,18 @@ public class GenericDAO {
 	
 	public int reservar(Reserva r) throws IOException {
 		int valor=0;
-		FileWriter fw = new FileWriter("src/ficheros/Reservas.txt");
+		FileWriter fw = new FileWriter("src/ficheros/Reservas.txt",true);
 		BufferedWriter bw= new BufferedWriter(fw);
 		bw.write(r.toString());
 		bw.close();
 		return valor;
 	}
-
+	public int guardarRuta(Ruta r) throws IOException {
+		int valor=0;
+		FileWriter fw = new FileWriter("src/ficheros/Rutas.txt",true);
+		BufferedWriter bw= new BufferedWriter(fw);
+		bw.write(r.toString());
+		bw.close();
+		return valor;
+	}
 }

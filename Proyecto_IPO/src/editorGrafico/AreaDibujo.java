@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JLabel;
 
+@SuppressWarnings("serial")
 public class AreaDibujo extends JLabel{
 	
 	private ArrayList<ObjetoGrafico> objetosGraficos = new ArrayList<ObjetoGrafico>();
@@ -32,5 +33,21 @@ public class AreaDibujo extends JLabel{
 		} 
 	}	
 	}
-}
+		public void removeObjetoGrafico(int x, int y, int tamano) {
+			for (int i = 0; i < objetosGraficos.size(); i++) {
+				if (Math.abs(objetosGraficos.get(i).getX() - x) <= tamano
+						&& Math.abs(objetosGraficos.get(i).getY() - y) <= tamano) {
+					objetosGraficos.remove(i);
+				}
+			}
+		}
+		public void removeAllObjetoGrafico() {
+			for (int i = 0; i < objetosGraficos.size(); i++) {
+					objetosGraficos.remove(i);
+				}
+			}
+		}
+		
+	
+
 

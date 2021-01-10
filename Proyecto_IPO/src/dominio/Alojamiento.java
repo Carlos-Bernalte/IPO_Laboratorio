@@ -1,6 +1,5 @@
 package dominio;
 
-import java.util.StringTokenizer;
 
 public class Alojamiento {
 	public Alojamiento(String nombreAlojamiento, String tipoAlojamiento, String precioPorNoche, String tamaño,

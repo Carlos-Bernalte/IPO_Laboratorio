@@ -34,11 +34,11 @@ import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import java.awt.List;
 import javax.swing.border.EmptyBorder;
 import java.awt.Label;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class RealizarReserva extends JPanel {
 	private JLabel lblNombre;
 	private JLabel lblTelefono;
@@ -306,18 +306,7 @@ public class RealizarReserva extends JPanel {
 				String nombreAlojamiento =listAlojamientos.getSelectedValue().toStringNombreAlojamiento(listAlojamientos.getSelectedValue().toString());
 				Reserva r = new Reserva(nombreAlojamiento ,textNombre.getText(),textTelefono.getText(),textCorreo.getText(),"5",dateChooserComingDay.getDate(),dateChooserExitDate.getDate(),textAreaSolicitudesEspeciales.getText());
 				valor=r.guardarReserva(r);
-				ErrorReserva windowError;
-				AciertoReserva windowAcierto;
-				if (valor ==1) {
-					 windowAcierto = new AciertoReserva();
-					windowAcierto.setVisible(true);
-				}else {
-					windowError = new ErrorReserva();
-					windowError.setVisible(true);
-				}
 			} catch (IOException e1) {
-				ErrorReserva windowError = new ErrorReserva();
-				windowError.setVisible(true);
 				e1.printStackTrace();
 			}
 		}

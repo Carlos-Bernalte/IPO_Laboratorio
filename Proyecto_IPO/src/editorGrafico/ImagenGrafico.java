@@ -3,6 +3,7 @@ package editorGrafico;
 import java.awt.Image;
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class ImagenGrafico extends ObjetoGrafico implements Serializable{
 	private Image imagen;
 	public ImagenGrafico(int x, int y, Image imagen) {

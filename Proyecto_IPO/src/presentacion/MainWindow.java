@@ -2,7 +2,6 @@ package presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,19 +13,11 @@ import dominio.GenericDAO;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ImageIcon;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
 import javax.swing.JMenuItem;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.Enumeration;
 
-import javax.swing.JPopupMenu;
-import java.awt.Insets;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
@@ -42,8 +33,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
-import java.awt.ComponentOrientation;
 
+@SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 
 	private JPanel contentPane;
@@ -111,7 +102,7 @@ public class MainWindow extends JFrame {
 		Personal personal = new Personal(gdao);
 		panelCentral.add(personal, "Personal");
 		
-		DibujarRuta dibujar_ruta =new DibujarRuta();
+		DibujarRuta dibujar_ruta =new DibujarRuta(gdao);
 		panelCentral.add(dibujar_ruta, "Dibujar Ruta");
 		
 		lblFeedback = new JLabel("Bienvenido");
@@ -335,7 +326,8 @@ public class MainWindow extends JFrame {
 		}
 	}
 	public static void nuevaFuente(FontUIResource f) {
-        Enumeration keys = UIManager.getDefaults().keys();
+        @SuppressWarnings("rawtypes")
+		Enumeration keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);
