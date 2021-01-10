@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -25,7 +27,7 @@ import java.awt.Frame;
 
 
 
-public class AciertoReserva extends JFrame{
+public class AciertoReserva extends JDialog{
 
 	public JFrame frmAciertoReserva;
 	private JPanel contentPane;
@@ -35,7 +37,6 @@ public class AciertoReserva extends JFrame{
 	
 	public AciertoReserva() {
 		setTitle("Reserva correcta");
-		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setUndecorated(true);
 		setBounds(100, 100, 808, 734);
 		frmAciertoReserva = new JFrame();
