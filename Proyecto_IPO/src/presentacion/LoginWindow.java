@@ -25,13 +25,21 @@ import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Enumeration;
+import java.util.Vector;
 import java.text.ParseException;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
+
+import dominio.GenericDAO;
+import dominio.Usuario;
+
 import java.awt.Dimension;
 import javax.swing.Box;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 
 
@@ -102,6 +110,7 @@ public class LoginWindow {
 		frmGestorDeCamping.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		txtFeedback = new JTextPane();
+		txtFeedback.setEditable(false);
 		txtFeedback.setBackground(Paleta.azul_oscuro);
 		txtFeedback.setForeground(Color.WHITE);
 		txtFeedback.setText("Bienvenido al Gestor de Camping. Introduzca sus credenciales para acceder al sistema.");
@@ -137,12 +146,28 @@ public class LoginWindow {
 		btnAcceder.setEnabled(false);
 		btnAcceder.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/005-enter.png")));
 		btnAcceder.addActionListener(new ActionListener() {
+			@SuppressWarnings("unlikely-arg-type")
 			public void actionPerformed(ActionEvent e) {
 				MainWindow window;
 				try {
-					window = new MainWindow();
-					window.setVisible(true);
-					frmGestorDeCamping.dispose();
+					GenericDAO gdao= new GenericDAO();
+					Vector<Usuario> listaUsuarios=gdao.getListaUsuarios();
+					for(int i=0; i<listaUsuarios.size();i++) {
+						Usuario u = listaUsuarios.elementAt(i);
+
+						if(String.valueOf(txtFUsuario.getText()).equals(u.getNick()) && String.valueOf(txtFContraseña.getPassword()).equals(u.getContraseña())) {
+							txtFeedback.setForeground(Color.GREEN);
+							txtFeedback.setText("Correcto.");
+							window = new MainWindow(u);
+							window.setVisible(true);
+							frmGestorDeCamping.dispose();
+						}
+					}
+					txtFUsuario.setText("");
+					txtFContraseña.setText("");
+					txtFeedback.setForeground(Color.RED);
+					txtFeedback.setText("Credenciales incorrectas. Por favor compruebe el nombre de usuario o contraseña.");
+					
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
@@ -285,8 +310,7 @@ public class LoginWindow {
 	}
 	
 	public static void nuevaFuente(FontUIResource f) {
-        @SuppressWarnings("rawtypes")
-		Enumeration keys = UIManager.getDefaults().keys();
+        Enumeration keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);

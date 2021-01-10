@@ -2,6 +2,7 @@ package presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,15 +10,26 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.FontUIResource;
 
 import dominio.GenericDAO;
+import dominio.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.ImageIcon;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 import javax.swing.JMenuItem;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Enumeration;
 
+import javax.swing.JPopupMenu;
+import java.awt.Insets;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Color;
@@ -33,8 +45,10 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
+import java.awt.ComponentOrientation;
+import java.awt.GridLayout;
+import java.awt.Rectangle;
 
-@SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 
 	private JPanel contentPane;
@@ -64,14 +78,18 @@ public class MainWindow extends JFrame {
 	private final ButtonGroup btnGroupFuente = new ButtonGroup();
 	private JButton btnSalir;
 	private JMenu mnUser;
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
+	private JPanel panel;
+	private JLabel lblUltVezConect;
+	private JLabel fotoUsuario;
+	private JLabel lblNombre;
+	private JLabel lblApellidos;
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public MainWindow() throws ParseException {
+	@SuppressWarnings("deprecation")
+	public MainWindow(Usuario u) throws ParseException {
 
 		setUndecorated(true);
 		
@@ -178,25 +196,83 @@ public class MainWindow extends JFrame {
 		btnSalir.setForeground(Color.WHITE);
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				java.util.Date fecha = new Date();
+				try {
+					
+					Usuario usuarioAntiguo = (Usuario) u.clone();
+					u.setUltVezConectado(fecha.toString());
+					gdao.editarUsuario(u,usuarioAntiguo);
+					
+				} catch (IOException e1) {
+					System.out.println(e1.toString());
+				} catch (CloneNotSupportedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				dispose();
 			}
 		});
 		
-		mnUser = new JMenu("<usuario>");
+		mnUser = new JMenu(u.getNombre());
+		mnUser.setBackground(Color.BLACK);
 		mnUser.setHorizontalAlignment(SwingConstants.TRAILING);
 		mnUser.setBorder(new EmptyBorder(5, 5, 5, 5));
 		mnUser.setForeground(Color.WHITE);
 		barraOpciones.add(mnUser);
 		
-		lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setIcon(new ImageIcon(MainWindow.class.getResource("/imagenes/usuario.png")));
-		mnUser.add(lblNewLabel_1);
+		panel = new JPanel();
+		panel.setForeground(Color.WHITE);
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.setBackground(Paleta.azul_turquesa2);
+		panel.setBounds(100, 100, 808, 734);;
+		mnUser.add(panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{10, 50, 0, 10, 0};
+		gbl_panel.rowHeights = new int[]{10, 0, 0, 29, 10, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
 		
-		lblNewLabel = new JLabel("Última vez conectado: ");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setPreferredSize(new Dimension(200, 13));
-		mnUser.add(lblNewLabel);
+		fotoUsuario = new JLabel("");
+		fotoUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		fotoUsuario.setIcon(new ImageIcon(MainWindow.class.getResource("/imagenes/usuario.png")));
+		GridBagConstraints gbc_fotoUsuario = new GridBagConstraints();
+		gbc_fotoUsuario.gridheight = 3;
+		gbc_fotoUsuario.anchor = GridBagConstraints.WEST;
+		gbc_fotoUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_fotoUsuario.gridx = 1;
+		gbc_fotoUsuario.gridy = 1;
+		panel.add(fotoUsuario, gbc_fotoUsuario);
+		
+		lblNombre = new JLabel(u.getNombre());
+		lblNombre.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
+		gbc_lblNombre.anchor = GridBagConstraints.WEST;
+		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNombre.gridx = 2;
+		gbc_lblNombre.gridy = 1;
+		panel.add(lblNombre, gbc_lblNombre);
+		
+		lblApellidos = new JLabel(u.getApellidos());
+		lblApellidos.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblApellidos = new GridBagConstraints();
+		gbc_lblApellidos.anchor = GridBagConstraints.WEST;
+		gbc_lblApellidos.insets = new Insets(0, 0, 5, 5);
+		gbc_lblApellidos.gridx = 2;
+		gbc_lblApellidos.gridy = 2;
+		panel.add(lblApellidos, gbc_lblApellidos);
+		
+		lblUltVezConect = new JLabel(" Ultima vez conectado: "+u.getUltVezConectado()+" ");
+		lblUltVezConect.setForeground(Color.WHITE);
+		lblUltVezConect.setMaximumSize(new Dimension(200, 13));
+		lblUltVezConect.setRequestFocusEnabled(false);
+		lblUltVezConect.setHorizontalAlignment(SwingConstants.TRAILING);
+		GridBagConstraints gbc_lblUltVezConect = new GridBagConstraints();
+		gbc_lblUltVezConect.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUltVezConect.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblUltVezConect.gridx = 2;
+		gbc_lblUltVezConect.gridy = 3;
+		panel.add(lblUltVezConect, gbc_lblUltVezConect);
 		
 		
 		
@@ -326,8 +402,7 @@ public class MainWindow extends JFrame {
 		}
 	}
 	public static void nuevaFuente(FontUIResource f) {
-        @SuppressWarnings("rawtypes")
-		Enumeration keys = UIManager.getDefaults().keys();
+        Enumeration keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
             Object value = UIManager.get(key);

@@ -1,0 +1,2 @@
+Rafting;Raúl;11:00-13:00;4;12;Adultos;10€;Descenso del rio aprendiendo lo basico;Casco;/imagenes/walking.png
+Cuentacuentos en la hoguera;EL BOBO DE MANU;21:00-23:00;5;10;Niños;3€;Relatos cortos alrededor de la hoguera; Abrigo;/imagenes/walking.png

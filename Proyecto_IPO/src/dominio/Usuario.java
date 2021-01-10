@@ -1,6 +1,6 @@
 package dominio;
 
-public class Usuario {
+public class Usuario implements Cloneable{
 	private String nombre;
 	private String apellidos;
 	private String nick;
@@ -13,6 +13,9 @@ public class Usuario {
 		this.nick = nick;
 		this.contraseña = contraseña;
 		this.ultVezConectado = ultVezConectado;
+	}
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();	
 	}
 	public String getNombre() {
 		return nombre;
@@ -45,5 +48,14 @@ public class Usuario {
 		this.ultVezConectado = ultVezConectado;
 	}
 	
+	@Override
+	public String toString() {
+		return "Usuario [nombre=" + nombre + ", apellidos=" + apellidos + ", nick=" + nick + ", contraseña="
+				+ contraseña + ", ultVezConectado=" + ultVezConectado + "]";
+	}
+
+	public String toString2() {
+		return nombre + ";" + apellidos + ";" + nick + ";"+ contraseña + ";" + ultVezConectado;
+	}
 
 }
