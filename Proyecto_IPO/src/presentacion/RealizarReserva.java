@@ -270,7 +270,7 @@ public class RealizarReserva extends JPanel {
 		scrollPane.setViewportView(listAlojamientos);
 		
 		refresh(gdao);
-		listAlojamientos.setCellRenderer(new RenderizadoAlojamiento());
+		listAlojamientos.setCellRenderer(new RenderizadoAlojamiento(2));
 		
 
 

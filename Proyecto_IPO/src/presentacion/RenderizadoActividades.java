@@ -19,12 +19,12 @@ public class RenderizadoActividades extends DefaultListCellRenderer{
 		JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
 		Actividad a= (Actividad) value;
 		renderer.setIcon(new ImageIcon(RenderizadoPersonal.class.getResource("/imagenes/walking.png")));
-		renderer.setBorder(new CompoundBorder(new LineBorder(Paleta.azul_oscuro, 8), new EmptyBorder(5, 5, 5, 5)));
+		renderer.setBorder(new CompoundBorder(new LineBorder(Paleta.blanco_gris, 8), new EmptyBorder(5, 5, 5, 5)));
 		renderer.setBackground(Paleta.azul_turquesa2);
 		renderer.setForeground(Color.WHITE);
 		if (isSelected) {
 			renderer.setBackground(Paleta.azul_turquesa);
-			renderer.setBorder(new LineBorder(Paleta.azul_oscuro, 3));
+			renderer.setBorder(new LineBorder(Paleta.blanco_gris, 3));
 		}
 		return renderer;
 	}

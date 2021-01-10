@@ -46,7 +46,7 @@ public class GenericDAO {
 	}
 
 	public Vector<Actividad> getListaActividad() {
-		return listaActividad;
+		return leerActividades("src/Ficheros/Actividades.txt");
 	}
 
 	public void setListaActividad(Vector<Actividad> listaActividad) {
@@ -93,6 +93,33 @@ public class GenericDAO {
 		}
 		return resultado;
 	}
+	
+	public int editarUsuario(Usuario actualizada, Usuario antigua) throws IOException {
+		Scanner lector = null;
+		try{
+			lector= new Scanner(new FileReader(new File("src/ficheros/Usuarios.txt")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		String archivo="";
+		while (lector.hasNext()) {
+			String line =lector.nextLine();
+			if(!line.equals(antigua.toString2())) {
+				archivo+=line+"\n";
+			}else {
+				archivo+=actualizada.toString2()+"\n";
+			}
+		}
+		lector.close();
+		FileWriter fw = new FileWriter("src/ficheros/Usuarios.txt", false);
+		BufferedWriter bw= new BufferedWriter(fw);
+		bw.write(archivo.substring(0,archivo.length()-1));
+		bw.close();
+		return 1;
+		
+	}
+	
 	public Vector<Empleado> leerEmpleados(String ruta){
 		
 		Vector<Empleado> resultado = new Vector<Empleado>();
@@ -180,21 +207,57 @@ public class GenericDAO {
 		bw.close();
 		return valor;
 		}
+	@SuppressWarnings("unlikely-arg-type")
 	public int borrarActividad(Actividad a) throws IOException {
-		int valor=0;
-		File inFile = new File("src/ficheros/Actividades.txt");
-		BufferedReader br = new BufferedReader(new FileReader("src/ficheros/Actividades.txt"));
-		PrintWriter pw= new PrintWriter(new FileWriter(inFile));
-		String line= null;
-		while ((line = br.readLine()) != null) {
-			if(!line.equals(a.toString3())){
-				System.out.println("Makina");
-				pw.println(line);
-				pw.flush();
+		
+		Scanner lector = null;
+		try{
+			lector= new Scanner(new FileReader(new File("src/ficheros/Actividades.txt")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		String antiguo="";
+		while (lector.hasNext()) {
+			String line =lector.nextLine();
+			if(!line.equals(a.toString3())) {
+				antiguo+=line+"\n";
 			}
 		}
-		pw.close();
-		br.close();
-		return valor;
+		lector.close();
+		FileWriter fw = new FileWriter("src/ficheros/Actividades.txt", false);
+		BufferedWriter bw= new BufferedWriter(fw);
+		if(antiguo.length()>1) {
+			bw.write(antiguo.substring(0,antiguo.length()-1));
+		}else {
+			bw.write("");
+		}
+		bw.close();
+		return 1;
+	}
+	public int editarActividad(Actividad actualizada, Actividad antigua) throws IOException {
+		Scanner lector = null;
+		try{
+			lector= new Scanner(new FileReader(new File("src/ficheros/Actividades.txt")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		String archivo="";
+		while (lector.hasNext()) {
+			String line =lector.nextLine();
+			if(!line.equals(antigua.toString3())) {
+				archivo+=line+"\n";
+			}else {
+				archivo+=actualizada.toString3()+"\n";
+			}
+		}
+		lector.close();
+		FileWriter fw = new FileWriter("src/ficheros/Actividades.txt", false);
+		BufferedWriter bw= new BufferedWriter(fw);
+		bw.write(archivo.substring(0,archivo.length()-1));
+		bw.close();
+		return 1;
+		
 	}
 }
