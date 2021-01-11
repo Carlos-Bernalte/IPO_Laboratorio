@@ -84,14 +84,12 @@ public class ConsultarInformacion extends JPanel {
 	private JButton btnNewButton;
 	private JTextArea textFieldDescripcion;
 	private JScrollPane scrollPaneRutas;
-	@SuppressWarnings("rawtypes")
 	private JList<Ruta> listRutas;
 	private JLabel imagenRuta;
 
 	/**
 	 * Create the panel.
 	 */
-	@SuppressWarnings("rawtypes")
 	public ConsultarInformacion(GenericDAO gdao) {
 		UIManager.getDefaults().put("TabbedPane.contentBorderInsets", new Insets(0,0,0,0)); //$NON-NLS-1$
 		UIManager.put("TabbedPane.selected", Paleta.blanco_gris); //$NON-NLS-1$
@@ -288,9 +286,9 @@ public class ConsultarInformacion extends JPanel {
 		gbc_informacionActividad.gridy = 1;
 		tabActividades.add(informacionActividad, gbc_informacionActividad);
 		GridBagLayout gbl_informacionActividad = new GridBagLayout();
-		gbl_informacionActividad.columnWidths = new int[]{51, 85, 64, 19, 62, 85, 60, 124, 0};
+		gbl_informacionActividad.columnWidths = new int[]{51, 85, 64, 50, 62, 0, 85, 60, 124, 0};
 		gbl_informacionActividad.rowHeights = new int[]{93, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 40, 21, 0};
-		gbl_informacionActividad.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_informacionActividad.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_informacionActividad.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		informacionActividad.setLayout(gbl_informacionActividad);
 		
@@ -312,7 +310,7 @@ public class ConsultarInformacion extends JPanel {
 		gbc_lblDescripcion.anchor = GridBagConstraints.SOUTH;
 		gbc_lblDescripcion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblDescripcion.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDescripcion.gridx = 5;
+		gbc_lblDescripcion.gridx = 6;
 		gbc_lblDescripcion.gridy = 0;
 		informacionActividad.add(lblDescripcion, gbc_lblDescripcion);
 		
@@ -343,7 +341,7 @@ public class ConsultarInformacion extends JPanel {
 		gbc_textFieldDescripcion.gridheight = 3;
 		gbc_textFieldDescripcion.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldDescripcion.fill = GridBagConstraints.BOTH;
-		gbc_textFieldDescripcion.gridx = 5;
+		gbc_textFieldDescripcion.gridx = 6;
 		gbc_textFieldDescripcion.gridy = 1;
 		informacionActividad.add(textFieldDescripcion, gbc_textFieldDescripcion);
 		
@@ -414,7 +412,7 @@ public class ConsultarInformacion extends JPanel {
 		gbc_btnElegirIcono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnElegirIcono.insets = new Insets(0, 0, 5, 5);
 		gbc_btnElegirIcono.gridwidth = 2;
-		gbc_btnElegirIcono.gridx = 5;
+		gbc_btnElegirIcono.gridx = 6;
 		gbc_btnElegirIcono.gridy = 5;
 		informacionActividad.add(btnElegirIcono, gbc_btnElegirIcono);
 		
@@ -445,7 +443,7 @@ public class ConsultarInformacion extends JPanel {
 		gbc_textFieldPathIcono.gridwidth = 2;
 		gbc_textFieldPathIcono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldPathIcono.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldPathIcono.gridx = 5;
+		gbc_textFieldPathIcono.gridx = 6;
 		gbc_textFieldPathIcono.gridy = 6;
 		informacionActividad.add(textFieldPathIcono, gbc_textFieldPathIcono);
 		textFieldPathIcono.setColumns(10);
@@ -503,7 +501,7 @@ public class ConsultarInformacion extends JPanel {
 		gbc_lblMaterialNecesario.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblMaterialNecesario.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMaterialNecesario.gridwidth = 2;
-		gbc_lblMaterialNecesario.gridx = 5;
+		gbc_lblMaterialNecesario.gridx = 6;
 		gbc_lblMaterialNecesario.gridy = 8;
 		informacionActividad.add(lblMaterialNecesario, gbc_lblMaterialNecesario);
 		
@@ -515,7 +513,7 @@ public class ConsultarInformacion extends JPanel {
 		gbc_textFieldMaterial.fill = GridBagConstraints.BOTH;
 		gbc_textFieldMaterial.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldMaterial.gridwidth = 2;
-		gbc_textFieldMaterial.gridx = 5;
+		gbc_textFieldMaterial.gridx = 6;
 		gbc_textFieldMaterial.gridy = 9;
 		informacionActividad.add(textFieldMaterial, gbc_textFieldMaterial);
 		textFieldMaterial.setColumns(10);
@@ -567,7 +565,7 @@ public class ConsultarInformacion extends JPanel {
 		GridBagConstraints gbc_btnCrearActividad = new GridBagConstraints();
 		gbc_btnCrearActividad.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnCrearActividad.gridwidth = 2;
-		gbc_btnCrearActividad.gridx = 6;
+		gbc_btnCrearActividad.gridx = 7;
 		gbc_btnCrearActividad.gridy = 12;
 		informacionActividad.add(btnCrearActividad, gbc_btnCrearActividad);
 		
@@ -620,8 +618,8 @@ public class ConsultarInformacion extends JPanel {
 	}
 	private class ListaRutasListSelectionListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent e) {
-			Alojamiento a = (Alojamiento) listaBungalows.getSelectedValue();
-			imagenRuta.setIcon(new ImageIcon(MainWindow.class.getResource(a.getFoto())));
+			Ruta r = (Ruta) listRutas.getSelectedValue();
+			imagenRuta.setIcon(new ImageIcon(MainWindow.class.getResource(r.getFotoRuta())));
 		}
 	}
 	

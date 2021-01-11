@@ -1,1 +1,2 @@
-Ruta Gabacha;Manolo;Mañana;Pasado;Pacifica ruta a traves del campo;null
+Ruta Gabacha;Manolo;Mañana;Pasado;Pacifica ruta a traves del campo;/rutas/mapa.jpg
+Ruta Europea;Andresito;Mañana;Pasado;Ruta gucceandola con los chavales si o noo;/rutas/mapa1.png
