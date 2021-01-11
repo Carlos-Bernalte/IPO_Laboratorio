@@ -59,16 +59,17 @@ public class LoginWindow {
 	private JMenu mnAjustes;
 	private JMenu mnFuente;
 	private JMenu mnTamañoFuente;
-	private JMenuItem fuenteArial;
-	private JMenuItem mnTFuente12;
+	private JRadioButtonMenuItem fuenteArial;
+	private JRadioButtonMenuItem mnTFuente12;
 	private JButton btnSalir;
-	private JMenuItem fuenteAvenir;
-	private JMenuItem fuenteFranklin;
+	private JRadioButtonMenuItem fuenteAvenir;
+	private JRadioButtonMenuItem fuenteFranklin;
 	private final ButtonGroup btnGroupFuente = new ButtonGroup();
 	private Font fuenteDefault;
-	private JMenuItem mnTFuente20;
-	private JMenuItem mnTFuente16;
+	private JRadioButtonMenuItem mnTFuente20;
+	private JRadioButtonMenuItem mnTFuente16;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	/**
 	 * Launch the application.
 	 */
@@ -243,17 +244,17 @@ public class LoginWindow {
 		mnFuente = new JMenu(Messages.getString("LoginWindow.22")); //$NON-NLS-1$
 		mnAjustes.add(mnFuente);
 		
-		fuenteArial = new JMenuItem(Messages.getString("LoginWindow.23")); //$NON-NLS-1$
+		fuenteArial = new JRadioButtonMenuItem(Messages.getString("LoginWindow.23")); //$NON-NLS-1$
 		fuenteArial.addActionListener(new fuenteListener());
 		btnGroupFuente.add(fuenteArial);
 		mnFuente.add(fuenteArial);
 		
-		fuenteAvenir = new JMenuItem(Messages.getString("LoginWindow.24")); //$NON-NLS-1$
+		fuenteAvenir = new JRadioButtonMenuItem(Messages.getString("LoginWindow.24")); //$NON-NLS-1$
 		fuenteAvenir.addActionListener(new fuenteListener());
 		btnGroupFuente.add(fuenteAvenir);
 		mnFuente.add(fuenteAvenir);
 		
-		fuenteFranklin = new JMenuItem(Messages.getString("LoginWindow.25")); //$NON-NLS-1$
+		fuenteFranklin = new JRadioButtonMenuItem(Messages.getString("LoginWindow.25")); //$NON-NLS-1$
 		fuenteFranklin.addActionListener(new fuenteListener());
 		btnGroupFuente.add(fuenteFranklin);
 		mnFuente.add(fuenteFranklin);
@@ -261,15 +262,18 @@ public class LoginWindow {
 		mnTamañoFuente = new JMenu(Messages.getString("LoginWindow.26")); //$NON-NLS-1$
 		mnAjustes.add(mnTamañoFuente);
 		
-		mnTFuente12 = new JMenuItem("12"); //$NON-NLS-1$
+		mnTFuente12 = new JRadioButtonMenuItem("12"); //$NON-NLS-1$
+		buttonGroup_1.add(mnTFuente12);
 		mnTFuente12.addActionListener(new fuenteListener());
 		mnTamañoFuente.add(mnTFuente12);
 		
-		mnTFuente16 = new JMenuItem("16"); //$NON-NLS-1$
+		mnTFuente16 = new JRadioButtonMenuItem("16"); //$NON-NLS-1$
+		buttonGroup_1.add(mnTFuente16);
 		mnTFuente16.addActionListener(new fuenteListener());
 		mnTamañoFuente.add(mnTFuente16);
 		
-		mnTFuente20 = new JMenuItem("20"); //$NON-NLS-1$
+		mnTFuente20 = new JRadioButtonMenuItem("20"); //$NON-NLS-1$
+		buttonGroup_1.add(mnTFuente20);
 		mnTFuente20.addActionListener(new fuenteListener());
 		mnTamañoFuente.add(mnTFuente20);
 		
