@@ -54,6 +54,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JMenu;
+import javax.swing.ButtonGroup;
 
 
 @SuppressWarnings("serial")
@@ -88,6 +91,9 @@ public class DibujarRuta extends JPanel {
 	private Image puntoInteres;
 	private Image imagenRuta;
 	private Image imagenBorrador;
+	private Image imagenFacil;
+	private Image imagenMediana;
+	private Image imagenDificil;
 	private Cursor cursorInicio;
 	private Cursor cursorFuente;
 	private Cursor cursorMerendero;
@@ -95,21 +101,30 @@ public class DibujarRuta extends JPanel {
 	private Cursor cursorInteres;
 	private Cursor cursorRuta;
 	private Cursor cursorBorrador;
+	private Cursor cursorFacil;
+	private Cursor cursorMediana;
+	private Cursor cursorDificil;
 	int modo= -1;
 	private final int INICIO =1;
 	private final int LLEGADA =2;
 	private final int FUENTE = 3;
 	private final int MERENDERO =4;
 	private final int INTERES=5;
-	private final int RUTA=6;
+	private final int ROJO=6;
 	private final int BORRADOR=7;
+	private final int VERDE=8;
+	private final int NARANJA=9;
 	private int x, y, x1, y1;
-	private JMenuItem mntmLineaRuta;
 	private Vector<Empleado> empleados;
 	private JLabel lblDescripcionRuta;
 	private JTextArea textArea;
 	private JMenuItem mntmBorrador;
 	private File file;
+	private JMenu mnNewMenu;
+	private JRadioButtonMenuItem rdbtnmntmNewRadioItem;
+	private JRadioButtonMenuItem rdbtnmntmNewRadioItem_1;
+	private JRadioButtonMenuItem rdbtnmntmNewRadioItem_2;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	/**
 	 * Create the panel.
 	 * @throws ParseException 
@@ -123,15 +138,19 @@ public class DibujarRuta extends JPanel {
 		imagenMerendero =toolkit.getImage(getClass().getClassLoader().getResource("Iconos/merendero.png")); //$NON-NLS-1$
 		imagenMeta = toolkit.getImage(getClass().getClassLoader().getResource("Iconos/meta.png")); //$NON-NLS-1$
 		puntoInteres = toolkit.getImage(getClass().getClassLoader().getResource("Iconos/puntoInteres.png")); //$NON-NLS-1$
-		imagenRuta= toolkit.getImage(getClass().getClassLoader().getResource("Iconos/lineaRuta.png")); //$NON-NLS-1$
 		imagenBorrador=toolkit.getImage(getClass().getClassLoader().getResource("Iconos/borrador.png")); //$NON-NLS-1$
+		imagenFacil=toolkit.getImage(getClass().getClassLoader().getResource("Iconos/highlighter.png"));
+		imagenMediana=toolkit.getImage(getClass().getClassLoader().getResource("Iconos/lapiz.png"));
+		imagenDificil=toolkit.getImage(getClass().getClassLoader().getResource("Iconos/lineaRuta.png"));
 		cursorInicio = toolkit.createCustomCursor(imagenInicio, new Point(0,0), "CURSOR_INICIO"); //$NON-NLS-1$
 		cursorFuente = toolkit.createCustomCursor(imagenFuente, new Point(0,0), "CURSOR_FUENTE"); //$NON-NLS-1$
 		cursorMerendero = toolkit.createCustomCursor(imagenMerendero, new Point(0,0), "CURSOR_MERENDERO"); //$NON-NLS-1$
 		cursorMeta = toolkit.createCustomCursor(imagenMeta, new Point(0,0), "CURSOR_META"); //$NON-NLS-1$
 		cursorInteres = toolkit.createCustomCursor(puntoInteres, new Point(0,0), "CURSOR_INTERES"); //$NON-NLS-1$
-		cursorRuta= toolkit.createCustomCursor(imagenRuta, new Point(0,0),"CURSOR_RUTA"); //$NON-NLS-1$
 		cursorBorrador= toolkit.createCustomCursor(imagenBorrador, new Point(0,0), "CURSOR_BORRADOR"); //$NON-NLS-1$
+		cursorFacil= toolkit.createCustomCursor(imagenFacil, new Point(0,0), "CURSOR_FACIL"); //$NON-NLS-1$
+		cursorMediana= toolkit.createCustomCursor(imagenMediana, new Point(0,0), "CURSOR_MEDIANA"); //$NON-NLS-1$
+		cursorDificil= toolkit.createCustomCursor(imagenDificil, new Point(0,0), "CURSOR_DIFICIL"); //$NON-NLS-1$
 		
 		setBackground(Paleta.azul_oscuro);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -166,11 +185,27 @@ public class DibujarRuta extends JPanel {
 		menuBar = new JMenuBar();
 		panelDibujo.add(menuBar, BorderLayout.NORTH);
 		
-		mntmLineaRuta = new JMenuItem(Messages.getString("DibujarRuta.14")); //$NON-NLS-1$
-		mntmLineaRuta.setToolTipText(Messages.getString("DibujarRuta.mntmLineaRuta.toolTipText")); //$NON-NLS-1$
-		menuBar.add(mntmLineaRuta);
-		mntmLineaRuta.addActionListener(new MntmLineaRutaActionListener());
-		mntmLineaRuta.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/lineaRuta.png"))); //$NON-NLS-1$
+		mnNewMenu = new JMenu(Messages.getString("DibujarRuta.mnNewMenu.text")); //$NON-NLS-1$
+		mnNewMenu.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/lapiz.png")));
+		menuBar.add(mnNewMenu);
+		
+		rdbtnmntmNewRadioItem = new JRadioButtonMenuItem(Messages.getString("DibujarRuta.rdbtnmntmNewRadioItem.text")); //$NON-NLS-1$
+		rdbtnmntmNewRadioItem.addActionListener(new RdbtnmntmNewRadioItemActionListener());
+		buttonGroup.add(rdbtnmntmNewRadioItem);
+		rdbtnmntmNewRadioItem.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/highlighter.png")));
+		mnNewMenu.add(rdbtnmntmNewRadioItem);
+		
+		rdbtnmntmNewRadioItem_1 = new JRadioButtonMenuItem(Messages.getString("DibujarRuta.rdbtnmntmNewRadioItem_1.text")); //$NON-NLS-1$
+		rdbtnmntmNewRadioItem_1.addActionListener(new RdbtnmntmNewRadioItem_1ActionListener());
+		buttonGroup.add(rdbtnmntmNewRadioItem_1);
+		rdbtnmntmNewRadioItem_1.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/marker.png")));
+		mnNewMenu.add(rdbtnmntmNewRadioItem_1);
+		
+		rdbtnmntmNewRadioItem_2 = new JRadioButtonMenuItem(Messages.getString("DibujarRuta.rdbtnmntmNewRadioItem_2.text")); //$NON-NLS-1$
+		rdbtnmntmNewRadioItem_2.addActionListener(new RdbtnmntmNewRadioItem_2ActionListener());
+		buttonGroup.add(rdbtnmntmNewRadioItem_2);
+		rdbtnmntmNewRadioItem_2.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/lineaRuta.png")));
+		mnNewMenu.add(rdbtnmntmNewRadioItem_2);
 		
 		mntmBorrador = new JMenuItem(Messages.getString("DibujarRuta.16")); //$NON-NLS-1$
 		mntmBorrador.setToolTipText(Messages.getString("DibujarRuta.mntmBorrador.toolTipText")); //$NON-NLS-1$
@@ -411,12 +446,6 @@ public class DibujarRuta extends JPanel {
 			panelDibujo.setCursor(cursorInteres);
 		}
 	}
-	private class MntmLineaRutaActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			modo = RUTA;
-			panelDibujo.setCursor(cursorRuta);
-		}
-	}
 	private class MntmBorradorActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			modo = BORRADOR;
@@ -450,8 +479,16 @@ public class DibujarRuta extends JPanel {
 						areaDibujo.addObjetoGrafico(new ImagenGrafico(x,y,imagenMerendero));
 						areaDibujo.repaint();
 						break;
-					case RUTA:
+					case ROJO:
 						areaDibujo.addObjetoGrafico(new lineaGrafico(x,y,x1,y1,Color.RED));
+						areaDibujo.repaint();
+						break;
+					case VERDE:
+						areaDibujo.addObjetoGrafico(new lineaGrafico(x,y,x1,y1,Color.GREEN));
+						areaDibujo.repaint();
+						break;
+					case NARANJA:
+						areaDibujo.addObjetoGrafico(new lineaGrafico(x,y,x1,y1,Color.ORANGE));
 						areaDibujo.repaint();
 						break;
 					case BORRADOR:
@@ -472,7 +509,7 @@ public class DibujarRuta extends JPanel {
 		@Override
 		public void mouseDragged(MouseEvent e) {
 	
-			if(modo == RUTA && imagen!=null) {
+			if((modo == ROJO || modo == VERDE || modo == NARANJA) && imagen!=null) {
 				((lineaGrafico)areaDibujo.getUltimoObjetoGrafico()).setX1(e.getX());
 				((lineaGrafico)areaDibujo.getUltimoObjetoGrafico()).setY1(e.getY());
 				areaDibujo.repaint();
@@ -495,6 +532,24 @@ public class DibujarRuta extends JPanel {
 					e1.printStackTrace();
 				}
 			}
+		}
+	}
+	private class RdbtnmntmNewRadioItemActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			modo=VERDE;
+			panelDibujo.setCursor(cursorFacil);
+		}
+	}
+	private class RdbtnmntmNewRadioItem_1ActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			modo=NARANJA;
+			panelDibujo.setCursor(cursorMediana);
+		}
+	}
+	private class RdbtnmntmNewRadioItem_2ActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			modo=ROJO;
+			panelDibujo.setCursor(cursorDificil);
 		}
 	}
 	

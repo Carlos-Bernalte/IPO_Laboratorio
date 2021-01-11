@@ -1,4 +1,4 @@
 Raúl;Cimas;12345678A;999888666;raulcimas@gmail.com;raulcimas;Monitor
 Manolo;Lama;87654321Z;434554771;manololama@gmail.com;manololama;Guia
 Ismael;Talava;82423431Z;989898989;ismatalava@gmail.com;ismaeltalava;Guia
-Belen;Gomez;345646256N;123321456;bgomez@gmail.com;null;Monitor
+Belen;Gomez;345646256N;123321456;bgomez@gmail.com;null;Monitornull;null;null;null;null;null;nullnull;null;null;null;null;null;nullnull;null;null;null;null;null;null
