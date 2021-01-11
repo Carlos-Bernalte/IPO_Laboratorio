@@ -91,16 +91,15 @@ public class ConsultarInformacion extends JPanel {
 	 * Create the panel.
 	 */
 	@SuppressWarnings("rawtypes")
-	public ConsultarInformacion(GenericDAO gdao, JLabel lblFeedback) {
-		UIManager.getDefaults().put("TabbedPane.contentBorderInsets", new Insets(0,0,0,0));
-		UIManager.put("TabbedPane.selected", Paleta.blanco_gris);
+	public ConsultarInformacion(GenericDAO gdao) {
+		UIManager.getDefaults().put("TabbedPane.contentBorderInsets", new Insets(0,0,0,0)); //$NON-NLS-1$
+		UIManager.put("TabbedPane.selected", Paleta.blanco_gris); //$NON-NLS-1$
 		
 		setBackground(Paleta.azul_oscuro);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(new BorderLayout(0, 0));
 		
 		tabbedPaneConsultarInformacion = new JTabbedPane(JTabbedPane.LEFT);
-
 		tabbedPaneConsultarInformacion.setVerifyInputWhenFocusTarget(false);
 		tabbedPaneConsultarInformacion.setIgnoreRepaint(true);
 		tabbedPaneConsultarInformacion.setFocusTraversalKeysEnabled(false);
@@ -114,7 +113,7 @@ public class ConsultarInformacion extends JPanel {
 		tabParcelas = new JPanel();
 		tabParcelas.setBorder(null);
 		tabParcelas.setBackground(Paleta.blanco_gris);
-		tabbedPaneConsultarInformacion.addTab("Parcelas", null, tabParcelas, null);
+		tabbedPaneConsultarInformacion.addTab(Messages.getString("ConsultarInformacion.2"), null, tabParcelas, null); //$NON-NLS-1$
 		GridBagLayout gbl_tabParcelas = new GridBagLayout();
 		gbl_tabParcelas.columnWidths = new int[]{900, 10, 160, 0};
 		gbl_tabParcelas.rowHeights = new int[]{126, 1, 0};
@@ -146,8 +145,8 @@ public class ConsultarInformacion extends JPanel {
 		gbc_listParcelas.gridy = 0;
 		listaParcelas.setCellRenderer(new RenderizadoAlojamiento(1));
 		
-		lblImagen = new JLabel("");
-		lblImagen.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 5), "Image", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+		lblImagen = new JLabel(""); //$NON-NLS-1$
+		lblImagen.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 5), "Image", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK)); //$NON-NLS-1$
 		GridBagConstraints gbc_lblImagen = new GridBagConstraints();
 		gbc_lblImagen.anchor = GridBagConstraints.NORTH;
 		gbc_lblImagen.gridx = 2;
@@ -158,7 +157,7 @@ public class ConsultarInformacion extends JPanel {
 		tabBungalows = new JPanel();
 		tabBungalows.setBorder(null);
 		tabBungalows.setBackground(Paleta.blanco_gris);
-		tabbedPaneConsultarInformacion.addTab("Bungalows", null, tabBungalows, null);
+		tabbedPaneConsultarInformacion.addTab(Messages.getString("ConsultarInformacion.5"), null, tabBungalows, null); //$NON-NLS-1$
 		GridBagLayout gbl_tabBungalows = new GridBagLayout();
 		gbl_tabBungalows.columnWidths = new int[]{900, 10, 89, 0};
 		gbl_tabBungalows.rowHeights = new int[]{126, 138, 0};
@@ -184,8 +183,8 @@ public class ConsultarInformacion extends JPanel {
 		scrollPaneBungalows.setViewportView(listaBungalows);
 		listaBungalows.setCellRenderer(new RenderizadoAlojamiento(1));
 		
-		lblImagen1 = new JLabel("");
-		lblImagen1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 5), "Image", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		lblImagen1 = new JLabel(""); //$NON-NLS-1$
+		lblImagen1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 5), "Image", TitledBorder.LEADING, TitledBorder.TOP, null, null)); //$NON-NLS-1$
 		GridBagConstraints gbc_lblImagen1 = new GridBagConstraints();
 		gbc_lblImagen1.anchor = GridBagConstraints.NORTH;
 		gbc_lblImagen1.gridx = 2;
@@ -195,7 +194,7 @@ public class ConsultarInformacion extends JPanel {
 		tabRutas = new JPanel();
 		tabRutas.setBorder(null);
 		tabRutas.setBackground(Paleta.blanco_gris);
-		tabbedPaneConsultarInformacion.addTab("Rutas", null, tabRutas, null);
+		tabbedPaneConsultarInformacion.addTab(Messages.getString("ConsultarInformacion.8"), null, tabRutas, null); //$NON-NLS-1$
 		refreshAlojamiento(gdao);
 		GridBagLayout gbl_tabRutas = new GridBagLayout();
 		gbl_tabRutas.columnWidths = new int[]{729, 10, 0, 0};
@@ -218,7 +217,7 @@ public class ConsultarInformacion extends JPanel {
 		list.setBackground(Paleta.blanco_gris);
 		scrollPaneRutas.setViewportView(list);
 		
-		imagenRuta = new JLabel("");
+		imagenRuta = new JLabel(""); //$NON-NLS-1$
 		GridBagConstraints gbc_imagenRuta = new GridBagConstraints();
 		gbc_imagenRuta.gridx = 2;
 		gbc_imagenRuta.gridy = 1;
@@ -227,7 +226,7 @@ public class ConsultarInformacion extends JPanel {
 		tabActividades = new JPanel();
 		tabActividades.setBorder(null);
 		tabActividades.setBackground(Paleta.blanco_gris);
-		tabbedPaneConsultarInformacion.addTab("Actividades", null, tabActividades, null);
+		tabbedPaneConsultarInformacion.addTab(Messages.getString("ConsultarInformacion.10"), null, tabActividades, null); //$NON-NLS-1$
 		GridBagLayout gbl_tabActividades = new GridBagLayout();
 		gbl_tabActividades.columnWidths = new int[]{800, 194, 10, 0};
 		gbl_tabActividades.rowHeights = new int[]{10, 222, 10, 0};
@@ -301,7 +300,7 @@ public class ConsultarInformacion extends JPanel {
 		textFieldNombre.setBorder(new LineBorder(new Color(0, 0, 0)));
 		textFieldNombre.addKeyListener(new TextFieldNombreKeyListener());
 		
-		lblDescripcion = new JLabel("Descripcion:");
+		lblDescripcion = new JLabel(Messages.getString("ConsultarInformacion.11")); //$NON-NLS-1$
 		lblDescripcion.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblDescripcion = new GridBagConstraints();
 		gbc_lblDescripcion.anchor = GridBagConstraints.SOUTH;
@@ -311,9 +310,9 @@ public class ConsultarInformacion extends JPanel {
 		gbc_lblDescripcion.gridy = 0;
 		informacionActividad.add(lblDescripcion, gbc_lblDescripcion);
 		
-		lblNombreActividad = new JLabel("Nombre:");
+		lblNombreActividad = new JLabel(Messages.getString("ConsultarInformacion.12")); //$NON-NLS-1$
 		lblNombreActividad.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombreActividad.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNombreActividad.setFont(new Font("Tahoma", Font.PLAIN, 10)); //$NON-NLS-1$
 		lblNombreActividad.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNombreActividad = new GridBagConstraints();
 		gbc_lblNombreActividad.anchor = GridBagConstraints.NORTHEAST;
@@ -342,9 +341,9 @@ public class ConsultarInformacion extends JPanel {
 		gbc_textFieldDescripcion.gridy = 1;
 		informacionActividad.add(textFieldDescripcion, gbc_textFieldDescripcion);
 		
-		lblMonitor = new JLabel("Monitor:");
+		lblMonitor = new JLabel(Messages.getString("ConsultarInformacion.14")); //$NON-NLS-1$
 		lblMonitor.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMonitor.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblMonitor.setFont(new Font("Tahoma", Font.PLAIN, 10)); //$NON-NLS-1$
 		lblMonitor.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblMonitor = new GridBagConstraints();
 		gbc_lblMonitor.anchor = GridBagConstraints.SOUTHEAST;
@@ -362,9 +361,9 @@ public class ConsultarInformacion extends JPanel {
 		informacionActividad.add(textFieldMonitor, gbc_textFieldMonitor);
 		textFieldMonitor.setColumns(10);
 		
-		lblHorario = new JLabel("Horario:");
+		lblHorario = new JLabel(Messages.getString("ConsultarInformacion.16")); //$NON-NLS-1$
 		lblHorario.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblHorario.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblHorario.setFont(new Font("Tahoma", Font.PLAIN, 10)); //$NON-NLS-1$
 		lblHorario.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblHorario = new GridBagConstraints();
 		gbc_lblHorario.anchor = GridBagConstraints.NORTHEAST;
@@ -381,9 +380,9 @@ public class ConsultarInformacion extends JPanel {
 		informacionActividad.add(textFieldHorario, gbc_textFieldHorario);
 		textFieldHorario.setColumns(10);
 		
-		lblCupoMinimo = new JLabel("Cupo mínimo:");
+		lblCupoMinimo = new JLabel(Messages.getString("ConsultarInformacion.18")); //$NON-NLS-1$
 		lblCupoMinimo.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCupoMinimo.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblCupoMinimo.setFont(new Font("Tahoma", Font.PLAIN, 10)); //$NON-NLS-1$
 		lblCupoMinimo.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblCupoMinimo = new GridBagConstraints();
 		gbc_lblCupoMinimo.anchor = GridBagConstraints.EAST;
@@ -402,7 +401,7 @@ public class ConsultarInformacion extends JPanel {
 		gbc_spinnerCupoMinimo.gridy = 5;
 		informacionActividad.add(spinnerCupoMinimo, gbc_spinnerCupoMinimo);
 		
-		btnElegirIcono = new JButton("Seleccionar Icono");
+		btnElegirIcono = new JButton(Messages.getString("ConsultarInformacion.20")); //$NON-NLS-1$
 		btnElegirIcono.addActionListener(new BtnElegirIconoActionListener());
 		GridBagConstraints gbc_btnElegirIcono = new GridBagConstraints();
 		gbc_btnElegirIcono.anchor = GridBagConstraints.NORTH;
@@ -413,9 +412,9 @@ public class ConsultarInformacion extends JPanel {
 		gbc_btnElegirIcono.gridy = 5;
 		informacionActividad.add(btnElegirIcono, gbc_btnElegirIcono);
 		
-		lblCupoMaximo = new JLabel("Cupo máximo:");
+		lblCupoMaximo = new JLabel(Messages.getString("ConsultarInformacion.21")); //$NON-NLS-1$
 		lblCupoMaximo.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCupoMaximo.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblCupoMaximo.setFont(new Font("Tahoma", Font.PLAIN, 10)); //$NON-NLS-1$
 		lblCupoMaximo.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblCupoMaximo = new GridBagConstraints();
 		gbc_lblCupoMaximo.anchor = GridBagConstraints.EAST;
@@ -445,9 +444,9 @@ public class ConsultarInformacion extends JPanel {
 		informacionActividad.add(textFieldPathIcono, gbc_textFieldPathIcono);
 		textFieldPathIcono.setColumns(10);
 		
-		lblPrecioPorHora = new JLabel("Precio/Hora:");
+		lblPrecioPorHora = new JLabel(Messages.getString("ConsultarInformacion.23")); //$NON-NLS-1$
 		lblPrecioPorHora.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPrecioPorHora.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblPrecioPorHora.setFont(new Font("Tahoma", Font.PLAIN, 10)); //$NON-NLS-1$
 		lblPrecioPorHora.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblPrecioPorHora = new GridBagConstraints();
 		gbc_lblPrecioPorHora.anchor = GridBagConstraints.NORTHEAST;
@@ -469,7 +468,7 @@ public class ConsultarInformacion extends JPanel {
 		informacionActividad.add(textFieldPrecio, gbc_textFieldPrecio);
 		textFieldPrecio.setColumns(10);
 		
-		lblDestinatarios = new JLabel("Destinatario:");
+		lblDestinatarios = new JLabel(Messages.getString("ConsultarInformacion.25")); //$NON-NLS-1$
 		lblDestinatarios.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDestinatarios.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblDestinatarios = new GridBagConstraints();
@@ -492,7 +491,7 @@ public class ConsultarInformacion extends JPanel {
 		informacionActividad.add(textFieldDestinatario, gbc_textFieldDestinatario);
 		textFieldDestinatario.setColumns(10);
 		
-		lblMaterialNecesario = new JLabel("Material necesario:");
+		lblMaterialNecesario = new JLabel(Messages.getString("ConsultarInformacion.26")); //$NON-NLS-1$
 		lblMaterialNecesario.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblMaterialNecesario = new GridBagConstraints();
 		gbc_lblMaterialNecesario.anchor = GridBagConstraints.NORTHWEST;
@@ -515,7 +514,7 @@ public class ConsultarInformacion extends JPanel {
 		informacionActividad.add(textFieldMaterial, gbc_textFieldMaterial);
 		textFieldMaterial.setColumns(10);
 		
-		btnEditarActividad = new JButton("Editar Actividad");
+		btnEditarActividad = new JButton(Messages.getString("ConsultarInformacion.27")); //$NON-NLS-1$
 		btnEditarActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Actividad antigua = (Actividad) listActividades.getSelectedValue();
@@ -536,11 +535,11 @@ public class ConsultarInformacion extends JPanel {
 		gbc_btnEditarActividad.gridy = 12;
 		informacionActividad.add(btnEditarActividad, gbc_btnEditarActividad);
 		
-		btnCrearActividad = new JButton("Añadir Actividad");
+		btnCrearActividad = new JButton(Messages.getString("ConsultarInformacion.28")); //$NON-NLS-1$
 		btnCrearActividad.setEnabled(false);
 		btnCrearActividad.addActionListener(new BtnCrearActividadActionListener());
 		
-		btnNewButton = new JButton("Borrar Actividad");
+		btnNewButton = new JButton(Messages.getString("ConsultarInformacion.29")); //$NON-NLS-1$
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Actividad a = (Actividad) listActividades.getSelectedValue();
@@ -577,9 +576,9 @@ public class ConsultarInformacion extends JPanel {
 		listaBungalows.setModel(modeloLista2);
 		Vector<Alojamiento> lAlojamiento=gdao.getListaAlojamientos();
 		for(int i=0; i<lAlojamiento.size(); i++) {
-			if(lAlojamiento.elementAt(i).getClass().toString().equals("class dominio.Parcela")) {
+			if(lAlojamiento.elementAt(i).getClass().toString().equals("class dominio.Parcela")) { //$NON-NLS-1$
 				modeloLista.addElement(lAlojamiento.get(i));
-			}else if (lAlojamiento.elementAt(i).getClass().toString().equals("class dominio.Bungalow")){
+			}else if (lAlojamiento.elementAt(i).getClass().toString().equals("class dominio.Bungalow")){ //$NON-NLS-1$
 				modeloLista2.addElement(lAlojamiento.get(i));
 			}
 		}
@@ -612,7 +611,7 @@ public class ConsultarInformacion extends JPanel {
 				GenericDAO gdao= new GenericDAO();
 				refreshActividades(gdao);
 			} catch (NoSuchElementException e1) {
-				System.out.println("Hay algun dato vacio, por favor rellenalo");
+				System.out.println(Messages.getString("ConsultarInformacion.32")); //$NON-NLS-1$
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -621,7 +620,7 @@ public class ConsultarInformacion extends JPanel {
 	private class BtnElegirIconoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser fileChooser = new JFileChooser();
-			FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("JPG, PNG & GIF","jpg","png","gif");
+			FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("JPG, PNG & GIF","jpg","png","gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			 fileChooser.setFileFilter(filtroImagen);
 			try {
 				fileChooser.showOpenDialog(fileChooser);
@@ -633,7 +632,7 @@ public class ConsultarInformacion extends JPanel {
 	private class TextFieldNombreKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 				btnCrearActividad.setEnabled(true);
 			} else {
 				btnCrearActividad.setEnabled(false);
@@ -643,7 +642,7 @@ public class ConsultarInformacion extends JPanel {
 	private class TextFieldMonitorKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 				btnCrearActividad.setEnabled(true);
 			}else {
 				btnCrearActividad.setEnabled(false);
@@ -653,7 +652,7 @@ public class ConsultarInformacion extends JPanel {
 	private class TextFieldHorarioKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 				btnCrearActividad.setEnabled(true);
 			}else {
 				btnCrearActividad.setEnabled(false);
@@ -663,7 +662,7 @@ public class ConsultarInformacion extends JPanel {
 	private class TextFieldPrecioKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 				btnCrearActividad.setEnabled(true);
 			}else {
 				btnCrearActividad.setEnabled(false);
@@ -673,7 +672,7 @@ public class ConsultarInformacion extends JPanel {
 	private class TextFieldDestinatarioKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 				btnCrearActividad.setEnabled(true);
 			}else {
 				btnCrearActividad.setEnabled(false);
@@ -683,7 +682,7 @@ public class ConsultarInformacion extends JPanel {
 	private class TextFieldMaterialKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 				btnCrearActividad.setEnabled(true);
 			}else {
 				btnCrearActividad.setEnabled(false);
@@ -694,7 +693,7 @@ public class ConsultarInformacion extends JPanel {
 	private class TextFieldPathIconoKeyListener extends KeyAdapter {
 		@Override
 		public void keyTyped(KeyEvent e) {
-			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) {
+			if(!textFieldNombre.getText().equals("") && !textFieldMaterial.getText().equals("") && !textFieldNombre.getText().equals("") && !textFieldMonitor.getText().equals("") && !textFieldHorario.getText().equals("") && !textFieldDestinatario.getText().equals("") && !textFieldDescripcion.getText().equals("") && !textFieldPathIcono.getText().equals("") ) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
 				btnCrearActividad.setEnabled(true);
 		}else {
 			btnCrearActividad.setEnabled(false);
