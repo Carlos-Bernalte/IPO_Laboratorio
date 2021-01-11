@@ -92,8 +92,8 @@ public class RealizarReserva extends JPanel {
 		gbl_InformacionReserva.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		InformacionReserva.setLayout(gbl_InformacionReserva);
 		
-		label = new Label("Información de la reserva:");
-		label.setFont(new Font("Tahoma", Font.BOLD, 20));
+		label = new Label(Messages.getString("RealizarReserva.0")); //$NON-NLS-1$
+		label.setFont(new Font("Tahoma", Font.BOLD, 20)); //$NON-NLS-1$
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.fill = GridBagConstraints.HORIZONTAL;
 		gbc_label.insets = new Insets(0, 0, 5, 5);
@@ -101,7 +101,7 @@ public class RealizarReserva extends JPanel {
 		gbc_label.gridy = 1;
 		InformacionReserva.add(label, gbc_label);
 		
-		lblNombre = new JLabel("*Nombre:");
+		lblNombre = new JLabel(Messages.getString("RealizarReserva.2")); //$NON-NLS-1$
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
 		gbc_lblNombre.anchor = GridBagConstraints.EAST;
 		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
@@ -112,6 +112,8 @@ public class RealizarReserva extends JPanel {
 		lblNombre.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		textNombre = new JTextField();
+		textNombre.setToolTipText("Nombre de la reserva");
+		textNombre.setText(""); 
 		textNombre.setBorder(new LineBorder(Color.BLACK));
 		GridBagConstraints gbc_textNombre = new GridBagConstraints();
 		gbc_textNombre.fill = GridBagConstraints.HORIZONTAL;
@@ -122,7 +124,7 @@ public class RealizarReserva extends JPanel {
 		InformacionReserva.add(textNombre, gbc_textNombre);
 		textNombre.setColumns(10);
 		
-		lblTelefono = new JLabel("*Teléfono:");
+		lblTelefono = new JLabel(Messages.getString("RealizarReserva.4")); //$NON-NLS-1$
 		GridBagConstraints gbc_lblTelefono = new GridBagConstraints();
 		gbc_lblTelefono.anchor = GridBagConstraints.EAST;
 		gbc_lblTelefono.insets = new Insets(0, 0, 5, 5);
@@ -131,8 +133,9 @@ public class RealizarReserva extends JPanel {
 		InformacionReserva.add(lblTelefono, gbc_lblTelefono);
 		lblTelefono.setForeground(Color.WHITE);
 		lblTelefono.setHorizontalAlignment(SwingConstants.RIGHT);
-		MaskFormatter mascara = new MaskFormatter("#########");
+		MaskFormatter mascara = new MaskFormatter("#########"); //$NON-NLS-1$
 		textTelefono = new JFormattedTextField(mascara);
+		textTelefono.setText(Messages.getString("RealizarReserva.6")); //$NON-NLS-1$
 		textTelefono.setBorder(new LineBorder(Color.BLACK));
 		GridBagConstraints gbc_textTelefono = new GridBagConstraints();
 		gbc_textTelefono.insets = new Insets(0, 0, 5, 5);
@@ -141,7 +144,7 @@ public class RealizarReserva extends JPanel {
 		gbc_textTelefono.gridy = 4;
 		InformacionReserva.add(textTelefono, gbc_textTelefono);
 		
-		lblCorreo = new JLabel("Correo electrónico:");
+		lblCorreo = new JLabel(Messages.getString("RealizarReserva.7")); //$NON-NLS-1$
 		GridBagConstraints gbc_lblCorreo = new GridBagConstraints();
 		gbc_lblCorreo.anchor = GridBagConstraints.EAST;
 		gbc_lblCorreo.insets = new Insets(0, 0, 5, 5);
@@ -152,6 +155,8 @@ public class RealizarReserva extends JPanel {
 		lblCorreo.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		textCorreo = new JTextField();
+		textCorreo.setText("");
+		textCorreo.setToolTipText("Correo electronico de la reserva");
 		textCorreo.setBorder(new LineBorder(Color.BLACK));
 		GridBagConstraints gbc_textCorreo = new GridBagConstraints();
 		gbc_textCorreo.gridwidth = 2;
@@ -162,7 +167,7 @@ public class RealizarReserva extends JPanel {
 		InformacionReserva.add(textCorreo, gbc_textCorreo);
 		textCorreo.setColumns(10);
 		
-		lblFEntrada = new JLabel("*Fecha de entrada:");
+		lblFEntrada = new JLabel(Messages.getString("RealizarReserva.9")); //$NON-NLS-1$
 		GridBagConstraints gbc_lblFEntrada = new GridBagConstraints();
 		gbc_lblFEntrada.anchor = GridBagConstraints.EAST;
 		gbc_lblFEntrada.insets = new Insets(0, 0, 5, 5);
@@ -186,7 +191,7 @@ public class RealizarReserva extends JPanel {
 		
 		dateChooserComingDay.setMinSelectableDate(fecha);
 		
-		lblFSalida = new JLabel("*Fecha de salida:");
+		lblFSalida = new JLabel(Messages.getString("RealizarReserva.10")); //$NON-NLS-1$
 		GridBagConstraints gbc_lblFSalida = new GridBagConstraints();
 		gbc_lblFSalida.anchor = GridBagConstraints.EAST;
 		gbc_lblFSalida.insets = new Insets(0, 0, 5, 5);
@@ -208,7 +213,7 @@ public class RealizarReserva extends JPanel {
 		
 		dateChooserExitDate.setMinSelectableDate(fecha);
 		
-		lblSolicitudes = new JLabel("Solicitudes Especiales:");
+		lblSolicitudes = new JLabel(Messages.getString("RealizarReserva.11")); //$NON-NLS-1$
 		GridBagConstraints gbc_lblSolicitudes = new GridBagConstraints();
 		gbc_lblSolicitudes.anchor = GridBagConstraints.SOUTHWEST;
 		gbc_lblSolicitudes.insets = new Insets(0, 0, 5, 5);
@@ -219,6 +224,7 @@ public class RealizarReserva extends JPanel {
 		lblSolicitudes.setForeground(Color.WHITE);
 		
 		textAreaSolicitudesEspeciales = new JTextArea();
+		textAreaSolicitudesEspeciales.setToolTipText(Messages.getString("RealizarReserva.12")); //$NON-NLS-1$
 		GridBagConstraints gbc_textAreaSolicitudesEspeciales = new GridBagConstraints();
 		gbc_textAreaSolicitudesEspeciales.fill = GridBagConstraints.BOTH;
 		gbc_textAreaSolicitudesEspeciales.gridheight = 2;
@@ -229,7 +235,8 @@ public class RealizarReserva extends JPanel {
 		InformacionReserva.add(textAreaSolicitudesEspeciales, gbc_textAreaSolicitudesEspeciales);
 		
 		
-		btnLimpiarReserva = new JButton("Limpiar");
+		btnLimpiarReserva = new JButton(Messages.getString("RealizarReserva.13")); //$NON-NLS-1$
+		btnLimpiarReserva.setToolTipText(Messages.getString("RealizarReserva.14")); //$NON-NLS-1$
 		GridBagConstraints gbc_btnLimpiarReserva = new GridBagConstraints();
 		gbc_btnLimpiarReserva.insets = new Insets(0, 0, 0, 5);
 		gbc_btnLimpiarReserva.gridx = 1;
@@ -241,7 +248,8 @@ public class RealizarReserva extends JPanel {
 		btnLimpiarReserva.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		btnLimpiarReserva.setBackground(Color.RED);
 		
-		btnReservar = new JButton("Reservar");
+		btnReservar = new JButton(Messages.getString("RealizarReserva.15")); //$NON-NLS-1$
+		btnReservar.setToolTipText(Messages.getString("RealizarReserva.16")); //$NON-NLS-1$
 		GridBagConstraints gbc_btnReservar = new GridBagConstraints();
 		gbc_btnReservar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnReservar.gridx = 2;
@@ -291,10 +299,10 @@ public class RealizarReserva extends JPanel {
 	}
 	private class BtnLimpiarReservaActionListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				textAreaSolicitudesEspeciales.setText("");
-				textNombre.setText("");
-				textTelefono.setText("");
-				textCorreo.setText("");
+				textAreaSolicitudesEspeciales.setText(""); //$NON-NLS-1$
+				textNombre.setText(""); //$NON-NLS-1$
+				textTelefono.setText(""); //$NON-NLS-1$
+				textCorreo.setText(""); //$NON-NLS-1$
 				dateChooserComingDay.setDate(null);
 				dateChooserExitDate.setDate(null);
 			}
@@ -304,7 +312,7 @@ public class RealizarReserva extends JPanel {
 			int valor=0;
 			try {
 				String nombreAlojamiento =listAlojamientos.getSelectedValue().toStringNombreAlojamiento(listAlojamientos.getSelectedValue().toString());
-				Reserva r = new Reserva(nombreAlojamiento ,textNombre.getText(),textTelefono.getText(),textCorreo.getText(),"5",dateChooserComingDay.getDate(),dateChooserExitDate.getDate(),textAreaSolicitudesEspeciales.getText());
+				Reserva r = new Reserva(nombreAlojamiento ,textNombre.getText(),textTelefono.getText(),textCorreo.getText(),"5",dateChooserComingDay.getDate(),dateChooserExitDate.getDate(),textAreaSolicitudesEspeciales.getText()); //$NON-NLS-1$
 				valor=r.guardarReserva(r);
 			} catch (IOException e1) {
 				e1.printStackTrace();

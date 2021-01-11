@@ -5,6 +5,7 @@ import java.awt.CardLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.FontUIResource;
 
@@ -18,11 +19,13 @@ import javax.swing.ImageIcon;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Enumeration;
-
+import java.util.Locale;
 import java.awt.Insets;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -39,8 +42,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
@@ -51,8 +52,8 @@ public class MainWindow extends JFrame {
 	private JMenuBar barraOpciones;
 	private JMenu mnIdioma;
 	private JPanel panelSuperior;
-	private JMenuItem mntmEspañol;
-	private JMenuItem mntmIngles;
+	private JRadioButtonMenuItem mntmEspañol;
+	private JRadioButtonMenuItem mntmIngles;
 	private JPanel pnlOpciones;
 	private JToolBar tbAcciones;
 	private JButton btnConsultarInformacion;
@@ -77,21 +78,20 @@ public class MainWindow extends JFrame {
 	private JLabel fotoUsuario;
 	private JLabel lblNombre;
 	private JLabel lblApellidos;
+	private Usuario usuario;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public MainWindow(Usuario u) throws ParseException {
-
+	public MainWindow(Usuario u,String idioma) throws ParseException {
+		this.usuario = u;
 		setUndecorated(true);
-		
-
-		
 		GenericDAO gdao = new GenericDAO();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/Iconos/003-tent.png")));
-		setTitle("Gestor Camping");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/Iconos/003-tent.png"))); //$NON-NLS-1$
+		setTitle(Messages.getString("MainWindow.1")); //$NON-NLS-1$
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 808, 734);
 		contentPane = new JPanel();
@@ -100,7 +100,8 @@ public class MainWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		lblFeedback = new JLabel("Bienvenido");
+		lblFeedback = new JLabel(Messages.getString("MainWindow.2")); //$NON-NLS-1$
+		lblFeedback.setToolTipText(Messages.getString("MainWindow.3")); //$NON-NLS-1$
 		lblFeedback.setBorder(new EmptyBorder(5, 5, 5, 5));
 		lblFeedback.setForeground(Color.WHITE);
 		contentPane.add(lblFeedback, BorderLayout.SOUTH);
@@ -111,17 +112,17 @@ public class MainWindow extends JFrame {
 		panelCentral.setLayout(new CardLayout(0, 0));
 		
 		//Inicializar los paneles y añadirlos al panel central
-		ConsultarInformacion consultar_informacion= new ConsultarInformacion(gdao,lblFeedback);
-		panelCentral.add(consultar_informacion, "Consultar Información");
+		ConsultarInformacion consultar_informacion= new ConsultarInformacion(gdao);
+		panelCentral.add(consultar_informacion, Messages.getString("MainWindow.4")); //$NON-NLS-1$
 		
 		RealizarReserva realizar_reserva= new RealizarReserva(gdao,lblFeedback);
-		panelCentral.add(realizar_reserva, "Realizar Reserva");
+		panelCentral.add(realizar_reserva, Messages.getString("MainWindow.5")); //$NON-NLS-1$
 		
 		Personal personal = new Personal(gdao,lblFeedback);
-		panelCentral.add(personal, "Personal");
+		panelCentral.add(personal, Messages.getString("MainWindow.6")); //$NON-NLS-1$
 		
 		DibujarRuta dibujar_ruta =new DibujarRuta(gdao,lblFeedback);
-		panelCentral.add(dibujar_ruta, "Dibujar Ruta");
+		panelCentral.add(dibujar_ruta, Messages.getString("MainWindow.7")); //$NON-NLS-1$
 		
 
 		
@@ -134,54 +135,62 @@ public class MainWindow extends JFrame {
 		barraOpciones.setBorderPainted(false);
 		panelSuperior.add(barraOpciones, BorderLayout.NORTH);
 		
-		mnIdioma = new JMenu("Idioma");
+		mnIdioma = new JMenu(Messages.getString("MainWindow.8")); //$NON-NLS-1$
+		mnIdioma.setToolTipText(Messages.getString("MainWindow.9")); //$NON-NLS-1$
 		mnIdioma.setForeground(Color.WHITE);
-		this.mnIdioma.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/007-language.png")));
+		this.mnIdioma.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/007-language.png"))); //$NON-NLS-1$
 		barraOpciones.add(mnIdioma);
 		
-		mntmEspañol = new JMenuItem("Español");
-		this.mntmEspañol.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/001-spain.png")));
+		mntmEspañol = new JRadioButtonMenuItem(Messages.getString("MainWindow.11")); //$NON-NLS-1$
+		mntmEspañol.setToolTipText(Messages.getString("MainWindow.12")); //$NON-NLS-1$
+		buttonGroup.add(mntmEspañol);
+		mntmEspañol.addActionListener(new MnIdiomaActionListener());
+		this.mntmEspañol.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/001-spain.png"))); //$NON-NLS-1$
 		mnIdioma.add(mntmEspañol);
 		
-		mntmIngles = new JMenuItem("Inglés");
-		this.mntmIngles.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/002-united-kingdom.png")));
+		mntmIngles = new JRadioButtonMenuItem(Messages.getString("MainWindow.14")); //$NON-NLS-1$
+		mntmIngles.setToolTipText(Messages.getString("MainWindow.15")); //$NON-NLS-1$
+		buttonGroup.add(mntmIngles);
+		mntmIngles.addActionListener(new MnIdiomaActionListener());
+		this.mntmIngles.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/002-united-kingdom.png"))); //$NON-NLS-1$
 		mnIdioma.add(mntmIngles);
 		
-		mnAjustes = new JMenu("Ajustes");
+		mnAjustes = new JMenu(Messages.getString("MainWindow.17")); //$NON-NLS-1$
+		mnAjustes.setToolTipText(Messages.getString("MainWindow.18")); //$NON-NLS-1$
 		mnAjustes.setForeground(Color.WHITE);
-		mnAjustes.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/004-settings.png")));
+		mnAjustes.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/004-settings.png"))); //$NON-NLS-1$
 		barraOpciones.add(mnAjustes);
 		
-		mnFuente = new JMenu("Fuente");
+		mnFuente = new JMenu(Messages.getString("MainWindow.20")); //$NON-NLS-1$
 		mnAjustes.add(mnFuente);
 		
-		fuenteArial = new JMenuItem("Arial");
+		fuenteArial = new JMenuItem("Arial"); //$NON-NLS-1$
 		fuenteArial.addActionListener(new fuenteListener());
 		btnGroupFuente.add(fuenteArial);
 		mnFuente.add(fuenteArial);
 		
-		fuenteAvenir = new JMenuItem("Avenir Next LT Pro");
+		fuenteAvenir = new JMenuItem("Avenir Next LT Pro"); //$NON-NLS-1$
 		fuenteAvenir.addActionListener(new fuenteListener());
 		btnGroupFuente.add(fuenteAvenir);
 		mnFuente.add(fuenteAvenir);
 		
-		fuenteFranklin = new JMenuItem("Franklin Gothic Book");
+		fuenteFranklin = new JMenuItem("Franklin Gothic Book"); //$NON-NLS-1$
 		fuenteFranklin.addActionListener(new fuenteListener());
 		btnGroupFuente.add(fuenteFranklin);
 		mnFuente.add(fuenteFranklin);
 		
-		mnTamañoFuente = new JMenu("Tamaño de Fuente");
+		mnTamañoFuente = new JMenu(Messages.getString("MainWindow.24")); //$NON-NLS-1$
 		mnAjustes.add(mnTamañoFuente);
 		
-		mnTFuente12 = new JMenuItem("12"); 
+		mnTFuente12 = new JMenuItem("12");  //$NON-NLS-1$
 		mnTFuente12.addActionListener(new fuenteListener());
 		mnTamañoFuente.add(mnTFuente12);
 		
-		mnTFuente16 = new JMenuItem("16");
+		mnTFuente16 = new JMenuItem("16"); //$NON-NLS-1$
 		mnTFuente16.addActionListener(new fuenteListener());
 		mnTamañoFuente.add(mnTFuente16);
 		
-		mnTFuente20 = new JMenuItem("20");
+		mnTFuente20 = new JMenuItem("20"); //$NON-NLS-1$
 		mnTFuente20.addActionListener(new fuenteListener());
 		mnTamañoFuente.add(mnTFuente20);
 		
@@ -189,7 +198,19 @@ public class MainWindow extends JFrame {
 		horizontalGlue.setForeground(Color.WHITE);
 		barraOpciones.add(horizontalGlue);
 		
-		btnSalir = new JButton("Salir");
+		switch(idioma) {
+		case "castellano":  //$NON-NLS-1$
+			mntmEspañol.setSelected(true);
+			break;
+		case "ingles": //$NON-NLS-1$
+			mntmIngles.setSelected(true);
+			break;
+		default:
+			break;
+		}
+		
+		btnSalir = new JButton(Messages.getString("MainWindow.30")); //$NON-NLS-1$
+		btnSalir.setToolTipText(Messages.getString("MainWindow.31")); //$NON-NLS-1$
 		btnSalir.setForeground(Color.WHITE);
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -203,7 +224,6 @@ public class MainWindow extends JFrame {
 				} catch (IOException e1) {
 					System.out.println(e1.toString());
 				} catch (CloneNotSupportedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				dispose();
@@ -211,6 +231,7 @@ public class MainWindow extends JFrame {
 		});
 		
 		mnUser = new JMenu(u.getNombre());
+		mnUser.setToolTipText(Messages.getString("MainWindow.32")); //$NON-NLS-1$
 		mnUser.setBackground(Color.BLACK);
 		mnUser.setHorizontalAlignment(SwingConstants.TRAILING);
 		mnUser.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -230,9 +251,9 @@ public class MainWindow extends JFrame {
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		fotoUsuario = new JLabel("");
+		fotoUsuario = new JLabel(""); //$NON-NLS-1$
 		fotoUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		fotoUsuario.setIcon(new ImageIcon(MainWindow.class.getResource("/imagenes/usuario.png")));
+		fotoUsuario.setIcon(new ImageIcon(MainWindow.class.getResource(Messages.getString("MainWindow.13")))); //$NON-NLS-1$
 		GridBagConstraints gbc_fotoUsuario = new GridBagConstraints();
 		gbc_fotoUsuario.gridheight = 3;
 		gbc_fotoUsuario.anchor = GridBagConstraints.WEST;
@@ -259,7 +280,7 @@ public class MainWindow extends JFrame {
 		gbc_lblApellidos.gridy = 2;
 		panel.add(lblApellidos, gbc_lblApellidos);
 		
-		lblUltVezConect = new JLabel(" Ultima vez conectado: "+u.getUltVezConectado()+" ");
+		lblUltVezConect = new JLabel(Messages.getString("MainWindow.35")+u.getUltVezConectado()+" "); //$NON-NLS-1$ //$NON-NLS-2$
 		lblUltVezConect.setForeground(Color.WHITE);
 		lblUltVezConect.setMaximumSize(new Dimension(200, 13));
 		lblUltVezConect.setRequestFocusEnabled(false);
@@ -276,7 +297,7 @@ public class MainWindow extends JFrame {
 		btnSalir.setBorder(new EmptyBorder(5, 5, 5, 5));
 		btnSalir.setBackground(new Color(0,0,0,0));
 		btnSalir.setOpaque(false);
-		btnSalir.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/006-logout.png")));
+		btnSalir.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/006-logout.png"))); //$NON-NLS-1$
 		barraOpciones.add(btnSalir);
 		
 		
@@ -290,7 +311,8 @@ public class MainWindow extends JFrame {
 		tbAcciones.setFloatable(false);
 		pnlOpciones.add(tbAcciones);
 		
-		btnConsultarInformacion = new JButton("Consultar Información");
+		btnConsultarInformacion = new JButton(Messages.getString("MainWindow.38")); //$NON-NLS-1$
+		btnConsultarInformacion.setToolTipText(Messages.getString("MainWindow.39")); //$NON-NLS-1$
 		btnConsultarInformacion.setVerifyInputWhenFocusTarget(false);
 		btnConsultarInformacion.setIgnoreRepaint(true);
 		btnConsultarInformacion.setFocusable(false);
@@ -302,7 +324,8 @@ public class MainWindow extends JFrame {
 		btnConsultarInformacion.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnConsultarInformacion);
 		
-		btnRealizarReserva = new JButton("Realizar Reserva");
+		btnRealizarReserva = new JButton(Messages.getString("MainWindow.40")); //$NON-NLS-1$
+		btnRealizarReserva.setToolTipText(Messages.getString("MainWindow.41")); //$NON-NLS-1$
 		btnRealizarReserva.setFocusable(false);
 		btnRealizarReserva.setFocusTraversalKeysEnabled(false);
 		btnRealizarReserva.setFocusPainted(false);
@@ -313,7 +336,8 @@ public class MainWindow extends JFrame {
 		btnRealizarReserva.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnRealizarReserva);
 		
-		btnPersonal = new JButton("Personal");
+		btnPersonal = new JButton(Messages.getString("MainWindow.42")); //$NON-NLS-1$
+		btnPersonal.setToolTipText(Messages.getString("MainWindow.43")); //$NON-NLS-1$
 		btnPersonal.setFocusable(false);
 		btnPersonal.setFocusTraversalKeysEnabled(false);
 		btnPersonal.setFocusPainted(false);
@@ -324,7 +348,8 @@ public class MainWindow extends JFrame {
 		btnPersonal.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnPersonal);
 		
-		btnDibujarRuta = new JButton("Dibujar Ruta");
+		btnDibujarRuta = new JButton(Messages.getString("MainWindow.44")); //$NON-NLS-1$
+		btnDibujarRuta.setToolTipText(Messages.getString("MainWindow.45")); //$NON-NLS-1$
 		btnDibujarRuta.setFocusPainted(false);
 		btnDibujarRuta.setFocusTraversalKeysEnabled(false);
 		btnDibujarRuta.setFocusable(false);
@@ -336,29 +361,28 @@ public class MainWindow extends JFrame {
 		tbAcciones.add(btnDibujarRuta);
 	}
 	private class btnComunAcciones implements ActionListener {
-
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			CardLayout panelSeleccionado = (CardLayout) panelCentral.getLayout();
-			if(e.getActionCommand()=="Consultar Información") {
+			if(e.getActionCommand().equals("Consultar Información")|| e.getActionCommand().equals("Show information")) { //$NON-NLS-1$ //$NON-NLS-2$
 				resetearColor();				
 				btnConsultarInformacion.setBackground(Paleta.azul_oscuro);
-				panelSeleccionado.show(panelCentral, "Consultar Información");
+				panelSeleccionado.show(panelCentral, Messages.getString("MainWindow.25")); //$NON-NLS-1$
 			}
-			if(e.getActionCommand()=="Realizar Reserva") {
-				resetearColor();				
+			if(e.getActionCommand().equals("Realizar Reserva")|| e.getActionCommand().equals("Booking")) { //$NON-NLS-1$ //$NON-NLS-2$
+				resetearColor();	
 				btnRealizarReserva.setBackground(Paleta.azul_oscuro);
-				panelSeleccionado.show(panelCentral, "Realizar Reserva");
+				panelSeleccionado.show(panelCentral, Messages.getString("MainWindow.22")); //$NON-NLS-1$
 			}
-			if(e.getActionCommand()=="Personal") {
+			if(e.getActionCommand().equals("Personal")) { //$NON-NLS-1$
 				resetearColor();				
 				btnPersonal.setBackground(Paleta.azul_oscuro);
-				panelSeleccionado.show(panelCentral, "Personal");
+				panelSeleccionado.show(panelCentral, Messages.getString("MainWindow.26")); //$NON-NLS-1$
 			}
-			if(e.getActionCommand()=="Dibujar Ruta") {
+			if(e.getActionCommand().equals("Dibujar Ruta")||e.getActionCommand().equals("Draw route")) { //$NON-NLS-1$ //$NON-NLS-2$
 				resetearColor();				
 				btnDibujarRuta.setBackground(Paleta.azul_oscuro);
-				panelSeleccionado.show(panelCentral, "Dibujar Ruta");
+				panelSeleccionado.show(panelCentral, Messages.getString("MainWindow.27")); //$NON-NLS-1$
 			}
 
 		}
@@ -373,30 +397,54 @@ public class MainWindow extends JFrame {
 	private class fuenteListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			switch (e.getActionCommand()) {
-			case "12":
+			case "12": //$NON-NLS-1$
 				fuenteDefault = new Font(fuenteDefault.getFontName(), Font.PLAIN, 12);
 				break;
-			case "16":
+			case "16": //$NON-NLS-1$
 				fuenteDefault = new Font(fuenteDefault.getFontName(), Font.PLAIN, 16);
 				break;
-			case "20":
+			case "20": //$NON-NLS-1$
 				fuenteDefault = new Font(fuenteDefault.getFontName(), Font.PLAIN, 20);
 				break;
-			case "Arial":
-				fuenteDefault = new Font("Arial", Font.PLAIN, fuenteDefault.getSize());
+			case "Arial": //$NON-NLS-1$
+				fuenteDefault = new Font("Arial", Font.PLAIN, fuenteDefault.getSize()); //$NON-NLS-1$
 				break;
 				
-			case "Verdana":
-				fuenteDefault = new Font("Avenir Next LT Pro", Font.PLAIN, fuenteDefault.getSize());
+			case "Verdana": //$NON-NLS-1$
+				fuenteDefault = new Font("Avenir Next LT Pro", Font.PLAIN, fuenteDefault.getSize()); //$NON-NLS-1$
 				break;
 				
-			case "Franklin Gothic Book":
-				fuenteDefault = new Font("Franklin Gothic Book", Font.PLAIN, fuenteDefault.getSize());
+			case "Franklin Gothic Book": //$NON-NLS-1$
+				fuenteDefault = new Font("Franklin Gothic Book", Font.PLAIN, fuenteDefault.getSize()); //$NON-NLS-1$
 				break;
 
 			}
 			nuevaFuente(new FontUIResource(fuenteDefault));
 		}
+	}
+	private class MnIdiomaActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+					MainWindow mw = null;
+					try {
+					if (mntmIngles.isSelected()) {
+						Messages.setIdioma("inglés"); //$NON-NLS-1$
+						mw = new MainWindow(usuario, "ingles"); //$NON-NLS-1$
+						mw.mntmIngles.setSelected(true);
+						Locale locale = new Locale("en"); //$NON-NLS-1$
+						JOptionPane.setDefaultLocale(locale);
+					} else {
+						Messages.setIdioma("español"); //$NON-NLS-1$
+						mw = new MainWindow(usuario,"castellano"); //$NON-NLS-1$
+						mw.mntmEspañol.setSelected(true);
+						Locale locale = new Locale("es"); //$NON-NLS-1$
+						JOptionPane.setDefaultLocale(locale);
+					}
+					mw.setVisible(true);
+					dispose();
+					}catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				}
 	}
 	public static void nuevaFuente(FontUIResource f) {
         @SuppressWarnings("rawtypes")

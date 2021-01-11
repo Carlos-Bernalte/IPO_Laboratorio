@@ -118,20 +118,20 @@ public class DibujarRuta extends JPanel {
 	public DibujarRuta(GenericDAO gdao, JLabel lblFeedback) throws ParseException {
 		
 		toolkit = Toolkit.getDefaultToolkit();
-		imagenInicio =toolkit.getImage(getClass().getClassLoader().getResource("Iconos/chinchetaInicio.png"));
-		imagenFuente =toolkit.getImage(getClass().getClassLoader().getResource("Iconos/fuente.png"));
-		imagenMerendero =toolkit.getImage(getClass().getClassLoader().getResource("Iconos/merendero.png"));
-		imagenMeta = toolkit.getImage(getClass().getClassLoader().getResource("Iconos/meta.png"));
-		puntoInteres = toolkit.getImage(getClass().getClassLoader().getResource("Iconos/puntoInteres.png"));
-		imagenRuta= toolkit.getImage(getClass().getClassLoader().getResource("Iconos/lineaRuta.png"));
-		imagenBorrador=toolkit.getImage(getClass().getClassLoader().getResource("Iconos/borrador.png"));
-		cursorInicio = toolkit.createCustomCursor(imagenInicio, new Point(0,0), "CURSOR_INICIO");
-		cursorFuente = toolkit.createCustomCursor(imagenFuente, new Point(0,0), "CURSOR_FUENTE");
-		cursorMerendero = toolkit.createCustomCursor(imagenMerendero, new Point(0,0), "CURSOR_MERENDERO");
-		cursorMeta = toolkit.createCustomCursor(imagenMeta, new Point(0,0), "CURSOR_META");
-		cursorInteres = toolkit.createCustomCursor(puntoInteres, new Point(0,0), "CURSOR_INTERES");
-		cursorRuta= toolkit.createCustomCursor(imagenRuta, new Point(0,0),"CURSOR_RUTA");
-		cursorBorrador= toolkit.createCustomCursor(imagenBorrador, new Point(0,0), "CURSOR_BORRADOR");
+		imagenInicio =toolkit.getImage(getClass().getClassLoader().getResource("Iconos/chinchetaInicio.png")); //$NON-NLS-1$
+		imagenFuente =toolkit.getImage(getClass().getClassLoader().getResource("Iconos/fuente.png")); //$NON-NLS-1$
+		imagenMerendero =toolkit.getImage(getClass().getClassLoader().getResource("Iconos/merendero.png")); //$NON-NLS-1$
+		imagenMeta = toolkit.getImage(getClass().getClassLoader().getResource("Iconos/meta.png")); //$NON-NLS-1$
+		puntoInteres = toolkit.getImage(getClass().getClassLoader().getResource("Iconos/puntoInteres.png")); //$NON-NLS-1$
+		imagenRuta= toolkit.getImage(getClass().getClassLoader().getResource("Iconos/lineaRuta.png")); //$NON-NLS-1$
+		imagenBorrador=toolkit.getImage(getClass().getClassLoader().getResource("Iconos/borrador.png")); //$NON-NLS-1$
+		cursorInicio = toolkit.createCustomCursor(imagenInicio, new Point(0,0), "CURSOR_INICIO"); //$NON-NLS-1$
+		cursorFuente = toolkit.createCustomCursor(imagenFuente, new Point(0,0), "CURSOR_FUENTE"); //$NON-NLS-1$
+		cursorMerendero = toolkit.createCustomCursor(imagenMerendero, new Point(0,0), "CURSOR_MERENDERO"); //$NON-NLS-1$
+		cursorMeta = toolkit.createCustomCursor(imagenMeta, new Point(0,0), "CURSOR_META"); //$NON-NLS-1$
+		cursorInteres = toolkit.createCustomCursor(puntoInteres, new Point(0,0), "CURSOR_INTERES"); //$NON-NLS-1$
+		cursorRuta= toolkit.createCustomCursor(imagenRuta, new Point(0,0),"CURSOR_RUTA"); //$NON-NLS-1$
+		cursorBorrador= toolkit.createCustomCursor(imagenBorrador, new Point(0,0), "CURSOR_BORRADOR"); //$NON-NLS-1$
 		
 		setBackground(Paleta.azul_oscuro);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -166,40 +166,47 @@ public class DibujarRuta extends JPanel {
 		menuBar = new JMenuBar();
 		panelDibujo.add(menuBar, BorderLayout.NORTH);
 		
-		mntmLineaRuta = new JMenuItem("Linea de ruta");
+		mntmLineaRuta = new JMenuItem(Messages.getString("DibujarRuta.14")); //$NON-NLS-1$
+		mntmLineaRuta.setToolTipText(Messages.getString("DibujarRuta.mntmLineaRuta.toolTipText")); //$NON-NLS-1$
 		menuBar.add(mntmLineaRuta);
 		mntmLineaRuta.addActionListener(new MntmLineaRutaActionListener());
-		mntmLineaRuta.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/lineaRuta.png")));
+		mntmLineaRuta.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/lineaRuta.png"))); //$NON-NLS-1$
 		
-		mntmBorrador = new JMenuItem("Borrador");
+		mntmBorrador = new JMenuItem(Messages.getString("DibujarRuta.16")); //$NON-NLS-1$
+		mntmBorrador.setToolTipText(Messages.getString("DibujarRuta.mntmBorrador.toolTipText")); //$NON-NLS-1$
 		menuBar.add(mntmBorrador);
 		mntmBorrador.addActionListener(new MntmBorradorActionListener());
-		mntmBorrador.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/borrador.png")));
+		mntmBorrador.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/borrador.png"))); //$NON-NLS-1$
 		
-		mntmLlegada = new JMenuItem("Llegada");
+		mntmLlegada = new JMenuItem(Messages.getString("DibujarRuta.18")); //$NON-NLS-1$
+		mntmLlegada.setToolTipText(Messages.getString("DibujarRuta.mntmLlegada.toolTipText")); //$NON-NLS-1$
 		menuBar.add(mntmLlegada);
-		mntmLlegada.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/meta.png")));
+		mntmLlegada.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/meta.png"))); //$NON-NLS-1$
 		mntmLlegada.addActionListener(new MntmLlegadaActionListener());
 		
-		mntmInicio = new JMenuItem("Inicio");
+		mntmInicio = new JMenuItem(Messages.getString("DibujarRuta.20")); //$NON-NLS-1$
+		mntmInicio.setToolTipText(Messages.getString("DibujarRuta.mntmInicio.toolTipText")); //$NON-NLS-1$
 		menuBar.add(mntmInicio);
-		mntmInicio.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/chinchetaInicio.png")));
+		mntmInicio.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/chinchetaInicio.png"))); //$NON-NLS-1$
 		mntmInicio.addActionListener(new MntmInicioActionListener());
-		mntmInicio.setSelectedIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/bandera_inicio.png")));
+		mntmInicio.setSelectedIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/bandera_inicio.png"))); //$NON-NLS-1$
 		
-		mntmMerendero = new JMenuItem("Merenderos");
+		mntmMerendero = new JMenuItem(Messages.getString("DibujarRuta.23")); //$NON-NLS-1$
+		mntmMerendero.setToolTipText(Messages.getString("DibujarRuta.mntmMerendero.toolTipText")); //$NON-NLS-1$
 		menuBar.add(mntmMerendero);
-		mntmMerendero.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/merendero.png")));
+		mntmMerendero.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/merendero.png"))); //$NON-NLS-1$
 		mntmMerendero.addActionListener(new MntmMerenderoActionListener());
 		
-		mntmFuente = new JMenuItem("Fuentes de Agua");
+		mntmFuente = new JMenuItem(Messages.getString("DibujarRuta.25")); //$NON-NLS-1$
+		mntmFuente.setToolTipText(Messages.getString("DibujarRuta.mntmFuente.toolTipText")); //$NON-NLS-1$
 		menuBar.add(mntmFuente);
-		mntmFuente.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/fuente.png")));
+		mntmFuente.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/fuente.png"))); //$NON-NLS-1$
 		mntmFuente.addActionListener(new MntmFuenteActionListener());
 		
-		mntmPuntoInteres = new JMenuItem("Punto de Interes");
+		mntmPuntoInteres = new JMenuItem(Messages.getString("DibujarRuta.27")); //$NON-NLS-1$
+		mntmPuntoInteres.setToolTipText(Messages.getString("DibujarRuta.mntmPuntoInteres.toolTipText")); //$NON-NLS-1$
 		menuBar.add(mntmPuntoInteres);
-		mntmPuntoInteres.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/puntoInteres.png")));
+		mntmPuntoInteres.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/puntoInteres.png"))); //$NON-NLS-1$
 		mntmPuntoInteres.addActionListener(new MntmPuntoInteresActionListener());
 		
 		informacionRuta = new JPanel();
@@ -211,13 +218,13 @@ public class DibujarRuta extends JPanel {
 		gbc_informacionRuta.gridy = 1;
 		add(informacionRuta, gbc_informacionRuta);
 		GridBagLayout gbl_informacionRuta = new GridBagLayout();
-		gbl_informacionRuta.columnWidths = new int[]{10, 0, 100, 51, 10, 0};
+		gbl_informacionRuta.columnWidths = new int[]{10, 0, 100, 10, 0};
 		gbl_informacionRuta.rowHeights = new int[]{50, 0, 0, 0, 0, 0, 80, 40, 0, 0, 0, 0};
-		gbl_informacionRuta.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_informacionRuta.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_informacionRuta.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		informacionRuta.setLayout(gbl_informacionRuta);
 		
-		lblNewLabel = new JLabel("Monitor:");
+		lblNewLabel = new JLabel(Messages.getString("DibujarRuta.29")); //$NON-NLS-1$
 		lblNewLabel.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
@@ -227,6 +234,7 @@ public class DibujarRuta extends JPanel {
 		informacionRuta.add(lblNewLabel, gbc_lblNewLabel);
 		
 		comboBoxMonitores = new JComboBox();
+		comboBoxMonitores.setToolTipText(Messages.getString("DibujarRuta.comboBoxMonitores.toolTipText")); //$NON-NLS-1$
 		GridBagConstraints gbc_comboBoxMonitores = new GridBagConstraints();
 		gbc_comboBoxMonitores.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBoxMonitores.insets = new Insets(0, 0, 5, 5);
@@ -239,10 +247,10 @@ public class DibujarRuta extends JPanel {
 		DefaultComboBoxModel<String> modeloCombo= new DefaultComboBoxModel<String>();
 		comboBoxMonitores.setModel(modeloCombo);
 		for(int i=0; i<empleados.size();i++) {
-			modeloCombo.addElement(empleados.elementAt(i).getNombre()+ " "+ empleados.elementAt(i).getApellido());
+			modeloCombo.addElement(empleados.elementAt(i).getNombre()+ " "+ empleados.elementAt(i).getApellido()); //$NON-NLS-1$
 		}
 		
-		lblNewLabel_1 = new JLabel("Hora de Inicio:");
+		lblNewLabel_1 = new JLabel(Messages.getString("DibujarRuta.31")); //$NON-NLS-1$
 		lblNewLabel_1.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.NORTHEAST;
@@ -251,8 +259,9 @@ public class DibujarRuta extends JPanel {
 		gbc_lblNewLabel_1.gridy = 3;
 		informacionRuta.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		MaskFormatter mascara = new MaskFormatter("##:##");
+		MaskFormatter mascara = new MaskFormatter("##:##"); //$NON-NLS-1$
 		txtHoraInicio = new JFormattedTextField(mascara);
+		txtHoraInicio.setToolTipText(Messages.getString("DibujarRuta.txtHoraInicio.toolTipText")); //$NON-NLS-1$
 		GridBagConstraints gbc_txtHoraInicio = new GridBagConstraints();
 		gbc_txtHoraInicio.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtHoraInicio.anchor = GridBagConstraints.NORTH;
@@ -262,7 +271,7 @@ public class DibujarRuta extends JPanel {
 		informacionRuta.add(txtHoraInicio, gbc_txtHoraInicio);
 		txtHoraInicio.setColumns(10);
 		
-		lblNewLabel_3 = new JLabel("Hora de Fin");
+		lblNewLabel_3 = new JLabel(Messages.getString("DibujarRuta.33")); //$NON-NLS-1$
 		lblNewLabel_3.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
@@ -272,6 +281,7 @@ public class DibujarRuta extends JPanel {
 		informacionRuta.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		txtHoraFin = new JFormattedTextField(mascara);
+		txtHoraFin.setToolTipText(Messages.getString("DibujarRuta.txtHoraFin.toolTipText")); //$NON-NLS-1$
 		GridBagConstraints gbc_txtHoraFin = new GridBagConstraints();
 		gbc_txtHoraFin.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtHoraFin.insets = new Insets(0, 0, 5, 5);
@@ -280,7 +290,7 @@ public class DibujarRuta extends JPanel {
 		informacionRuta.add(txtHoraFin, gbc_txtHoraFin);
 		txtHoraFin.setColumns(10);
 		
-		lblDescripcionRuta = new JLabel("Descripcion:");
+		lblDescripcionRuta = new JLabel(Messages.getString("DibujarRuta.34")); //$NON-NLS-1$
 		lblDescripcionRuta.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDescripcionRuta.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblDescripcionRuta = new GridBagConstraints();
@@ -291,16 +301,17 @@ public class DibujarRuta extends JPanel {
 		informacionRuta.add(lblDescripcionRuta, gbc_lblDescripcionRuta);
 		
 		textArea = new JTextArea();
+		textArea.setToolTipText(Messages.getString("DibujarRuta.textArea.toolTipText")); //$NON-NLS-1$
 		textArea.setLineWrap(true);
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridwidth = 2;
 		gbc_textArea.insets = new Insets(0, 0, 5, 5);
 		gbc_textArea.fill = GridBagConstraints.BOTH;
 		gbc_textArea.gridx = 2;
 		gbc_textArea.gridy = 6;
 		informacionRuta.add(textArea, gbc_textArea);
 		
-		btnLimpiar = new JButton("Limpiar");
+		btnLimpiar = new JButton(Messages.getString("DibujarRuta.35")); //$NON-NLS-1$
+		btnLimpiar.setToolTipText(Messages.getString("DibujarRuta.btnLimpiar.toolTipText")); //$NON-NLS-1$
 		btnLimpiar.setEnabled(false);
 		btnLimpiar.setFocusTraversalKeysEnabled(false);
 		btnLimpiar.setFocusable(false);
@@ -308,23 +319,25 @@ public class DibujarRuta extends JPanel {
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				comboBoxMonitores.setSelectedIndex(-1);
-				txtHoraInicio.setText("");
-				txtHoraFin.setText("");
+				txtHoraInicio.setText(""); //$NON-NLS-1$
+				txtHoraFin.setText(""); //$NON-NLS-1$
 				areaDibujo.removeAllObjetoGrafico();
 				areaDibujo.repaint();
-				textArea.setText("");
+				textArea.setText(""); //$NON-NLS-1$
 
 			}
 		});
 		
-		btnGuardarRuta = new JButton("Guardar Ruta");
+		btnGuardarRuta = new JButton(Messages.getString("DibujarRuta.39")); //$NON-NLS-1$
+		btnGuardarRuta.setToolTipText(Messages.getString("DibujarRuta.btnGuardarRuta.toolTipText")); //$NON-NLS-1$
 		btnGuardarRuta.setEnabled(false);
 		btnGuardarRuta.setFocusTraversalKeysEnabled(false);
 		btnGuardarRuta.setFocusable(false);
 		btnGuardarRuta.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		btnGuardarRuta.addActionListener(new BtnNewButton_1ActionListener());
 		
-		cargarMapa = new JButton("Cargar Mapa");
+		cargarMapa = new JButton(Messages.getString("DibujarRuta.40")); //$NON-NLS-1$
+		cargarMapa.setToolTipText(Messages.getString("DibujarRuta.cargarMapa.toolTipText")); //$NON-NLS-1$
 		cargarMapa.setFocusTraversalKeysEnabled(false);
 		cargarMapa.setFocusable(false);
 		cargarMapa.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
@@ -336,8 +349,8 @@ public class DibujarRuta extends JPanel {
 		informacionRuta.add(cargarMapa, gbc_cargarMapa);
 		cargarMapa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				fileChooser = new JFileChooser("rutas");
-				FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("JPG, PNG & GIF","jpg","png","gif");
+				fileChooser = new JFileChooser(Messages.getString("DibujarRuta.41")); //$NON-NLS-1$
+				FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("JPG, PNG & GIF","jpg","png","gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				fileChooser.setFileFilter(filtroImagen);
 				int valorDevuelto = fileChooser.showOpenDialog(new Frame());
 				if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
@@ -475,7 +488,7 @@ public class DibujarRuta extends JPanel {
 				Image salida =areaDibujo.createImage(areaDibujo.getSize().width, areaDibujo.getSize().height);
 				File file = fileChooser.getSelectedFile();
 				try {
-					ImageIO.write((BufferedImage) salida, "jpg", file);
+					ImageIO.write((BufferedImage) salida, "jpg", file); //$NON-NLS-1$
 					Ruta r = new Ruta(comboBoxMonitores.getSelectedItem().toString(),txtHoraInicio.getText(),txtHoraInicio.getText(),textArea.getText(),file.getAbsolutePath());
 					gdao.guardarRuta(r);
 				} catch (IOException e1) {

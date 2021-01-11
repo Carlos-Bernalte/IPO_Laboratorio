@@ -106,9 +106,10 @@ public class Personal extends JPanel {
 		gbl_pnlInfoPersonal.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		pnlInfoPersonal.setLayout(gbl_pnlInfoPersonal);
 		
-		fotoEmpleado = new JLabel("");
+		fotoEmpleado = new JLabel(""); //$NON-NLS-1$
+		fotoEmpleado.setToolTipText(Messages.getString("Personal.1")); //$NON-NLS-1$
 		fotoEmpleado.setForeground(Color.WHITE);
-		fotoEmpleado.setIcon(new ImageIcon(Personal.class.getResource("/imagenes/usuario.png")));
+		fotoEmpleado.setIcon(new ImageIcon(Personal.class.getResource("/imagenes/usuario.png"))); //$NON-NLS-1$
 		GridBagConstraints gbc_fotoEmpleado = new GridBagConstraints();
 		gbc_fotoEmpleado.gridwidth = 6;
 		gbc_fotoEmpleado.insets = new Insets(0, 0, 5, 5);
@@ -116,7 +117,7 @@ public class Personal extends JPanel {
 		gbc_fotoEmpleado.gridy = 1;
 		pnlInfoPersonal.add(fotoEmpleado, gbc_fotoEmpleado);
 		
-		lblNombre = new JLabel("Nombre: ");
+		lblNombre = new JLabel(Messages.getString("Personal.3")); //$NON-NLS-1$
 		lblNombre.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
 		gbc_lblNombre.anchor = GridBagConstraints.EAST;
@@ -126,6 +127,7 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(lblNombre, gbc_lblNombre);
 		
 		txtFieldNombre = new JTextField();
+		txtFieldNombre.setToolTipText(Messages.getString("Personal.4")); //$NON-NLS-1$
 		txtFieldNombre.setBorder(new LineBorder(Color.BLACK));
 		GridBagConstraints gbc_txtFieldNombre = new GridBagConstraints();
 		gbc_txtFieldNombre.fill = GridBagConstraints.HORIZONTAL;
@@ -135,7 +137,7 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(txtFieldNombre, gbc_txtFieldNombre);
 		txtFieldNombre.setColumns(10);
 		
-		lblApellidos = new JLabel("Apellidos: ");
+		lblApellidos = new JLabel(Messages.getString("Personal.5")); //$NON-NLS-1$
 		lblApellidos.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblApellidos = new GridBagConstraints();
 		gbc_lblApellidos.anchor = GridBagConstraints.EAST;
@@ -145,6 +147,7 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(lblApellidos, gbc_lblApellidos);
 		
 		txtFieldApellidos = new JTextField();
+		txtFieldApellidos.setToolTipText(Messages.getString("Personal.6")); //$NON-NLS-1$
 		txtFieldApellidos.setBorder(new LineBorder(Color.BLACK));
 		GridBagConstraints gbc_txtFieldApellidos = new GridBagConstraints();
 		gbc_txtFieldApellidos.fill = GridBagConstraints.HORIZONTAL;
@@ -155,7 +158,7 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(txtFieldApellidos, gbc_txtFieldApellidos);
 		txtFieldApellidos.setColumns(10);
 		
-		lblDNI = new JLabel("NIF: ");
+		lblDNI = new JLabel(Messages.getString("Personal.7")); //$NON-NLS-1$
 		lblDNI.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblDNI = new GridBagConstraints();
 		gbc_lblDNI.anchor = GridBagConstraints.EAST;
@@ -165,6 +168,7 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(lblDNI, gbc_lblDNI);
 		
 		txtFieldDNI = new JTextField();
+		txtFieldDNI.setToolTipText(Messages.getString("Personal.8")); //$NON-NLS-1$
 		txtFieldDNI.setBorder(new LineBorder(Color.BLACK));
 		GridBagConstraints gbc_txtFieldDNI = new GridBagConstraints();
 		gbc_txtFieldDNI.fill = GridBagConstraints.HORIZONTAL;
@@ -174,7 +178,7 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(txtFieldDNI, gbc_txtFieldDNI);
 		txtFieldDNI.setColumns(10);
 		
-		lblTelefono = new JLabel("Teléfono: ");
+		lblTelefono = new JLabel(Messages.getString("Personal.9")); //$NON-NLS-1$
 		lblTelefono.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblTelefono = new GridBagConstraints();
 		gbc_lblTelefono.anchor = GridBagConstraints.EAST;
@@ -184,6 +188,7 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(lblTelefono, gbc_lblTelefono);
 		
 		txtFieldTelefono = new JTextField();
+		txtFieldTelefono.setToolTipText(Messages.getString("Personal.10")); //$NON-NLS-1$
 		txtFieldTelefono.setBorder(new LineBorder(Color.BLACK));
 		GridBagConstraints gbc_txtFieldTelefono = new GridBagConstraints();
 		gbc_txtFieldTelefono.fill = GridBagConstraints.HORIZONTAL;
@@ -193,7 +198,7 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(txtFieldTelefono, gbc_txtFieldTelefono);
 		txtFieldTelefono.setColumns(10);
 		
-		lblEmail = new JLabel("Email: ");
+		lblEmail = new JLabel(Messages.getString("Personal.11")); //$NON-NLS-1$
 		lblEmail.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
 		gbc_lblEmail.anchor = GridBagConstraints.EAST;
@@ -203,6 +208,7 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(lblEmail, gbc_lblEmail);
 		
 		txtFieldEmail = new JTextField();
+		txtFieldEmail.setToolTipText(Messages.getString("Personal.12")); //$NON-NLS-1$
 		txtFieldEmail.setBorder(new LineBorder(Color.BLACK));
 		GridBagConstraints gbc_txtFieldEmail = new GridBagConstraints();
 		gbc_txtFieldEmail.fill = GridBagConstraints.HORIZONTAL;
@@ -213,7 +219,8 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(txtFieldEmail, gbc_txtFieldEmail);
 		txtFieldEmail.setColumns(10);
 		
-		btnDarDeAlta = new JButton("Dar Alta");
+		btnDarDeAlta = new JButton(Messages.getString("Personal.13")); //$NON-NLS-1$
+		btnDarDeAlta.setToolTipText(Messages.getString("Personal.14")); //$NON-NLS-1$
 		btnDarDeAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Empleado empleado = new Empleado();
@@ -235,10 +242,11 @@ public class Personal extends JPanel {
 		gbc_btnDarDeAlta.gridy = 9;
 		pnlInfoPersonal.add(btnDarDeAlta, gbc_btnDarDeAlta);
 		
-		btnDarDeBaja = new JButton("Dar Baja");
+		btnDarDeBaja = new JButton(Messages.getString("Personal.15")); //$NON-NLS-1$
+		btnDarDeBaja.setToolTipText(Messages.getString("Personal.16")); //$NON-NLS-1$
 		btnDarDeBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gdao.dardeBaja();
+				//gdao.dardeBaja();
 			}
 		});
 		btnDarDeBaja.setFocusTraversalKeysEnabled(false);

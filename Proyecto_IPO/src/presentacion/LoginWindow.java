@@ -106,6 +106,7 @@ public class LoginWindow {
 		frmGestorDeCamping.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		txtFeedback = new JTextPane();
+		txtFeedback.setToolTipText(Messages.getString("LoginWindow.txtFeedback.toolTipText")); //$NON-NLS-1$
 		txtFeedback.setEditable(false);
 		txtFeedback.setBackground(Paleta.azul_oscuro);
 		txtFeedback.setForeground(Color.WHITE);
@@ -136,6 +137,7 @@ public class LoginWindow {
 		datosUsuario.setLayout(null);
 		
 		btnAcceder = new JButton(Messages.getString("LoginWindow.4")); //$NON-NLS-1$
+		btnAcceder.setToolTipText(Messages.getString("LoginWindow.btnAcceder.toolTipText")); //$NON-NLS-1$
 		btnAcceder.setForeground(Color.WHITE);
 		btnAcceder.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnAcceder.setBackground(Paleta.azul_turquesa);
@@ -154,8 +156,14 @@ public class LoginWindow {
 						if(String.valueOf(txtFUsuario.getText()).equals(u.getNick()) && String.valueOf(txtFContraseña.getPassword()).equals(u.getContraseña())) {
 							txtFeedback.setForeground(Color.GREEN);
 							txtFeedback.setText(Messages.getString("LoginWindow.6")); //$NON-NLS-1$
-							window = new MainWindow(u);
-							window.setVisible(true);
+							if (mnEspañol.isSelected()) {
+								MainWindow mw = new MainWindow(u, "castellano");
+								mw.setVisible(true);
+							}
+							else if (mnInglés.isSelected()){
+								MainWindow mw = new MainWindow(u, "ingles");
+								mw.setVisible(true);
+							}
 							frmGestorDeCamping.dispose();
 						}
 					}
@@ -173,6 +181,7 @@ public class LoginWindow {
 		datosUsuario.add(btnAcceder);
 		
 		txtFUsuario = new JTextField();
+		txtFUsuario.setToolTipText(Messages.getString("LoginWindow.txtFUsuario.toolTipText")); //$NON-NLS-1$
 		txtFUsuario.setBorder(new LineBorder(new Color(171, 173, 179)));
 		txtFUsuario.setBounds(88, 30, 145, 19);
 		datosUsuario.add(txtFUsuario);
@@ -180,6 +189,7 @@ public class LoginWindow {
 		txtFUsuario.setText(""); //$NON-NLS-1$
 		
 		txtFContraseña = new JPasswordField();
+		txtFContraseña.setToolTipText(Messages.getString("LoginWindow.txtFContraseña.toolTipText")); //$NON-NLS-1$
 		txtFContraseña.setBorder(new LineBorder(new Color(171, 173, 179)));
 		txtFContraseña.addKeyListener(new TxtFContraseñaKeyListener());
 		txtFContraseña.setBounds(88, 84, 145, 19);
@@ -203,11 +213,13 @@ public class LoginWindow {
 		frmGestorDeCamping.setJMenuBar(menuBar);
 		
 		mnIdioma = new JMenu(Messages.getString("LoginWindow.14")); //$NON-NLS-1$
+		mnIdioma.setToolTipText(Messages.getString("LoginWindow.mnIdioma.toolTipText")); //$NON-NLS-1$
 		mnIdioma.setForeground(Color.WHITE);
 		mnIdioma.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/007-language.png"))); //$NON-NLS-1$
 		menuBar.add(mnIdioma);
 		
 		mnEspañol = new JRadioButtonMenuItem(Messages.getString("LoginWindow.16")); //$NON-NLS-1$
+		mnEspañol.setToolTipText(Messages.getString("LoginWindow.mnEspañol.toolTipText")); //$NON-NLS-1$
 		buttonGroup.add(mnEspañol);
 		mnEspañol.setSelected(true);
 		mnEspañol.addActionListener(new MnIdiomaActionListener());
@@ -215,12 +227,14 @@ public class LoginWindow {
 		mnIdioma.add(mnEspañol);
 		
 		mnInglés = new JRadioButtonMenuItem(Messages.getString("LoginWindow.18"));
+		mnInglés.setToolTipText(Messages.getString("LoginWindow.mnInglés.toolTipText")); //$NON-NLS-1$
 		buttonGroup.add(mnInglés);
 		mnInglés.addActionListener(new  MnIdiomaActionListener());
 		mnInglés.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/002-united-kingdom.png"))); //$NON-NLS-1$
 		mnIdioma.add(mnInglés);
 		
 		mnAjustes = new JMenu(Messages.getString("LoginWindow.20")); //$NON-NLS-1$
+		mnAjustes.setToolTipText(Messages.getString("LoginWindow.mnAjustes.toolTipText")); //$NON-NLS-1$
 		mnAjustes.setForeground(Color.WHITE);
 		mnAjustes.setIcon(new ImageIcon(LoginWindow.class.getResource("/Iconos/004-settings.png"))); //$NON-NLS-1$
 		menuBar.add(mnAjustes);
@@ -259,6 +273,7 @@ public class LoginWindow {
 		mnTamañoFuente.add(mnTFuente20);
 		
 		btnSalir = new JButton(Messages.getString("LoginWindow.30")); //$NON-NLS-1$
+		btnSalir.setToolTipText(Messages.getString("LoginWindow.btnSalir.toolTipText")); //$NON-NLS-1$
 		btnSalir.setForeground(Color.WHITE);
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -312,7 +327,6 @@ public class LoginWindow {
 	private class MnIdiomaActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			LoginWindow vl = null;
-			System.out.println(mnInglés.isSelected());
 			if (mnInglés.isSelected()) {
 				Messages.setIdioma("inglés");
 				vl = new LoginWindow();
