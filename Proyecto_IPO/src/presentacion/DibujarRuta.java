@@ -43,7 +43,6 @@ import dominio.GenericDAO;
 import dominio.Ruta;
 
 import javax.swing.JTextField;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -54,6 +53,7 @@ import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 
 @SuppressWarnings("serial")
@@ -71,11 +71,10 @@ public class DibujarRuta extends JPanel {
 	private JLabel lblNewLabel_3;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxMonitores;
-	private JButton btnNewButton;
+	private JButton btnLimpiar;
 	private JTextField txtHoraInicio;
 	private JTextField txtHoraFin;
-	private JButton btnNewButton_1;
-	private JMenu mnNewMenu;
+	private JButton btnGuardarRuta;
 	private JMenuItem mntmFuente;
 	private JMenuItem mntmInicio;
 	private JMenuItem mntmLlegada;
@@ -110,12 +109,13 @@ public class DibujarRuta extends JPanel {
 	private JLabel lblDescripcionRuta;
 	private JTextArea textArea;
 	private JMenuItem mntmBorrador;
+	private File file;
 	/**
 	 * Create the panel.
 	 * @throws ParseException 
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public DibujarRuta(GenericDAO gdao) throws ParseException {
+	public DibujarRuta(GenericDAO gdao, JLabel lblFeedback) throws ParseException {
 		
 		toolkit = Toolkit.getDefaultToolkit();
 		imagenInicio =toolkit.getImage(getClass().getClassLoader().getResource("Iconos/chinchetaInicio.png"));
@@ -136,9 +136,9 @@ public class DibujarRuta extends JPanel {
 		setBackground(Paleta.azul_oscuro);
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 10, 800, 0, 0};
+		gridBagLayout.columnWidths = new int[]{438, 10, 327, 10, 0};
 		gridBagLayout.rowHeights = new int[]{20, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
@@ -152,10 +152,12 @@ public class DibujarRuta extends JPanel {
 		add(panelDibujo, gbc_panelDibujo);
 		panelDibujo.setLayout(new BorderLayout(0, 0));
 		scrollPane = new JScrollPane();
+		scrollPane.setBorder(null);
 		panelDibujo.add(scrollPane, BorderLayout.CENTER);
 		
 		
 		areaDibujo=new AreaDibujo();
+		areaDibujo.setHorizontalAlignment(SwingConstants.CENTER);
 		areaDibujo.addMouseMotionListener(new AreaDibujoMouseMotionListener());
 		areaDibujo.addMouseListener(new AreaDibujoMouseListener());
 		areaDibujo.setIcon(null);
@@ -164,62 +166,41 @@ public class DibujarRuta extends JPanel {
 		menuBar = new JMenuBar();
 		panelDibujo.add(menuBar, BorderLayout.NORTH);
 		
-		cargarMapa = new JButton("Nueva Ruta");
-		cargarMapa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				fileChooser = new JFileChooser("E:\\GithubDesktop\\Proyecto_IPO\\Proyecto_IPO\\src\\imagenes");
-				FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("JPG, PNG & GIF","jpg","png","gif");
-				fileChooser.setFileFilter(filtroImagen);
-				int valorDevuelto = fileChooser.showOpenDialog(new Frame());
-				if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
-					File file = fileChooser.getSelectedFile();
-					areaDibujo.setIcon(null);
-					areaDibujo.removeAllObjetoGrafico();
-					imagen = new ImageIcon(file.getAbsolutePath());
-					areaDibujo.setIcon(imagen);
-				}
-			}
-		});
-		menuBar.add(cargarMapa);
+		mntmLineaRuta = new JMenuItem("Linea de ruta");
+		menuBar.add(mntmLineaRuta);
+		mntmLineaRuta.addActionListener(new MntmLineaRutaActionListener());
+		mntmLineaRuta.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/lineaRuta.png")));
 		
-		mnNewMenu = new JMenu("Puntos");
-		menuBar.add(mnNewMenu);
+		mntmBorrador = new JMenuItem("Borrador");
+		menuBar.add(mntmBorrador);
+		mntmBorrador.addActionListener(new MntmBorradorActionListener());
+		mntmBorrador.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/borrador.png")));
+		
+		mntmLlegada = new JMenuItem("Llegada");
+		menuBar.add(mntmLlegada);
+		mntmLlegada.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/meta.png")));
+		mntmLlegada.addActionListener(new MntmLlegadaActionListener());
 		
 		mntmInicio = new JMenuItem("Inicio");
+		menuBar.add(mntmInicio);
 		mntmInicio.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/chinchetaInicio.png")));
 		mntmInicio.addActionListener(new MntmInicioActionListener());
 		mntmInicio.setSelectedIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/bandera_inicio.png")));
-		mnNewMenu.add(mntmInicio);
-		
-		mntmLlegada = new JMenuItem("Llegada");
-		mntmLlegada.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/meta.png")));
-		mntmLlegada.addActionListener(new MntmLlegadaActionListener());
-		mnNewMenu.add(mntmLlegada);
-		
-		mntmFuente = new JMenuItem("Fuentes de Agua");
-		mntmFuente.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/fuente.png")));
-		mntmFuente.addActionListener(new MntmFuenteActionListener());
-		mnNewMenu.add(mntmFuente);
 		
 		mntmMerendero = new JMenuItem("Merenderos");
+		menuBar.add(mntmMerendero);
 		mntmMerendero.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/merendero.png")));
 		mntmMerendero.addActionListener(new MntmMerenderoActionListener());
-		mnNewMenu.add(mntmMerendero);
+		
+		mntmFuente = new JMenuItem("Fuentes de Agua");
+		menuBar.add(mntmFuente);
+		mntmFuente.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/fuente.png")));
+		mntmFuente.addActionListener(new MntmFuenteActionListener());
 		
 		mntmPuntoInteres = new JMenuItem("Punto de Interes");
+		menuBar.add(mntmPuntoInteres);
 		mntmPuntoInteres.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/puntoInteres.png")));
 		mntmPuntoInteres.addActionListener(new MntmPuntoInteresActionListener());
-		mnNewMenu.add(mntmPuntoInteres);
-		
-		mntmLineaRuta = new JMenuItem("Linea de ruta");
-		mntmLineaRuta.addActionListener(new MntmLineaRutaActionListener());
-		mntmLineaRuta.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/lineaRuta.png")));
-		mnNewMenu.add(mntmLineaRuta);
-		
-		mntmBorrador = new JMenuItem("Borrador");
-		mntmBorrador.addActionListener(new MntmBorradorActionListener());
-		mntmBorrador.setIcon(new ImageIcon(DibujarRuta.class.getResource("/Iconos/borrador.png")));
-		mnNewMenu.add(mntmBorrador);
 		
 		informacionRuta = new JPanel();
 		informacionRuta.setBackground(Paleta.azul_turquesa2);
@@ -230,10 +211,10 @@ public class DibujarRuta extends JPanel {
 		gbc_informacionRuta.gridy = 1;
 		add(informacionRuta, gbc_informacionRuta);
 		GridBagLayout gbl_informacionRuta = new GridBagLayout();
-		gbl_informacionRuta.columnWidths = new int[]{10, 154, 100, 50, 10, 0};
-		gbl_informacionRuta.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_informacionRuta.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_informacionRuta.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_informacionRuta.columnWidths = new int[]{10, 0, 100, 51, 10, 0};
+		gbl_informacionRuta.rowHeights = new int[]{50, 0, 0, 0, 0, 0, 80, 40, 0, 0, 0, 0};
+		gbl_informacionRuta.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_informacionRuta.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		informacionRuta.setLayout(gbl_informacionRuta);
 		
 		lblNewLabel = new JLabel("Monitor:");
@@ -242,16 +223,15 @@ public class DibujarRuta extends JPanel {
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 2;
+		gbc_lblNewLabel.gridy = 1;
 		informacionRuta.add(lblNewLabel, gbc_lblNewLabel);
 		
 		comboBoxMonitores = new JComboBox();
 		GridBagConstraints gbc_comboBoxMonitores = new GridBagConstraints();
-		gbc_comboBoxMonitores.gridwidth = 2;
-		gbc_comboBoxMonitores.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxMonitores.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxMonitores.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxMonitores.gridx = 2;
-		gbc_comboBoxMonitores.gridy = 2;
+		gbc_comboBoxMonitores.gridy = 1;
 		informacionRuta.add(comboBoxMonitores, gbc_comboBoxMonitores);
 		
 		Empleado e = new Empleado();
@@ -262,44 +242,25 @@ public class DibujarRuta extends JPanel {
 			modeloCombo.addElement(empleados.elementAt(i).getNombre()+ " "+ empleados.elementAt(i).getApellido());
 		}
 		
-		lblDescripcionRuta = new JLabel("Descripcion:");
-		lblDescripcionRuta.setHorizontalAlignment(SwingConstants.LEFT);
-		lblDescripcionRuta.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblDescripcionRuta = new GridBagConstraints();
-		gbc_lblDescripcionRuta.anchor = GridBagConstraints.WEST;
-		gbc_lblDescripcionRuta.insets = new Insets(0, 0, 5, 0);
-		gbc_lblDescripcionRuta.gridx = 4;
-		gbc_lblDescripcionRuta.gridy = 3;
-		informacionRuta.add(lblDescripcionRuta, gbc_lblDescripcionRuta);
-		
 		lblNewLabel_1 = new JLabel("Hora de Inicio:");
 		lblNewLabel_1.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 4;
+		gbc_lblNewLabel_1.gridy = 3;
 		informacionRuta.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		MaskFormatter mascara = new MaskFormatter("##:##");
 		txtHoraInicio = new JFormattedTextField(mascara);
 		GridBagConstraints gbc_txtHoraInicio = new GridBagConstraints();
 		gbc_txtHoraInicio.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtHoraInicio.anchor = GridBagConstraints.NORTH;
 		gbc_txtHoraInicio.insets = new Insets(0, 0, 5, 5);
 		gbc_txtHoraInicio.gridx = 2;
-		gbc_txtHoraInicio.gridy = 4;
+		gbc_txtHoraInicio.gridy = 3;
 		informacionRuta.add(txtHoraInicio, gbc_txtHoraInicio);
 		txtHoraInicio.setColumns(10);
-		
-		textArea = new JTextArea();
-		textArea.setLineWrap(true);
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridheight = 2;
-		gbc_textArea.insets = new Insets(0, 0, 5, 0);
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 4;
-		gbc_textArea.gridy = 4;
-		informacionRuta.add(textArea, gbc_textArea);
 		
 		lblNewLabel_3 = new JLabel("Hora de Fin");
 		lblNewLabel_3.setForeground(Color.WHITE);
@@ -307,33 +268,101 @@ public class DibujarRuta extends JPanel {
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_3.gridx = 1;
-		gbc_lblNewLabel_3.gridy = 5;
+		gbc_lblNewLabel_3.gridy = 4;
 		informacionRuta.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		txtHoraFin = new JFormattedTextField(mascara);
 		GridBagConstraints gbc_txtHoraFin = new GridBagConstraints();
-		gbc_txtHoraFin.insets = new Insets(0, 0, 5, 5);
 		gbc_txtHoraFin.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtHoraFin.insets = new Insets(0, 0, 5, 5);
 		gbc_txtHoraFin.gridx = 2;
-		gbc_txtHoraFin.gridy = 5;
+		gbc_txtHoraFin.gridy = 4;
 		informacionRuta.add(txtHoraFin, gbc_txtHoraFin);
 		txtHoraFin.setColumns(10);
 		
-		btnNewButton = new JButton("Limpiar");
-		btnNewButton.addActionListener(new BtnNewButtonActionListener());
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 7;
-		informacionRuta.add(btnNewButton, gbc_btnNewButton);
+		lblDescripcionRuta = new JLabel("Descripcion:");
+		lblDescripcionRuta.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDescripcionRuta.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblDescripcionRuta = new GridBagConstraints();
+		gbc_lblDescripcionRuta.anchor = GridBagConstraints.NORTHEAST;
+		gbc_lblDescripcionRuta.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDescripcionRuta.gridx = 1;
+		gbc_lblDescripcionRuta.gridy = 6;
+		informacionRuta.add(lblDescripcionRuta, gbc_lblDescripcionRuta);
 		
-		btnNewButton_1 = new JButton("Guardar Ruta");
-		btnNewButton_1.addActionListener(new BtnNewButton_1ActionListener());
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_1.gridx = 3;
-		gbc_btnNewButton_1.gridy = 7;
-		informacionRuta.add(btnNewButton_1, gbc_btnNewButton_1);
+		textArea = new JTextArea();
+		textArea.setLineWrap(true);
+		GridBagConstraints gbc_textArea = new GridBagConstraints();
+		gbc_textArea.gridwidth = 2;
+		gbc_textArea.insets = new Insets(0, 0, 5, 5);
+		gbc_textArea.fill = GridBagConstraints.BOTH;
+		gbc_textArea.gridx = 2;
+		gbc_textArea.gridy = 6;
+		informacionRuta.add(textArea, gbc_textArea);
+		
+		btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setEnabled(false);
+		btnLimpiar.setFocusTraversalKeysEnabled(false);
+		btnLimpiar.setFocusable(false);
+		btnLimpiar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBoxMonitores.setSelectedIndex(-1);
+				txtHoraInicio.setText("");
+				txtHoraFin.setText("");
+				areaDibujo.removeAllObjetoGrafico();
+				areaDibujo.repaint();
+				textArea.setText("");
+
+			}
+		});
+		
+		btnGuardarRuta = new JButton("Guardar Ruta");
+		btnGuardarRuta.setEnabled(false);
+		btnGuardarRuta.setFocusTraversalKeysEnabled(false);
+		btnGuardarRuta.setFocusable(false);
+		btnGuardarRuta.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		btnGuardarRuta.addActionListener(new BtnNewButton_1ActionListener());
+		
+		cargarMapa = new JButton("Cargar Mapa");
+		cargarMapa.setFocusTraversalKeysEnabled(false);
+		cargarMapa.setFocusable(false);
+		cargarMapa.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		GridBagConstraints gbc_cargarMapa = new GridBagConstraints();
+		gbc_cargarMapa.fill = GridBagConstraints.BOTH;
+		gbc_cargarMapa.insets = new Insets(0, 0, 5, 5);
+		gbc_cargarMapa.gridx = 2;
+		gbc_cargarMapa.gridy = 8;
+		informacionRuta.add(cargarMapa, gbc_cargarMapa);
+		cargarMapa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fileChooser = new JFileChooser("rutas");
+				FileNameExtensionFilter filtroImagen=new FileNameExtensionFilter("JPG, PNG & GIF","jpg","png","gif");
+				fileChooser.setFileFilter(filtroImagen);
+				int valorDevuelto = fileChooser.showOpenDialog(new Frame());
+				if (valorDevuelto == JFileChooser.APPROVE_OPTION) {
+					file = fileChooser.getSelectedFile();
+					areaDibujo.setIcon(null);
+					areaDibujo.removeAllObjetoGrafico();
+					imagen = new ImageIcon(file.getAbsolutePath());
+					areaDibujo.setIcon(imagen);
+					btnGuardarRuta.setEnabled(true);
+					btnLimpiar.setEnabled(true);
+				}
+			}
+		});
+		GridBagConstraints gbc_btnGuardarRuta = new GridBagConstraints();
+		gbc_btnGuardarRuta.fill = GridBagConstraints.BOTH;
+		gbc_btnGuardarRuta.insets = new Insets(0, 0, 5, 5);
+		gbc_btnGuardarRuta.gridx = 2;
+		gbc_btnGuardarRuta.gridy = 9;
+		informacionRuta.add(btnGuardarRuta, gbc_btnGuardarRuta);
+		GridBagConstraints gbc_btnLimpiar = new GridBagConstraints();
+		gbc_btnLimpiar.fill = GridBagConstraints.BOTH;
+		gbc_btnLimpiar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnLimpiar.gridx = 2;
+		gbc_btnLimpiar.gridy = 10;
+		informacionRuta.add(btnLimpiar, gbc_btnLimpiar);
 		
 		
 	}
@@ -414,7 +443,7 @@ public class DibujarRuta extends JPanel {
 						break;
 					case BORRADOR:
 						try {
-							areaDibujo.removeObjetoGrafico(x, y,40);
+							areaDibujo.removeObjetoGrafico(x, y,80);
 						} catch (NullPointerException e2) {
 						} catch (IndexOutOfBoundsException e3) {
 						}
@@ -424,9 +453,12 @@ public class DibujarRuta extends JPanel {
 
 		}
 	}
+	
+	
 	private class AreaDibujoMouseMotionListener extends MouseMotionAdapter {
 		@Override
 		public void mouseDragged(MouseEvent e) {
+	
 			if(modo == RUTA && imagen!=null) {
 				((lineaGrafico)areaDibujo.getUltimoObjetoGrafico()).setX1(e.getX());
 				((lineaGrafico)areaDibujo.getUltimoObjetoGrafico()).setY1(e.getY());
@@ -434,15 +466,7 @@ public class DibujarRuta extends JPanel {
 			}
 		}
 	}
-	private class BtnNewButtonActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			comboBoxMonitores.setSelectedIndex(-1);
-			txtHoraInicio.setText("");
-			txtHoraFin.setText("");
-			areaDibujo.setIcon(imagen);
-			textArea.setText("");
-		}
-	}
+	
 	private class BtnNewButton_1ActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			GenericDAO gdao = new GenericDAO();

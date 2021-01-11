@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class ObjetoGrafico implements Serializable{
-	private int x,y;
+	protected int x;
+	protected int y;
 	
 	public ObjetoGrafico(int x, int y){
 		this.x = x;

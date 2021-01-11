@@ -64,7 +64,7 @@ public class RealizarReserva extends JPanel {
 	 * Create the panel.
 	 * @throws ParseException 
 	 */
-	public RealizarReserva(GenericDAO gdao) throws ParseException {
+	public RealizarReserva(GenericDAO gdao, JLabel lblFeedback) throws ParseException {
 		fecha = new Date();
 		
 		setBackground(Paleta.azul_oscuro);

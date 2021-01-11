@@ -85,6 +85,9 @@ public class Empleado {
 	public String toString() {
 		return "<html><body> &nbsp;"+nombre + " " + apellido +"<br>  &nbsp;"+empleo+ "<br>  &nbsp;Telefono: " + telefono + "<br>  &nbsp;Email: " + email+"</body></html>";
 	}
+	public String toString2() {
+		return nombre+";"+apellido+";"+dni+";"+telefono+";"+email+";"+foto+";"+empleo;
+	}
 	public Vector<Empleado> leerMonitores() {
 		Vector<Empleado> e = new Vector<Empleado>();
 		Vector<Empleado> e1 = new Vector<Empleado>();

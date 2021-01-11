@@ -22,6 +22,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class Personal extends JPanel {
@@ -45,7 +48,7 @@ public class Personal extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Personal(GenericDAO gdao) {
+	public Personal(GenericDAO gdao, JLabel lblFeedback) {
 		setBackground(Paleta.azul_oscuro);
 		setForeground(Paleta.azul_oscuro);
 		setBorder(null);
@@ -55,7 +58,6 @@ public class Personal extends JPanel {
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
-		
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBorder(null);
@@ -212,6 +214,16 @@ public class Personal extends JPanel {
 		txtFieldEmail.setColumns(10);
 		
 		btnDarDeAlta = new JButton("Dar Alta");
+		btnDarDeAlta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Empleado empleado = new Empleado();
+				try {
+					gdao.dardeAlta(empleado);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnDarDeAlta.setFocusTraversalKeysEnabled(false);
 		btnDarDeAlta.setFocusPainted(false);
 		btnDarDeAlta.setBackground(Color.GREEN);
@@ -224,6 +236,11 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(btnDarDeAlta, gbc_btnDarDeAlta);
 		
 		btnDarDeBaja = new JButton("Dar Baja");
+		btnDarDeBaja.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gdao.dardeBaja();
+			}
+		});
 		btnDarDeBaja.setFocusTraversalKeysEnabled(false);
 		btnDarDeBaja.setFocusPainted(false);
 		btnDarDeBaja.setBackground(Color.RED);

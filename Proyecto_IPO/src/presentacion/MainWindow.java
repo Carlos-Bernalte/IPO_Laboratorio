@@ -39,6 +39,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
@@ -84,6 +86,8 @@ public class MainWindow extends JFrame {
 
 		setUndecorated(true);
 		
+
+		
 		GenericDAO gdao = new GenericDAO();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/Iconos/003-tent.png")));
@@ -96,28 +100,30 @@ public class MainWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
+		lblFeedback = new JLabel("Bienvenido");
+		lblFeedback.setBorder(new EmptyBorder(5, 5, 5, 5));
+		lblFeedback.setForeground(Color.WHITE);
+		contentPane.add(lblFeedback, BorderLayout.SOUTH);
+		
 		panelCentral = new JPanel();
 		panelCentral.setBackground(Paleta.azul_turquesa);
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		panelCentral.setLayout(new CardLayout(0, 0));
 		
 		//Inicializar los paneles y añadirlos al panel central
-		ConsultarInformacion consultar_informacion= new ConsultarInformacion(gdao);
+		ConsultarInformacion consultar_informacion= new ConsultarInformacion(gdao,lblFeedback);
 		panelCentral.add(consultar_informacion, "Consultar Información");
 		
-		RealizarReserva realizar_reserva= new RealizarReserva(gdao);
+		RealizarReserva realizar_reserva= new RealizarReserva(gdao,lblFeedback);
 		panelCentral.add(realizar_reserva, "Realizar Reserva");
 		
-		Personal personal = new Personal(gdao);
+		Personal personal = new Personal(gdao,lblFeedback);
 		panelCentral.add(personal, "Personal");
 		
-		DibujarRuta dibujar_ruta =new DibujarRuta(gdao);
+		DibujarRuta dibujar_ruta =new DibujarRuta(gdao,lblFeedback);
 		panelCentral.add(dibujar_ruta, "Dibujar Ruta");
 		
-		lblFeedback = new JLabel("Bienvenido");
-		lblFeedback.setBorder(new EmptyBorder(5, 5, 5, 5));
-		lblFeedback.setForeground(Color.WHITE);
-		contentPane.add(lblFeedback, BorderLayout.SOUTH);
+
 		
 		panelSuperior = new JPanel();
 		contentPane.add(panelSuperior, BorderLayout.NORTH);

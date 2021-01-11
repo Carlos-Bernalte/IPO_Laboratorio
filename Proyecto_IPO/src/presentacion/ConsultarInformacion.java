@@ -91,7 +91,7 @@ public class ConsultarInformacion extends JPanel {
 	 * Create the panel.
 	 */
 	@SuppressWarnings("rawtypes")
-	public ConsultarInformacion(GenericDAO gdao) {
+	public ConsultarInformacion(GenericDAO gdao, JLabel lblFeedback) {
 		UIManager.getDefaults().put("TabbedPane.contentBorderInsets", new Insets(0,0,0,0));
 		UIManager.put("TabbedPane.selected", Paleta.blanco_gris);
 		

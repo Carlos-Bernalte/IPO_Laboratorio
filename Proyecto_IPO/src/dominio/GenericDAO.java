@@ -23,9 +23,9 @@ public class GenericDAO {
 		this.listaUsuarios = leerUsuarios("src/Ficheros/Usuarios.txt");
 		this.listaEmpleados = leerEmpleados("src/Ficheros/Empleados.txt");
 		this.listaActividad = leerActividades("src/Ficheros/Actividades.txt");
-//		this.listaRutas = leerRutas("src/Ficheros/");
+//		this.listaRutas = leerRutas("src/Ficheros/"); No implementado
 		this.listaAlojamientos = leerAlojamientos("src/Ficheros/Alojamientos.txt");
-//		this.listaReservas = leerReservas("src/Ficheros/");
+//		this.listaReservas = leerReservas("src/Ficheros/"); No implementado
 	}
 	
 	public Vector<Usuario> getListaUsuarios() {
@@ -43,7 +43,32 @@ public class GenericDAO {
 	public void setListaEmpleados(Vector<Empleado> listaEmpleados) {
 		this.listaEmpleados = listaEmpleados;
 	}
-
+	public void dardeAlta(Empleado e) throws IOException {
+		FileWriter fw = new FileWriter("src/ficheros/Empleados.txt", true);
+		BufferedWriter bw= new BufferedWriter(fw);
+		bw.write(e.toString2());
+		bw.close();
+	}
+	public void dardeBaja(Empleado e) throws IOException {
+		Scanner lector = null;
+		try{
+			lector= new Scanner(new FileReader(new File("src/ficheros/Usuarios.txt")));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		String archivo="";
+		while (lector.hasNext()) {
+			String line =lector.nextLine();
+			if(!line.equals(e.toString2())) {
+				archivo+=line+"\n";
+			}
+		}
+		lector.close();
+		FileWriter fw = new FileWriter("src/ficheros/Usuarios.txt", false);
+		BufferedWriter bw= new BufferedWriter(fw);
+		bw.write(archivo.substring(0,archivo.length()-1));
+		bw.close();
+	}
 	public Vector<Actividad> getListaActividad() {
 		return leerActividades("src/Ficheros/Actividades.txt");
 	}
