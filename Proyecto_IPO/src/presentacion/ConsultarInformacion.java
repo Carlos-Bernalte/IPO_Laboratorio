@@ -519,6 +519,7 @@ public class ConsultarInformacion extends JPanel {
 		textFieldMaterial.setColumns(10);
 		
 		btnEditarActividad = new JButton(Messages.getString("ConsultarInformacion.27")); //$NON-NLS-1$
+		btnEditarActividad.setForeground(Color.WHITE);
 		btnEditarActividad.setFocusTraversalKeysEnabled(false);
 		btnEditarActividad.setFocusPainted(false);
 		btnEditarActividad.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -536,7 +537,7 @@ public class ConsultarInformacion extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnEditarActividad = new GridBagConstraints();
-		gbc_btnEditarActividad.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btnEditarActividad.fill = GridBagConstraints.BOTH;
 		gbc_btnEditarActividad.insets = new Insets(0, 0, 0, 5);
 		gbc_btnEditarActividad.gridwidth = 2;
 		gbc_btnEditarActividad.gridx = 1;
@@ -569,6 +570,7 @@ public class ConsultarInformacion extends JPanel {
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.gridwidth = 2;
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 4;
