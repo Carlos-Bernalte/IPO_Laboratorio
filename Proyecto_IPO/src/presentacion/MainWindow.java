@@ -63,12 +63,12 @@ public class MainWindow extends JFrame {
 	private JMenu mnAjustes;
 	private JMenu mnFuente;
 	private JMenu mnTamañoFuente;
-	private JMenuItem fuenteArial;
-	private JMenuItem mnTFuente12;
-	private JMenuItem mnTFuente16;
-	private JMenuItem mnTFuente20;
-	private JMenuItem fuenteAvenir;
-	private JMenuItem fuenteFranklin;
+	private JRadioButtonMenuItem fuenteArial;
+	private JRadioButtonMenuItem mnTFuente12;
+	private JRadioButtonMenuItem mnTFuente16;
+	private JRadioButtonMenuItem mnTFuente20;
+	private JRadioButtonMenuItem fuenteAvenir;
+	private JRadioButtonMenuItem fuenteFranklin;
 	private Font fuenteDefault;
 	private final ButtonGroup btnGroupFuente = new ButtonGroup();
 	private JButton btnSalir;
@@ -80,6 +80,7 @@ public class MainWindow extends JFrame {
 	private JLabel lblApellidos;
 	private Usuario usuario;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 
 	/**
 	 * Create the frame.
@@ -164,17 +165,17 @@ public class MainWindow extends JFrame {
 		mnFuente = new JMenu(Messages.getString("MainWindow.20")); //$NON-NLS-1$
 		mnAjustes.add(mnFuente);
 		
-		fuenteArial = new JMenuItem("Arial"); //$NON-NLS-1$
+		fuenteArial = new JRadioButtonMenuItem("Arial"); //$NON-NLS-1$
 		fuenteArial.addActionListener(new fuenteListener());
 		btnGroupFuente.add(fuenteArial);
 		mnFuente.add(fuenteArial);
 		
-		fuenteAvenir = new JMenuItem("Avenir Next LT Pro"); //$NON-NLS-1$
+		fuenteAvenir = new JRadioButtonMenuItem("Avenir Next LT Pro"); //$NON-NLS-1$
 		fuenteAvenir.addActionListener(new fuenteListener());
 		btnGroupFuente.add(fuenteAvenir);
 		mnFuente.add(fuenteAvenir);
 		
-		fuenteFranklin = new JMenuItem("Franklin Gothic Book"); //$NON-NLS-1$
+		fuenteFranklin = new JRadioButtonMenuItem("Franklin Gothic Book"); //$NON-NLS-1$
 		fuenteFranklin.addActionListener(new fuenteListener());
 		btnGroupFuente.add(fuenteFranklin);
 		mnFuente.add(fuenteFranklin);
@@ -182,15 +183,18 @@ public class MainWindow extends JFrame {
 		mnTamañoFuente = new JMenu(Messages.getString("MainWindow.24")); //$NON-NLS-1$
 		mnAjustes.add(mnTamañoFuente);
 		
-		mnTFuente12 = new JMenuItem("12");  //$NON-NLS-1$
+		mnTFuente12 = new JRadioButtonMenuItem("12");  //$NON-NLS-1$
+		buttonGroup_1.add(mnTFuente12);
 		mnTFuente12.addActionListener(new fuenteListener());
 		mnTamañoFuente.add(mnTFuente12);
 		
-		mnTFuente16 = new JMenuItem("16"); //$NON-NLS-1$
+		mnTFuente16 = new JRadioButtonMenuItem("16"); //$NON-NLS-1$
+		buttonGroup_1.add(mnTFuente16);
 		mnTFuente16.addActionListener(new fuenteListener());
 		mnTamañoFuente.add(mnTFuente16);
 		
-		mnTFuente20 = new JMenuItem("20"); //$NON-NLS-1$
+		mnTFuente20 = new JRadioButtonMenuItem("20"); //$NON-NLS-1$
+		buttonGroup_1.add(mnTFuente20);
 		mnTFuente20.addActionListener(new fuenteListener());
 		mnTamañoFuente.add(mnTFuente20);
 		
@@ -364,26 +368,26 @@ public class MainWindow extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			CardLayout panelSeleccionado = (CardLayout) panelCentral.getLayout();
-			if(e.getActionCommand()=="Consultar Información") {
+			if(e.getActionCommand().equals("Consultar Información") ||e.getActionCommand().equals("Show information") ) {
 				resetearColor();
 				lblFeedback.setText("Cambialo");
 				btnConsultarInformacion.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, Messages.getString("MainWindow.25")); //$NON-NLS-1$
 			}
-			if(e.getActionCommand()=="Realizar Reserva") {
+			if(e.getActionCommand().equals("Realizar Reserva")|| e.getActionCommand().equals("Booking")) {
 				resetearColor();
 				lblFeedback.setForeground(Color.WHITE);
 				lblFeedback.setText("Cambialo");
 				btnRealizarReserva.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, Messages.getString("MainWindow.22")); //$NON-NLS-1$
 			}
-			if(e.getActionCommand()=="Personal") {
+			if(e.getActionCommand().equals("Personal")) {
 				resetearColor();
 				lblFeedback.setText("");
 				btnPersonal.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, Messages.getString("MainWindow.26")); //$NON-NLS-1$
 			}
-			if(e.getActionCommand()=="Dibujar Ruta") {
+			if(e.getActionCommand().equals("Dibujar Ruta")|| e.getActionCommand().equals("Draw route")) {
 				resetearColor();
 				lblFeedback.setText("");
 				btnDibujarRuta.setBackground(Paleta.azul_oscuro);
