@@ -21,7 +21,7 @@ public class RenderizadoRuta extends DefaultListCellRenderer {
 	
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus){
 		JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
-		renderer.setIcon(new ImageIcon(RenderizadoRuta.class.getResource("/rutas/mapa.jpg")));
+		renderer.setIcon(new ImageIcon(RenderizadoRuta.class.getResource("/Iconos/mapaIcono.png")));
 		renderer.setBorder(new CompoundBorder(new LineBorder(Paleta.blanco_gris, 8), new EmptyBorder(5, 5, 5, 5)));
 		renderer.setBackground(Paleta.azul_turquesa2);
 		renderer.setForeground(Color.WHITE);
