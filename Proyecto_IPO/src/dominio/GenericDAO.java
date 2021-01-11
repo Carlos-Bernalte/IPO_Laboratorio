@@ -37,6 +37,7 @@ public class GenericDAO {
 	}
 
 	public Vector<Empleado> getListaEmpleados() {
+		this.listaEmpleados = leerEmpleados("src/Ficheros/Empleados.txt");
 		return listaEmpleados;
 	}
 
@@ -46,13 +47,13 @@ public class GenericDAO {
 	public void dardeAlta(Empleado e) throws IOException {
 		FileWriter fw = new FileWriter("src/ficheros/Empleados.txt", true);
 		BufferedWriter bw= new BufferedWriter(fw);
-		bw.write(e.toString2());
+		bw.write("\n"+e.toString2());
 		bw.close();
 	}
 	public void dardeBaja(Empleado e) throws IOException {
 		Scanner lector = null;
 		try{
-			lector= new Scanner(new FileReader(new File("src/ficheros/Usuarios.txt")));
+			lector= new Scanner(new FileReader(new File("src/ficheros/Empleados.txt")));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
@@ -64,7 +65,7 @@ public class GenericDAO {
 			}
 		}
 		lector.close();
-		FileWriter fw = new FileWriter("src/ficheros/Usuarios.txt", false);
+		FileWriter fw = new FileWriter("src/ficheros/Empleados.txt", false);
 		BufferedWriter bw= new BufferedWriter(fw);
 		bw.write(archivo.substring(0,archivo.length()-1));
 		bw.close();

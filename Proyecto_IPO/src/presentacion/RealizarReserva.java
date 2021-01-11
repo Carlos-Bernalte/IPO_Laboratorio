@@ -242,12 +242,34 @@ public class RealizarReserva extends JPanel {
 		btnLimpiarReserva.setBackground(Color.RED);
 		
 		btnReservar = new JButton("Reservar");
+		btnReservar.addActionListener(new ActionListener() {
+			@SuppressWarnings("unlikely-arg-type")
+			public void actionPerformed(ActionEvent e) {
+				int valor=0;
+				try {
+					if(!textNombre.getText().equals("") && !textTelefono.getText().equals("") && !dateChooserComingDay.getDate().equals("") && !dateChooserExitDate.getDate().equals("")) {
+						String nombreAlojamiento =listAlojamientos.getSelectedValue().toStringNombreAlojamiento(listAlojamientos.getSelectedValue().toString());
+						Reserva r = new Reserva(nombreAlojamiento ,textNombre.getText(),textTelefono.getText(),textCorreo.getText(),"5",dateChooserComingDay.getDate(),dateChooserExitDate.getDate(),textAreaSolicitudesEspeciales.getText());
+						valor=r.guardarReserva(r);
+						lblFeedback.setForeground(Color.GREEN);
+						lblFeedback.setText("Reserva efectuada correctamente");
+					}else {
+						lblFeedback.setForeground(Color.RED);
+						lblFeedback.setText("Rellene los campos obligatorios");
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} catch (NullPointerException e1) {
+					lblFeedback.setForeground(Color.RED);
+					lblFeedback.setText("Seleccione el alojamiento que desea para realizar una reserva");
+				}
+			}
+		});
 		GridBagConstraints gbc_btnReservar = new GridBagConstraints();
 		gbc_btnReservar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnReservar.gridx = 2;
 		gbc_btnReservar.gridy = 13;
 		InformacionReserva.add(btnReservar, gbc_btnReservar);
-		btnReservar.addActionListener(new BtnReservarActionListener());
 		btnReservar.setFocusTraversalKeysEnabled(false);
 		btnReservar.setFocusPainted(false);
 		btnReservar.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -299,18 +321,7 @@ public class RealizarReserva extends JPanel {
 				dateChooserExitDate.setDate(null);
 			}
 	}
-	private class BtnReservarActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			int valor=0;
-			try {
-				String nombreAlojamiento =listAlojamientos.getSelectedValue().toStringNombreAlojamiento(listAlojamientos.getSelectedValue().toString());
-				Reserva r = new Reserva(nombreAlojamiento ,textNombre.getText(),textTelefono.getText(),textCorreo.getText(),"5",dateChooserComingDay.getDate(),dateChooserExitDate.getDate(),textAreaSolicitudesEspeciales.getText());
-				valor=r.guardarReserva(r);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
-	}
+	
 	public void refresh(GenericDAO gdao) {
 		DefaultListModel<Alojamiento> modeloLista = new DefaultListModel<Alojamiento>();
 		listAlojamientos.setModel(modeloLista);

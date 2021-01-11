@@ -21,10 +21,19 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JRadioButton;
+import javax.swing.border.EmptyBorder;
+import javax.swing.ButtonGroup;
 
 @SuppressWarnings("serial")
 public class Personal extends JPanel {
@@ -44,11 +53,16 @@ public class Personal extends JPanel {
 	private JTextField txtFieldEmail;
 	private JButton btnDarDeAlta;
 	private JButton btnDarDeBaja;
+	private JRadioButton rdbtnMonitor;
+	private JRadioButton rdbtnGuia;
+	private JLabel lblRol;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Create the panel.
+	 * @throws ParseException 
 	 */
-	public Personal(GenericDAO gdao, JLabel lblFeedback) {
+	public Personal(GenericDAO gdao, JLabel lblFeedback) throws ParseException {
 		setBackground(Paleta.azul_oscuro);
 		setForeground(Paleta.azul_oscuro);
 		setBorder(null);
@@ -70,6 +84,22 @@ public class Personal extends JPanel {
 		add(scrollPane, gbc_scrollPane);
 		
 		listaPersonal = new JList<Empleado>();
+		listaPersonal.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Empleado empleado = (Empleado) listaPersonal.getSelectedValue();
+				txtFieldNombre.setText(empleado.getNombre());
+				txtFieldApellidos.setText(empleado.getApellido());
+				txtFieldDNI.setText(empleado.getDni());
+				txtFieldTelefono.setText(empleado.getTelefono());
+				txtFieldEmail.setText(empleado.getEmail());
+				if(empleado.getEmpleo().equals("Monitor")) {
+					rdbtnMonitor.setSelected(true);
+				}else if(empleado.getEmpleo().equals("Guia")) {
+					rdbtnGuia.setSelected(true);
+				}
+			}
+		});
 		listaPersonal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listaPersonal.setBorder(null);
 		listaPersonal.setForeground(Color.BLACK);
@@ -81,16 +111,6 @@ public class Personal extends JPanel {
 		refresh(gdao);
 		scrollPane.setViewportView(listaPersonal);
 		
-		listaPersonal.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				Empleado empleado = (Empleado) listaPersonal.getSelectedValue();
-				txtFieldNombre.setText(empleado.getNombre());
-				txtFieldApellidos.setText(empleado.getApellido());
-				txtFieldDNI.setText(empleado.getDni());
-				txtFieldTelefono.setText(empleado.getTelefono());
-				txtFieldEmail.setText(empleado.getEmail());
-			}
-		});
 		
 		pnlInfoPersonal = new JPanel();
 		pnlInfoPersonal.setBackground(Paleta.azul_turquesa2);
@@ -101,9 +121,9 @@ public class Personal extends JPanel {
 		add(pnlInfoPersonal, gbc_pnlInfoPersonal);
 		GridBagLayout gbl_pnlInfoPersonal = new GridBagLayout();
 		gbl_pnlInfoPersonal.columnWidths = new int[]{10, 10, 10, 100, 80, 80, 15, 0};
-		gbl_pnlInfoPersonal.rowHeights = new int[]{10, 0, 20, 0, 0, 0, 0, 0, 20, 10, 0, 0};
+		gbl_pnlInfoPersonal.rowHeights = new int[]{10, 0, 20, 0, 0, 0, 0, 0, 0, 20, 10, 0, 0};
 		gbl_pnlInfoPersonal.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_pnlInfoPersonal.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_pnlInfoPersonal.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		pnlInfoPersonal.setLayout(gbl_pnlInfoPersonal);
 		
 		fotoEmpleado = new JLabel("");
@@ -155,22 +175,57 @@ public class Personal extends JPanel {
 		pnlInfoPersonal.add(txtFieldApellidos, gbc_txtFieldApellidos);
 		txtFieldApellidos.setColumns(10);
 		
+		lblRol = new JLabel("Rol:");
+		lblRol.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblRol = new GridBagConstraints();
+		gbc_lblRol.anchor = GridBagConstraints.EAST;
+		gbc_lblRol.insets = new Insets(0, 0, 5, 5);
+		gbc_lblRol.gridx = 2;
+		gbc_lblRol.gridy = 5;
+		pnlInfoPersonal.add(lblRol, gbc_lblRol);
+		
+		rdbtnMonitor = new JRadioButton("Monitor");
+		buttonGroup.add(rdbtnMonitor);
+		rdbtnMonitor.setBackground(Paleta.azul_turquesa2);
+		rdbtnMonitor.setBorder(new EmptyBorder(5, 5, 5, 5));
+		rdbtnMonitor.setForeground(Color.WHITE);
+		GridBagConstraints gbc_rdbtnMonitor = new GridBagConstraints();
+		gbc_rdbtnMonitor.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnMonitor.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnMonitor.gridx = 3;
+		gbc_rdbtnMonitor.gridy = 5;
+		pnlInfoPersonal.add(rdbtnMonitor, gbc_rdbtnMonitor);
+		
+		rdbtnGuia = new JRadioButton("Guia");
+		buttonGroup.add(rdbtnGuia);
+		rdbtnGuia.setBackground(Paleta.azul_turquesa2);
+		rdbtnGuia.setBorder(new EmptyBorder(5, 5, 5, 5));
+		rdbtnGuia.setForeground(Color.WHITE);
+		GridBagConstraints gbc_rdbtnGuia = new GridBagConstraints();
+		gbc_rdbtnGuia.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnGuia.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnGuia.gridx = 4;
+		gbc_rdbtnGuia.gridy = 5;
+		pnlInfoPersonal.add(rdbtnGuia, gbc_rdbtnGuia);
+		
 		lblDNI = new JLabel("NIF: ");
 		lblDNI.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblDNI = new GridBagConstraints();
 		gbc_lblDNI.anchor = GridBagConstraints.EAST;
 		gbc_lblDNI.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDNI.gridx = 2;
-		gbc_lblDNI.gridy = 5;
+		gbc_lblDNI.gridy = 6;
 		pnlInfoPersonal.add(lblDNI, gbc_lblDNI);
 		
-		txtFieldDNI = new JTextField();
+		MaskFormatter mascaraDNI = new MaskFormatter("########U");
+
+		txtFieldDNI = new JFormattedTextField(mascaraDNI);
 		txtFieldDNI.setBorder(new LineBorder(Color.BLACK));
 		GridBagConstraints gbc_txtFieldDNI = new GridBagConstraints();
 		gbc_txtFieldDNI.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFieldDNI.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFieldDNI.gridx = 3;
-		gbc_txtFieldDNI.gridy = 5;
+		gbc_txtFieldDNI.gridy = 6;
 		pnlInfoPersonal.add(txtFieldDNI, gbc_txtFieldDNI);
 		txtFieldDNI.setColumns(10);
 		
@@ -180,16 +235,16 @@ public class Personal extends JPanel {
 		gbc_lblTelefono.anchor = GridBagConstraints.EAST;
 		gbc_lblTelefono.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTelefono.gridx = 2;
-		gbc_lblTelefono.gridy = 6;
+		gbc_lblTelefono.gridy = 7;
 		pnlInfoPersonal.add(lblTelefono, gbc_lblTelefono);
-		
-		txtFieldTelefono = new JTextField();
+		MaskFormatter mascaraTelefono = new MaskFormatter("#########");
+		txtFieldTelefono = new JFormattedTextField(mascaraTelefono);
 		txtFieldTelefono.setBorder(new LineBorder(Color.BLACK));
 		GridBagConstraints gbc_txtFieldTelefono = new GridBagConstraints();
 		gbc_txtFieldTelefono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtFieldTelefono.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFieldTelefono.gridx = 3;
-		gbc_txtFieldTelefono.gridy = 6;
+		gbc_txtFieldTelefono.gridy = 7;
 		pnlInfoPersonal.add(txtFieldTelefono, gbc_txtFieldTelefono);
 		txtFieldTelefono.setColumns(10);
 		
@@ -199,7 +254,7 @@ public class Personal extends JPanel {
 		gbc_lblEmail.anchor = GridBagConstraints.EAST;
 		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEmail.gridx = 2;
-		gbc_lblEmail.gridy = 7;
+		gbc_lblEmail.gridy = 8;
 		pnlInfoPersonal.add(lblEmail, gbc_lblEmail);
 		
 		txtFieldEmail = new JTextField();
@@ -209,36 +264,54 @@ public class Personal extends JPanel {
 		gbc_txtFieldEmail.gridwidth = 3;
 		gbc_txtFieldEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFieldEmail.gridx = 3;
-		gbc_txtFieldEmail.gridy = 7;
+		gbc_txtFieldEmail.gridy = 8;
 		pnlInfoPersonal.add(txtFieldEmail, gbc_txtFieldEmail);
 		txtFieldEmail.setColumns(10);
 		
 		btnDarDeAlta = new JButton("Dar Alta");
 		btnDarDeAlta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Empleado empleado = new Empleado();
-				try {
-					gdao.dardeAlta(empleado);
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				if(!txtFieldNombre.getText().equals("") && !txtFieldApellidos.getText().equals("") && !txtFieldDNI.getText().equals("") && !txtFieldTelefono.getText().equals("") && !txtFieldEmail.getText().equals("") && rdbtnMonitor.isSelected() || rdbtnGuia.isSelected()) {
+					String rol="";
+					if(rdbtnMonitor.isSelected()) {
+						rol="Monitor";
+					}else if(rdbtnGuia.isSelected()) {
+						rol="Guia";
+					}
+					Empleado empleado = new Empleado(txtFieldNombre.getText(),txtFieldApellidos.getText(),txtFieldDNI.getText(),txtFieldTelefono.getText(),txtFieldEmail.getText(),null,rol);
+					try {
+						gdao.dardeAlta(empleado);
+						refresh(gdao);
+						limpiar();
+						lblFeedback.setForeground(Color.GREEN);
+						lblFeedback.setText("Empleado dado el alta correctamente!!");
+
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}else {
+					lblFeedback.setForeground(Color.RED);
+					lblFeedback.setText("Rellene todos los campos para dar de alta a un empleado");
+					
 				}
 			}
 		});
-		btnDarDeAlta.setFocusTraversalKeysEnabled(false);
-		btnDarDeAlta.setFocusPainted(false);
-		btnDarDeAlta.setBackground(Color.GREEN);
-		btnDarDeAlta.setBorder(new LineBorder(new Color(0, 0, 0), 2));
-		GridBagConstraints gbc_btnDarDeAlta = new GridBagConstraints();
-		gbc_btnDarDeAlta.fill = GridBagConstraints.BOTH;
-		gbc_btnDarDeAlta.insets = new Insets(0, 0, 5, 5);
-		gbc_btnDarDeAlta.gridx = 4;
-		gbc_btnDarDeAlta.gridy = 9;
-		pnlInfoPersonal.add(btnDarDeAlta, gbc_btnDarDeAlta);
 		
 		btnDarDeBaja = new JButton("Dar Baja");
 		btnDarDeBaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gdao.dardeBaja();
+				Empleado empleado = (Empleado) listaPersonal.getSelectedValue();
+				try {
+					gdao.dardeBaja(empleado);
+					limpiar();
+					refresh(gdao);
+					lblFeedback.setForeground(Color.GREEN);
+					lblFeedback.setText("Empleado dado el baja correctamente!!");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				limpiar();
+				refresh(gdao);
 			}
 		});
 		btnDarDeBaja.setFocusTraversalKeysEnabled(false);
@@ -248,12 +321,30 @@ public class Personal extends JPanel {
 		GridBagConstraints gbc_btnDarDeBaja = new GridBagConstraints();
 		gbc_btnDarDeBaja.fill = GridBagConstraints.BOTH;
 		gbc_btnDarDeBaja.insets = new Insets(0, 0, 5, 5);
-		gbc_btnDarDeBaja.gridx = 5;
-		gbc_btnDarDeBaja.gridy = 9;
+		gbc_btnDarDeBaja.gridx = 4;
+		gbc_btnDarDeBaja.gridy = 10;
 		pnlInfoPersonal.add(btnDarDeBaja, gbc_btnDarDeBaja);
+		btnDarDeAlta.setFocusTraversalKeysEnabled(false);
+		btnDarDeAlta.setFocusPainted(false);
+		btnDarDeAlta.setBackground(Color.GREEN);
+		btnDarDeAlta.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		GridBagConstraints gbc_btnDarDeAlta = new GridBagConstraints();
+		gbc_btnDarDeAlta.fill = GridBagConstraints.BOTH;
+		gbc_btnDarDeAlta.insets = new Insets(0, 0, 5, 5);
+		gbc_btnDarDeAlta.gridx = 5;
+		gbc_btnDarDeAlta.gridy = 10;
+		pnlInfoPersonal.add(btnDarDeAlta, gbc_btnDarDeAlta);
 
 	}
-
+	public void limpiar() {
+		txtFieldNombre.setText("");
+		txtFieldApellidos.setText("");
+		txtFieldDNI.setText("");
+		txtFieldTelefono.setText("");
+		txtFieldEmail.setText("");
+		rdbtnMonitor.setSelected(false);
+		rdbtnGuia.setSelected(false);
+	}
 	public void refresh(GenericDAO gdao) {
 		DefaultListModel<Empleado> modeloLista = new DefaultListModel<Empleado>();
 		listaPersonal.setModel(modeloLista);

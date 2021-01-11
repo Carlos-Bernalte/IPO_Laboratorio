@@ -89,6 +89,7 @@ public class LoginWindow {
 	 */
 	public LoginWindow() {
 		frmGestorDeCamping = new JFrame();
+		frmGestorDeCamping.setIconImage(Toolkit.getDefaultToolkit().getImage(LoginWindow.class.getResource("/Iconos/003-tent.png")));
 		initialize();
 	}
 

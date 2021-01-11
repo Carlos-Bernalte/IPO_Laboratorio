@@ -341,22 +341,27 @@ public class MainWindow extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			CardLayout panelSeleccionado = (CardLayout) panelCentral.getLayout();
 			if(e.getActionCommand()=="Consultar Información") {
-				resetearColor();				
+				resetearColor();
+				lblFeedback.setText("Cambialo");
 				btnConsultarInformacion.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, "Consultar Información");
 			}
 			if(e.getActionCommand()=="Realizar Reserva") {
-				resetearColor();				
+				resetearColor();
+				lblFeedback.setForeground(Color.WHITE);
+				lblFeedback.setText("Cambialo");
 				btnRealizarReserva.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, "Realizar Reserva");
 			}
 			if(e.getActionCommand()=="Personal") {
-				resetearColor();				
+				resetearColor();
+				lblFeedback.setText("");
 				btnPersonal.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, "Personal");
 			}
 			if(e.getActionCommand()=="Dibujar Ruta") {
-				resetearColor();				
+				resetearColor();
+				lblFeedback.setText("");
 				btnDibujarRuta.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, "Dibujar Ruta");
 			}
