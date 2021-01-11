@@ -70,8 +70,8 @@ public class DibujarRuta extends JPanel {
 	private ImageIcon imagen;
 	private JButton cargarMapa;
 	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_3;
+	private JLabel lblHoraInicio;
+	private JLabel lblHoraFin;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBoxMonitores;
 	private JButton btnLimpiar;
@@ -253,134 +253,25 @@ public class DibujarRuta extends JPanel {
 		gbc_informacionRuta.gridy = 1;
 		add(informacionRuta, gbc_informacionRuta);
 		GridBagLayout gbl_informacionRuta = new GridBagLayout();
-		gbl_informacionRuta.columnWidths = new int[]{10, 0, 100, 10, 0};
-		gbl_informacionRuta.rowHeights = new int[]{50, 0, 0, 0, 0, 0, 80, 40, 0, 0, 0, 0};
-		gbl_informacionRuta.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_informacionRuta.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_informacionRuta.columnWidths = new int[]{10, 0, 50, 50, 10, 0};
+		gbl_informacionRuta.rowHeights = new int[]{50, 0, 10, 0, 0, 0, 0, 0, 80, 40, 0, 0, 0, 0};
+		gbl_informacionRuta.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_informacionRuta.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		informacionRuta.setLayout(gbl_informacionRuta);
 		
-		lblNewLabel = new JLabel(Messages.getString("DibujarRuta.29")); //$NON-NLS-1$
-		lblNewLabel.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 1;
-		informacionRuta.add(lblNewLabel, gbc_lblNewLabel);
-		
-		comboBoxMonitores = new JComboBox();
-		comboBoxMonitores.setToolTipText(Messages.getString("DibujarRuta.comboBoxMonitores.toolTipText")); //$NON-NLS-1$
-		GridBagConstraints gbc_comboBoxMonitores = new GridBagConstraints();
-		gbc_comboBoxMonitores.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBoxMonitores.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBoxMonitores.gridx = 2;
-		gbc_comboBoxMonitores.gridy = 1;
-		informacionRuta.add(comboBoxMonitores, gbc_comboBoxMonitores);
-		
-		Empleado e = new Empleado();
-		empleados=e.leerMonitores();
-		DefaultComboBoxModel<String> modeloCombo= new DefaultComboBoxModel<String>();
-		comboBoxMonitores.setModel(modeloCombo);
-		for(int i=0; i<empleados.size();i++) {
-			modeloCombo.addElement(empleados.elementAt(i).getNombre()+ " "+ empleados.elementAt(i).getApellido()); //$NON-NLS-1$
-		}
-		
-		lblNewLabel_1 = new JLabel(Messages.getString("DibujarRuta.31")); //$NON-NLS-1$
-		lblNewLabel_1.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 1;
-		gbc_lblNewLabel_1.gridy = 3;
-		informacionRuta.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		
-		MaskFormatter mascara = new MaskFormatter("##:##"); //$NON-NLS-1$
-		txtHoraInicio = new JFormattedTextField(mascara);
-		txtHoraInicio.setToolTipText(Messages.getString("DibujarRuta.txtHoraInicio.toolTipText")); //$NON-NLS-1$
-		GridBagConstraints gbc_txtHoraInicio = new GridBagConstraints();
-		gbc_txtHoraInicio.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtHoraInicio.anchor = GridBagConstraints.NORTH;
-		gbc_txtHoraInicio.insets = new Insets(0, 0, 5, 5);
-		gbc_txtHoraInicio.gridx = 2;
-		gbc_txtHoraInicio.gridy = 3;
-		informacionRuta.add(txtHoraInicio, gbc_txtHoraInicio);
-		txtHoraInicio.setColumns(10);
-		
-		lblNewLabel_3 = new JLabel(Messages.getString("DibujarRuta.33")); //$NON-NLS-1$
-		lblNewLabel_3.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_3.anchor = GridBagConstraints.EAST;
-		gbc_lblNewLabel_3.gridx = 1;
-		gbc_lblNewLabel_3.gridy = 4;
-		informacionRuta.add(lblNewLabel_3, gbc_lblNewLabel_3);
-		
-		txtHoraFin = new JFormattedTextField(mascara);
-		txtHoraFin.setToolTipText(Messages.getString("DibujarRuta.txtHoraFin.toolTipText")); //$NON-NLS-1$
-		GridBagConstraints gbc_txtHoraFin = new GridBagConstraints();
-		gbc_txtHoraFin.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtHoraFin.insets = new Insets(0, 0, 5, 5);
-		gbc_txtHoraFin.gridx = 2;
-		gbc_txtHoraFin.gridy = 4;
-		informacionRuta.add(txtHoraFin, gbc_txtHoraFin);
-		txtHoraFin.setColumns(10);
-		
-		lblDescripcionRuta = new JLabel(Messages.getString("DibujarRuta.34")); //$NON-NLS-1$
-		lblDescripcionRuta.setHorizontalAlignment(SwingConstants.LEFT);
-		lblDescripcionRuta.setForeground(Color.WHITE);
-		GridBagConstraints gbc_lblDescripcionRuta = new GridBagConstraints();
-		gbc_lblDescripcionRuta.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblDescripcionRuta.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDescripcionRuta.gridx = 1;
-		gbc_lblDescripcionRuta.gridy = 6;
-		informacionRuta.add(lblDescripcionRuta, gbc_lblDescripcionRuta);
-		
-		textArea = new JTextArea();
-		textArea.setToolTipText(Messages.getString("DibujarRuta.textArea.toolTipText")); //$NON-NLS-1$
-		textArea.setLineWrap(true);
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.insets = new Insets(0, 0, 5, 5);
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 2;
-		gbc_textArea.gridy = 6;
-		informacionRuta.add(textArea, gbc_textArea);
-		
-		btnLimpiar = new JButton(Messages.getString("DibujarRuta.35")); //$NON-NLS-1$
-		btnLimpiar.setToolTipText(Messages.getString("DibujarRuta.btnLimpiar.toolTipText")); //$NON-NLS-1$
-		btnLimpiar.setEnabled(false);
-		btnLimpiar.setFocusTraversalKeysEnabled(false);
-		btnLimpiar.setFocusable(false);
-		btnLimpiar.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		btnLimpiar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				comboBoxMonitores.setSelectedIndex(-1);
-				txtHoraInicio.setText(""); //$NON-NLS-1$
-				txtHoraFin.setText(""); //$NON-NLS-1$
-				areaDibujo.removeAllObjetoGrafico();
-				areaDibujo.repaint();
-				textArea.setText(""); //$NON-NLS-1$
-
-			}
-		});
-		
-		btnGuardarRuta = new JButton(Messages.getString("DibujarRuta.39")); //$NON-NLS-1$
-		btnGuardarRuta.setToolTipText(Messages.getString("DibujarRuta.btnGuardarRuta.toolTipText")); //$NON-NLS-1$
-		btnGuardarRuta.setEnabled(false);
-		btnGuardarRuta.setFocusTraversalKeysEnabled(false);
-		btnGuardarRuta.setFocusable(false);
-		btnGuardarRuta.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		btnGuardarRuta.addActionListener(new BtnNewButton_1ActionListener());
-		
 		cargarMapa = new JButton(Messages.getString("DibujarRuta.40")); //$NON-NLS-1$
+		cargarMapa.setBackground(Paleta.azul_turquesa);
+		cargarMapa.setForeground(Color.WHITE);
 		cargarMapa.setToolTipText(Messages.getString("DibujarRuta.cargarMapa.toolTipText")); //$NON-NLS-1$
 		cargarMapa.setFocusTraversalKeysEnabled(false);
 		cargarMapa.setFocusable(false);
 		cargarMapa.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		GridBagConstraints gbc_cargarMapa = new GridBagConstraints();
+		gbc_cargarMapa.gridwidth = 2;
 		gbc_cargarMapa.fill = GridBagConstraints.BOTH;
 		gbc_cargarMapa.insets = new Insets(0, 0, 5, 5);
 		gbc_cargarMapa.gridx = 2;
-		gbc_cargarMapa.gridy = 8;
+		gbc_cargarMapa.gridy = 1;
 		informacionRuta.add(cargarMapa, gbc_cargarMapa);
 		cargarMapa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -399,18 +290,136 @@ public class DibujarRuta extends JPanel {
 				}
 			}
 		});
-		GridBagConstraints gbc_btnGuardarRuta = new GridBagConstraints();
-		gbc_btnGuardarRuta.fill = GridBagConstraints.BOTH;
-		gbc_btnGuardarRuta.insets = new Insets(0, 0, 5, 5);
-		gbc_btnGuardarRuta.gridx = 2;
-		gbc_btnGuardarRuta.gridy = 9;
-		informacionRuta.add(btnGuardarRuta, gbc_btnGuardarRuta);
+		
+		lblNewLabel = new JLabel(Messages.getString("DibujarRuta.29")); //$NON-NLS-1$
+		lblNewLabel.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 3;
+		informacionRuta.add(lblNewLabel, gbc_lblNewLabel);
+		
+		comboBoxMonitores = new JComboBox();
+		comboBoxMonitores.setToolTipText(Messages.getString("DibujarRuta.comboBoxMonitores.toolTipText")); //$NON-NLS-1$
+		GridBagConstraints gbc_comboBoxMonitores = new GridBagConstraints();
+		gbc_comboBoxMonitores.gridwidth = 2;
+		gbc_comboBoxMonitores.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxMonitores.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxMonitores.gridx = 2;
+		gbc_comboBoxMonitores.gridy = 3;
+		informacionRuta.add(comboBoxMonitores, gbc_comboBoxMonitores);
+		
+		Empleado e = new Empleado();
+		empleados=e.leerMonitores();
+		DefaultComboBoxModel<String> modeloCombo= new DefaultComboBoxModel<String>();
+		comboBoxMonitores.setModel(modeloCombo);
+		for(int i=0; i<empleados.size();i++) {
+			modeloCombo.addElement(empleados.elementAt(i).getNombre()+ " "+ empleados.elementAt(i).getApellido()); //$NON-NLS-1$
+		}
+		
+		lblHoraInicio = new JLabel(Messages.getString("DibujarRuta.31")); //$NON-NLS-1$
+		lblHoraInicio.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblHoraInicio = new GridBagConstraints();
+		gbc_lblHoraInicio.anchor = GridBagConstraints.NORTHEAST;
+		gbc_lblHoraInicio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblHoraInicio.gridx = 1;
+		gbc_lblHoraInicio.gridy = 5;
+		informacionRuta.add(lblHoraInicio, gbc_lblHoraInicio);
+		
+		MaskFormatter mascara = new MaskFormatter("##:##"); //$NON-NLS-1$
+		txtHoraInicio = new JFormattedTextField(mascara);
+		txtHoraInicio.setToolTipText(Messages.getString("DibujarRuta.txtHoraInicio.toolTipText")); //$NON-NLS-1$
+		GridBagConstraints gbc_txtHoraInicio = new GridBagConstraints();
+		gbc_txtHoraInicio.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtHoraInicio.anchor = GridBagConstraints.NORTH;
+		gbc_txtHoraInicio.insets = new Insets(0, 0, 5, 5);
+		gbc_txtHoraInicio.gridx = 2;
+		gbc_txtHoraInicio.gridy = 5;
+		informacionRuta.add(txtHoraInicio, gbc_txtHoraInicio);
+		txtHoraInicio.setColumns(10);
+		
+		lblHoraFin = new JLabel(Messages.getString("DibujarRuta.33")); //$NON-NLS-1$
+		lblHoraFin.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblHoraFin = new GridBagConstraints();
+		gbc_lblHoraFin.insets = new Insets(0, 0, 5, 5);
+		gbc_lblHoraFin.anchor = GridBagConstraints.EAST;
+		gbc_lblHoraFin.gridx = 1;
+		gbc_lblHoraFin.gridy = 6;
+		informacionRuta.add(lblHoraFin, gbc_lblHoraFin);
+		
+		txtHoraFin = new JFormattedTextField(mascara);
+		txtHoraFin.setToolTipText(Messages.getString("DibujarRuta.txtHoraFin.toolTipText")); //$NON-NLS-1$
+		GridBagConstraints gbc_txtHoraFin = new GridBagConstraints();
+		gbc_txtHoraFin.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtHoraFin.insets = new Insets(0, 0, 5, 5);
+		gbc_txtHoraFin.gridx = 2;
+		gbc_txtHoraFin.gridy = 6;
+		informacionRuta.add(txtHoraFin, gbc_txtHoraFin);
+		txtHoraFin.setColumns(10);
+		
+		lblDescripcionRuta = new JLabel(Messages.getString("DibujarRuta.34")); //$NON-NLS-1$
+		lblDescripcionRuta.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDescripcionRuta.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblDescripcionRuta = new GridBagConstraints();
+		gbc_lblDescripcionRuta.anchor = GridBagConstraints.NORTHEAST;
+		gbc_lblDescripcionRuta.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDescripcionRuta.gridx = 1;
+		gbc_lblDescripcionRuta.gridy = 8;
+		informacionRuta.add(lblDescripcionRuta, gbc_lblDescripcionRuta);
+		
+		textArea = new JTextArea();
+		textArea.setToolTipText(Messages.getString("DibujarRuta.textArea.toolTipText")); //$NON-NLS-1$
+		textArea.setLineWrap(true);
+		GridBagConstraints gbc_textArea = new GridBagConstraints();
+		gbc_textArea.gridwidth = 2;
+		gbc_textArea.insets = new Insets(0, 0, 5, 5);
+		gbc_textArea.fill = GridBagConstraints.BOTH;
+		gbc_textArea.gridx = 2;
+		gbc_textArea.gridy = 8;
+		informacionRuta.add(textArea, gbc_textArea);
+		
+		btnGuardarRuta = new JButton(Messages.getString("DibujarRuta.39")); //$NON-NLS-1$
+		btnGuardarRuta.setForeground(Color.BLACK);
+		btnGuardarRuta.setBackground(Color.GREEN);
+		btnGuardarRuta.setToolTipText(Messages.getString("DibujarRuta.btnGuardarRuta.toolTipText")); //$NON-NLS-1$
+		btnGuardarRuta.setEnabled(false);
+		btnGuardarRuta.setFocusTraversalKeysEnabled(false);
+		btnGuardarRuta.setFocusable(false);
+		btnGuardarRuta.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnGuardarRuta.addActionListener(new BtnNewButton_1ActionListener());
+		
+		btnLimpiar = new JButton(Messages.getString("DibujarRuta.35")); //$NON-NLS-1$
+		btnLimpiar.setForeground(Color.BLACK);
+		btnLimpiar.setBackground(Color.RED);
+		btnLimpiar.setToolTipText(Messages.getString("DibujarRuta.btnLimpiar.toolTipText")); //$NON-NLS-1$
+		btnLimpiar.setEnabled(false);
+		btnLimpiar.setFocusTraversalKeysEnabled(false);
+		btnLimpiar.setFocusable(false);
+		btnLimpiar.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBoxMonitores.setSelectedIndex(-1);
+				txtHoraInicio.setText(""); //$NON-NLS-1$
+				txtHoraFin.setText(""); //$NON-NLS-1$
+				areaDibujo.removeAllObjetoGrafico();
+				areaDibujo.repaint();
+				textArea.setText(""); //$NON-NLS-1$
+
+			}
+		});
 		GridBagConstraints gbc_btnLimpiar = new GridBagConstraints();
 		gbc_btnLimpiar.fill = GridBagConstraints.BOTH;
-		gbc_btnLimpiar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnLimpiar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnLimpiar.gridx = 2;
 		gbc_btnLimpiar.gridy = 10;
 		informacionRuta.add(btnLimpiar, gbc_btnLimpiar);
+		GridBagConstraints gbc_btnGuardarRuta = new GridBagConstraints();
+		gbc_btnGuardarRuta.fill = GridBagConstraints.BOTH;
+		gbc_btnGuardarRuta.insets = new Insets(0, 0, 5, 5);
+		gbc_btnGuardarRuta.gridx = 3;
+		gbc_btnGuardarRuta.gridy = 10;
+		informacionRuta.add(btnGuardarRuta, gbc_btnGuardarRuta);
 		
 		
 	}

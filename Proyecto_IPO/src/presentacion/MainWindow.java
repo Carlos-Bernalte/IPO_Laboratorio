@@ -28,6 +28,7 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.awt.Insets;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -86,8 +87,9 @@ public class MainWindow extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public MainWindow(Usuario u,String idioma) throws ParseException {
+	public MainWindow(Usuario u,String idioma,Font f) throws ParseException {
 		this.usuario = u;
+		this.fuenteDefault=f;
 		setUndecorated(true);
 		GenericDAO gdao = new GenericDAO();
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -363,6 +365,8 @@ public class MainWindow extends JFrame {
 		btnDibujarRuta.setForeground(Color.WHITE);
 		btnDibujarRuta.addActionListener(new btnComunAcciones());
 		tbAcciones.add(btnDibujarRuta);
+		
+		nuevaFuente(getContentPane(),fuenteDefault);
 	}
 	private class btnComunAcciones implements ActionListener {
 		@Override
@@ -416,19 +420,19 @@ public class MainWindow extends JFrame {
 				fuenteDefault = new Font(fuenteDefault.getFontName(), Font.PLAIN, 20);
 				break;
 			case "Arial": //$NON-NLS-1$
-				fuenteDefault = new Font("Arial", Font.PLAIN, fuenteDefault.getSize()); //$NON-NLS-1$
+				fuenteDefault = new Font(Messages.getString("LoginWindow.38"), Font.PLAIN, fuenteDefault.getSize()); //$NON-NLS-1$
 				break;
 				
 			case "Verdana": //$NON-NLS-1$
-				fuenteDefault = new Font("Avenir Next LT Pro", Font.PLAIN, fuenteDefault.getSize()); //$NON-NLS-1$
+				fuenteDefault = new Font(Messages.getString("LoginWindow.40"), Font.PLAIN, fuenteDefault.getSize()); //$NON-NLS-1$
 				break;
 				
 			case "Franklin Gothic Book": //$NON-NLS-1$
-				fuenteDefault = new Font("Franklin Gothic Book", Font.PLAIN, fuenteDefault.getSize()); //$NON-NLS-1$
+				fuenteDefault = new Font(Messages.getString("LoginWindow.42"), Font.PLAIN, fuenteDefault.getSize()); //$NON-NLS-1$
 				break;
 
 			}
-			nuevaFuente(new FontUIResource(fuenteDefault));
+			nuevaFuente(getContentPane(),fuenteDefault);
 		}
 	}
 	private class MnIdiomaActionListener implements ActionListener {
@@ -437,13 +441,13 @@ public class MainWindow extends JFrame {
 					try {
 					if (mntmIngles.isSelected()) {
 						Messages.setIdioma("inglés"); //$NON-NLS-1$
-						mw = new MainWindow(usuario, "ingles"); //$NON-NLS-1$
+						mw = new MainWindow(usuario, "ingles",fuenteDefault); //$NON-NLS-1$
 						mw.mntmIngles.setSelected(true);
 						Locale locale = new Locale("en"); //$NON-NLS-1$
 						JOptionPane.setDefaultLocale(locale);
 					} else {
 						Messages.setIdioma("español"); //$NON-NLS-1$
-						mw = new MainWindow(usuario,"castellano"); //$NON-NLS-1$
+						mw = new MainWindow(usuario,"castellano",fuenteDefault); //$NON-NLS-1$
 						mw.mntmEspañol.setSelected(true);
 						Locale locale = new Locale("es"); //$NON-NLS-1$
 						JOptionPane.setDefaultLocale(locale);
@@ -455,18 +459,13 @@ public class MainWindow extends JFrame {
 					}
 				}
 	}
-	public static void nuevaFuente(FontUIResource f) {
-        @SuppressWarnings("rawtypes")
-		Enumeration keys = UIManager.getDefaults().keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            Object value = UIManager.get(key);
-            if (value instanceof FontUIResource) {
-                FontUIResource orig = (FontUIResource) value;
-                Font font = new Font(f.getFontName(), orig.getStyle(), f.getSize());
-                UIManager.put(key, new FontUIResource(font));
-            }
-        }
-    }
+	public static void nuevaFuente(Component contenedor,Font f) {
+		contenedor.setFont(f);
+		if (contenedor instanceof Container) {
+			for( Component child : ( ( Container ) contenedor ).getComponents () ) {
+				nuevaFuente(child,f);
+			}
+		}
+	}
 
 }

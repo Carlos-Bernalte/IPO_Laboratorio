@@ -14,6 +14,8 @@ import javax.swing.UIManager;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 
 import javax.swing.JMenuBar;
 import javax.swing.JTextPane;
@@ -30,6 +32,7 @@ import java.util.Vector;
 import java.text.ParseException;
 import javax.swing.border.TitledBorder;
 import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import dominio.GenericDAO;
 import dominio.Usuario;
@@ -102,7 +105,7 @@ public class LoginWindow {
 		
 		frmGestorDeCamping.setUndecorated(true);
 		fuenteDefault = new Font("Avenir Next LT Pro", 0, 12); //$NON-NLS-1$
-		nuevaFuente(new FontUIResource(fuenteDefault));
+		nuevaFuente(frmGestorDeCamping,fuenteDefault);
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		frmGestorDeCamping.setBounds(pantalla.width/3, pantalla.height/3, 614, 300);
 		frmGestorDeCamping.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -159,11 +162,11 @@ public class LoginWindow {
 							txtFeedback.setForeground(Color.GREEN);
 							txtFeedback.setText(Messages.getString("LoginWindow.6")); //$NON-NLS-1$
 							if (mnEspañol.isSelected()) {
-								MainWindow mw = new MainWindow(u, "castellano");
+								MainWindow mw = new MainWindow(u, "castellano",fuenteDefault);
 								mw.setVisible(true);
 							}
 							else if (mnInglés.isSelected()){
-								MainWindow mw = new MainWindow(u, "ingles");
+								MainWindow mw = new MainWindow(u, "ingles",fuenteDefault);
 								mw.setVisible(true);
 							}
 							frmGestorDeCamping.dispose();
@@ -326,7 +329,7 @@ public class LoginWindow {
 				break;
 
 			}
-			nuevaFuente(new FontUIResource(fuenteDefault));
+			nuevaFuente(frmGestorDeCamping,fuenteDefault);
 		}
 	}
 	private class MnIdiomaActionListener implements ActionListener {
@@ -345,19 +348,14 @@ public class LoginWindow {
 		}
 	}
 	
-	public static void nuevaFuente(FontUIResource f) {
-        @SuppressWarnings("rawtypes")
-		Enumeration keys = UIManager.getDefaults().keys();
-        while (keys.hasMoreElements()) {
-            Object key = keys.nextElement();
-            Object value = UIManager.get(key);
-            if (value instanceof FontUIResource) {
-                FontUIResource orig = (FontUIResource) value;
-                Font font = new Font(f.getFontName(), orig.getStyle(), f.getSize());
-                UIManager.put(key, new FontUIResource(font));
-            }
-        }
-    }
+	public static void nuevaFuente(Component contenedor,Font f) {
+		contenedor.setFont(f);
+		if (contenedor instanceof Container) {
+			for( Component child : ( ( Container ) contenedor ).getComponents () ) {
+				nuevaFuente(child,f);
+			}
+		}
+	}
 	public JFrame getGestorDeCamping() {
 		return frmGestorDeCamping;
 	}
