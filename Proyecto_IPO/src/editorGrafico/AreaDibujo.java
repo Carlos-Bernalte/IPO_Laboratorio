@@ -42,6 +42,7 @@ public class AreaDibujo extends JLabel{
 				}
 			}
 		}
+		@SuppressWarnings("unlikely-arg-type")
 		public void removeAllObjetoGrafico() {
 			objetosGraficos.remove(objetosGraficos.removeAll(objetosGraficos));
 

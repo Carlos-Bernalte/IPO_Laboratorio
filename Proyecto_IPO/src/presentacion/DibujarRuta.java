@@ -89,7 +89,6 @@ public class DibujarRuta extends JPanel {
 	private Image imagenMerendero;
 	private Image imagenMeta;
 	private Image puntoInteres;
-	private Image imagenRuta;
 	private Image imagenBorrador;
 	private Image imagenFacil;
 	private Image imagenMediana;
@@ -99,7 +98,6 @@ public class DibujarRuta extends JPanel {
 	private Cursor cursorMerendero;
 	private Cursor cursorMeta;
 	private Cursor cursorInteres;
-	private Cursor cursorRuta;
 	private Cursor cursorBorrador;
 	private Cursor cursorFacil;
 	private Cursor cursorMediana;

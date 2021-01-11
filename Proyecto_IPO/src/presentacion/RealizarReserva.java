@@ -248,31 +248,31 @@ public class RealizarReserva extends JPanel {
 		btnLimpiarReserva.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		btnLimpiarReserva.setBackground(Color.RED);
 		
-		btnReservar = new JButton("Reservar");
-		btnReservar.addActionListener(new ActionListener() {
-			@SuppressWarnings("unlikely-arg-type")
-			public void actionPerformed(ActionEvent e) {
-				int valor=0;
-				try {
-					if(!textNombre.getText().equals("") && !textTelefono.getText().equals("") && !dateChooserComingDay.getDate().equals("") && !dateChooserExitDate.getDate().equals("")) {
-						String nombreAlojamiento =listAlojamientos.getSelectedValue().toStringNombreAlojamiento(listAlojamientos.getSelectedValue().toString());
-						Reserva r = new Reserva(nombreAlojamiento ,textNombre.getText(),textTelefono.getText(),textCorreo.getText(),"5",dateChooserComingDay.getDate(),dateChooserExitDate.getDate(),textAreaSolicitudesEspeciales.getText());
-						valor=r.guardarReserva(r);
-						lblFeedback.setForeground(Color.GREEN);
-						lblFeedback.setText("Reserva efectuada correctamente");
-					}else {
-						lblFeedback.setForeground(Color.RED);
-						lblFeedback.setText("Rellene los campos obligatorios");
-					}
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				} catch (NullPointerException e1) {
-					lblFeedback.setForeground(Color.RED);
-					lblFeedback.setText("Seleccione el alojamiento que desea para realizar una reserva");
-				}
-			}
-		});
 		btnReservar = new JButton(Messages.getString("RealizarReserva.15")); //$NON-NLS-1$
+		btnReservar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					@SuppressWarnings("unused")
+					int valor=0;
+					try {
+						if(!textNombre.getText().equals("") && !textTelefono.getText().equals("") && !dateChooserComingDay.getDate().equals("") && !dateChooserExitDate.getDate().equals("")) {
+							String nombreAlojamiento =listAlojamientos.getSelectedValue().toStringNombreAlojamiento(listAlojamientos.getSelectedValue().toString());
+							Reserva r = new Reserva(nombreAlojamiento ,textNombre.getText(),textTelefono.getText(),textCorreo.getText(),"5",dateChooserComingDay.getDate(),dateChooserExitDate.getDate(),textAreaSolicitudesEspeciales.getText());
+							valor=r.guardarReserva(r);
+							lblFeedback.setForeground(Color.GREEN);
+							lblFeedback.setText("Reserva efectuada correctamente");
+						}else {
+							lblFeedback.setForeground(Color.RED);
+							lblFeedback.setText("Rellene los campos obligatorios");
+						}
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (NullPointerException e1) {
+						lblFeedback.setForeground(Color.RED);
+						lblFeedback.setText("Seleccione el alojamiento que desea para realizar una reserva");
+					}
+				}
+			});
+	
 		btnReservar.setToolTipText(Messages.getString("RealizarReserva.16")); //$NON-NLS-1$
 		GridBagConstraints gbc_btnReservar = new GridBagConstraints();
 		gbc_btnReservar.insets = new Insets(0, 0, 0, 5);
@@ -283,6 +283,7 @@ public class RealizarReserva extends JPanel {
 		btnReservar.setFocusPainted(false);
 		btnReservar.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		btnReservar.setBackground(Color.GREEN);
+		
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBorder(new EmptyBorder(5, 5, 5, 5));

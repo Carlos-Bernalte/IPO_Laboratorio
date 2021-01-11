@@ -519,6 +519,10 @@ public class ConsultarInformacion extends JPanel {
 		textFieldMaterial.setColumns(10);
 		
 		btnEditarActividad = new JButton(Messages.getString("ConsultarInformacion.27")); //$NON-NLS-1$
+		btnEditarActividad.setFocusTraversalKeysEnabled(false);
+		btnEditarActividad.setFocusPainted(false);
+		btnEditarActividad.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnEditarActividad.setBackground(Paleta.azul_turquesa);
 		btnEditarActividad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Actividad antigua = (Actividad) listActividades.getSelectedValue();
@@ -540,10 +544,18 @@ public class ConsultarInformacion extends JPanel {
 		informacionActividad.add(btnEditarActividad, gbc_btnEditarActividad);
 		
 		btnCrearActividad = new JButton(Messages.getString("ConsultarInformacion.28")); //$NON-NLS-1$
+		btnCrearActividad.setFocusTraversalKeysEnabled(false);
+		btnCrearActividad.setFocusPainted(false);
+		btnCrearActividad.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnCrearActividad.setBackground(Color.GREEN);
 		btnCrearActividad.setEnabled(false);
 		btnCrearActividad.addActionListener(new BtnCrearActividadActionListener());
 		
 		btnNewButton = new JButton(Messages.getString("ConsultarInformacion.29")); //$NON-NLS-1$
+		btnNewButton.setFocusTraversalKeysEnabled(false);
+		btnNewButton.setFocusPainted(false);
+		btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnNewButton.setBackground(Color.RED);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Actividad a = (Actividad) listActividades.getSelectedValue();
@@ -563,8 +575,7 @@ public class ConsultarInformacion extends JPanel {
 		gbc_btnNewButton.gridy = 12;
 		informacionActividad.add(btnNewButton, gbc_btnNewButton);
 		GridBagConstraints gbc_btnCrearActividad = new GridBagConstraints();
-		gbc_btnCrearActividad.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnCrearActividad.gridwidth = 2;
+		gbc_btnCrearActividad.fill = GridBagConstraints.BOTH;
 		gbc_btnCrearActividad.gridx = 7;
 		gbc_btnCrearActividad.gridy = 12;
 		informacionActividad.add(btnCrearActividad, gbc_btnCrearActividad);

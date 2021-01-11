@@ -10,7 +10,6 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,16 +22,12 @@ import javax.swing.JMenu;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
-import javax.swing.JMenuItem;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.Enumeration;
 import java.util.Vector;
 import java.text.ParseException;
 import javax.swing.border.TitledBorder;
-import javax.swing.plaf.FontUIResource;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import dominio.GenericDAO;
 import dominio.Usuario;
@@ -73,6 +68,7 @@ public class LoginWindow {
 	private JRadioButtonMenuItem mnTFuente16;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
+	private JLabel lblLogo;
 	/**
 	 * Launch the application.
 	 */
@@ -151,7 +147,6 @@ public class LoginWindow {
 		btnAcceder.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				MainWindow window;
 				try {
 					GenericDAO gdao= new GenericDAO();
 					Vector<Usuario> listaUsuarios=gdao.getListaUsuarios();
@@ -213,6 +208,11 @@ public class LoginWindow {
 		lblContraseña.setBounds(-18, 90, 96, 13);
 		datosUsuario.add(lblContraseña);
 		
+		lblLogo = new JLabel(Messages.getString("LoginWindow.lblNewLabel.text")); //$NON-NLS-1$
+		lblLogo.setIcon(new ImageIcon(LoginWindow.class.getResource("/imagenes/tienda.png")));
+		lblLogo.setBounds(80, 28, 169, 213);
+		presentacionPanel.add(lblLogo);
+		
 		menuBar = new JMenuBar();
 		menuBar.setBackground(Paleta.azul_oscuro);
 		frmGestorDeCamping.setJMenuBar(menuBar);
@@ -251,6 +251,7 @@ public class LoginWindow {
 		fuenteArial.addActionListener(new fuenteListener());
 		btnGroupFuente.add(fuenteArial);
 		mnFuente.add(fuenteArial);
+		fuenteArial.setSelected(true);
 		
 		fuenteAvenir = new JRadioButtonMenuItem(Messages.getString("LoginWindow.24")); //$NON-NLS-1$
 		fuenteAvenir.addActionListener(new fuenteListener());
@@ -266,6 +267,7 @@ public class LoginWindow {
 		mnAjustes.add(mnTamañoFuente);
 		
 		mnTFuente12 = new JRadioButtonMenuItem("12"); //$NON-NLS-1$
+		mnTFuente12.setSelected(true);
 		buttonGroup_1.add(mnTFuente12);
 		mnTFuente12.addActionListener(new fuenteListener());
 		mnTamañoFuente.add(mnTFuente12);

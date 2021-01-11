@@ -19,8 +19,6 @@ import java.awt.Insets;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -317,6 +315,9 @@ public class Personal extends JPanel {
 					lblFeedback.setText("Empleado dado el baja correctamente!!");
 				} catch (IOException e1) {
 					e1.printStackTrace();
+				} catch (NullPointerException e2) {
+					lblFeedback.setForeground(Color.RED);
+					lblFeedback.setText("Tienes que elegir un empleado de la tabla");
 				}
 				limpiar();
 				refresh(gdao);

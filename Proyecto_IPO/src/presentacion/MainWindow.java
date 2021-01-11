@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.FontUIResource;
 
 import dominio.GenericDAO;
 import dominio.Usuario;
@@ -18,13 +17,11 @@ import javax.swing.JMenu;
 import javax.swing.ImageIcon;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.Locale;
 import java.awt.Insets;
 import java.awt.Component;
@@ -32,7 +29,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 
 import java.awt.Toolkit;
 import javax.swing.JButton;
@@ -114,7 +110,6 @@ public class MainWindow extends JFrame {
 		contentPane.add(panelCentral, BorderLayout.CENTER);
 		panelCentral.setLayout(new CardLayout(0, 0));
 		
-		//Inicializar los paneles y añadirlos al panel central
 		ConsultarInformacion consultar_informacion= new ConsultarInformacion(gdao);
 		panelCentral.add(consultar_informacion, Messages.getString("MainWindow.4")); //$NON-NLS-1$
 		
@@ -126,8 +121,6 @@ public class MainWindow extends JFrame {
 		
 		DibujarRuta dibujar_ruta =new DibujarRuta(gdao,lblFeedback);
 		panelCentral.add(dibujar_ruta, Messages.getString("MainWindow.7")); //$NON-NLS-1$
-		
-
 		
 		panelSuperior = new JPanel();
 		contentPane.add(panelSuperior, BorderLayout.NORTH);
@@ -268,7 +261,7 @@ public class MainWindow extends JFrame {
 		gbc_fotoUsuario.gridy = 1;
 		panel.add(fotoUsuario, gbc_fotoUsuario);
 		
-		lblNombre = new JLabel(u.getNombre());
+		lblNombre = new JLabel(Messages.getString("MainWindow.16")+u.getNombre()); //$NON-NLS-1$
 		lblNombre.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
 		gbc_lblNombre.anchor = GridBagConstraints.WEST;
@@ -277,7 +270,7 @@ public class MainWindow extends JFrame {
 		gbc_lblNombre.gridy = 1;
 		panel.add(lblNombre, gbc_lblNombre);
 		
-		lblApellidos = new JLabel(u.getApellidos());
+		lblApellidos = new JLabel(Messages.getString("MainWindow.19")+u.getApellidos()); //$NON-NLS-1$
 		lblApellidos.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblApellidos = new GridBagConstraints();
 		gbc_lblApellidos.anchor = GridBagConstraints.WEST;
@@ -297,15 +290,11 @@ public class MainWindow extends JFrame {
 		gbc_lblUltVezConect.gridx = 2;
 		gbc_lblUltVezConect.gridy = 3;
 		panel.add(lblUltVezConect, gbc_lblUltVezConect);
-		
-		
-		
 		btnSalir.setBorder(new EmptyBorder(5, 5, 5, 5));
 		btnSalir.setBackground(new Color(0,0,0,0));
 		btnSalir.setOpaque(false);
 		btnSalir.setIcon(new ImageIcon(MainWindow.class.getResource("/Iconos/006-logout.png"))); //$NON-NLS-1$
 		barraOpciones.add(btnSalir);
-		
 		
 		pnlOpciones = new JPanel();
 		panelSuperior.add(pnlOpciones, BorderLayout.SOUTH);
@@ -372,28 +361,28 @@ public class MainWindow extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			CardLayout panelSeleccionado = (CardLayout) panelCentral.getLayout();
-			if(e.getActionCommand().equals("Consultar Información") ||e.getActionCommand().equals("Show information") ) {
+			if(e.getActionCommand().equals("Consultar Información") ||e.getActionCommand().equals("Show information") ) { //$NON-NLS-1$ //$NON-NLS-2$
 				resetearColor();
-				lblFeedback.setText("Cambialo");
+				lblFeedback.setText(Messages.getString("MainWindow.21")); //$NON-NLS-1$
 				btnConsultarInformacion.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, Messages.getString("MainWindow.25")); //$NON-NLS-1$
 			}
-			if(e.getActionCommand().equals("Realizar Reserva")|| e.getActionCommand().equals("Booking")) {
+			if(e.getActionCommand().equals("Realizar Reserva")|| e.getActionCommand().equals("Booking")) { //$NON-NLS-1$ //$NON-NLS-2$
 				resetearColor();
 				lblFeedback.setForeground(Color.WHITE);
-				lblFeedback.setText("Cambialo");
+				lblFeedback.setText(Messages.getString("MainWindow.36")); //$NON-NLS-1$
 				btnRealizarReserva.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, Messages.getString("MainWindow.22")); //$NON-NLS-1$
 			}
-			if(e.getActionCommand().equals("Personal")) {
+			if(e.getActionCommand().equals("Personal")) { //$NON-NLS-1$
 				resetearColor();
-				lblFeedback.setText("");
+				lblFeedback.setText(Messages.getString("MainWindow.46")); //$NON-NLS-1$
 				btnPersonal.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, Messages.getString("MainWindow.26")); //$NON-NLS-1$
 			}
-			if(e.getActionCommand().equals("Dibujar Ruta")|| e.getActionCommand().equals("Draw route")) {
+			if(e.getActionCommand().equals("Dibujar Ruta")|| e.getActionCommand().equals("Draw route")) { //$NON-NLS-1$ //$NON-NLS-2$
 				resetearColor();
-				lblFeedback.setText("");
+				lblFeedback.setText(Messages.getString("MainWindow.49")); //$NON-NLS-1$
 				btnDibujarRuta.setBackground(Paleta.azul_oscuro);
 				panelSeleccionado.show(panelCentral, Messages.getString("MainWindow.27")); //$NON-NLS-1$
 			}
