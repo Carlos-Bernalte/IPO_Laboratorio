@@ -23,7 +23,7 @@ public class GenericDAO {
 		this.listaUsuarios = leerUsuarios("src/Ficheros/Usuarios.txt");
 		this.listaEmpleados = leerEmpleados("src/Ficheros/Empleados.txt");
 		this.listaActividad = leerActividades("src/Ficheros/Actividades.txt");
-//		this.listaRutas = leerRutas("src/Ficheros/"); No implementado
+		this.listaRutas = leerRutas("src/Ficheros/Rutas.txt");
 		this.listaAlojamientos = leerAlojamientos("src/Ficheros/Alojamientos.txt");
 //		this.listaReservas = leerReservas("src/Ficheros/"); No implementado
 	}
@@ -181,8 +181,20 @@ public class GenericDAO {
 	}
 
 	public Vector<Ruta> leerRutas(String ruta){
-		
-		return null;
+		Vector<Ruta> resultado = new Vector<Ruta>();
+		Scanner lector = null;
+		try{
+			lector= new Scanner(new FileReader(new File(ruta)));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				return null;
+			}
+		while (lector.hasNext()) {
+			StringTokenizer datos = new StringTokenizer(lector.nextLine(),";");
+			Ruta r = new Ruta(datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken(),datos.nextToken());
+			resultado.add(r);
+		}
+		return resultado;
 	}
 	
 	public Vector<Alojamiento> leerAlojamientos(String ruta){
@@ -263,7 +275,7 @@ public class GenericDAO {
 		int valor=0;
 		FileWriter fw = new FileWriter("src/ficheros/Rutas.txt",true);
 		BufferedWriter bw= new BufferedWriter(fw);
-		bw.write(r.toString());
+		bw.write("\n"+r.toString2());
 		bw.close();
 		return valor;
 	}

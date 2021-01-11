@@ -3,20 +3,29 @@ package dominio;
 import java.io.IOException;
 
 public class Ruta {
-
+	
+	private String nombre;
 	private String monitor;
 	private String horaInicio;
 	private String horaFinal;
 	private String descripcion;
 	private String fotoRuta;
 	
-	public Ruta(String monitor, String horaInicio, String horaFinal, String descripcion, String fotoRuta) {
+	public Ruta(String nombre,String monitor, String horaInicio, String horaFinal, String descripcion, String fotoRuta) {
 		super();
+		this.nombre=nombre;
 		this.monitor = monitor;
 		this.horaInicio = horaInicio;
 		this.horaFinal = horaFinal;
 		this.descripcion = descripcion;
 		this.fotoRuta = fotoRuta;
+	}
+	
+	public String getNombre() {
+		return monitor;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	public String getMonitor() {
 		return monitor;
@@ -48,9 +57,11 @@ public class Ruta {
 	public void setFotoRuta(String fotoRuta) {
 		this.fotoRuta = fotoRuta;
 	}
-	@Override
 	public String toString() {
-		return monitor+";"+horaInicio+";"+horaFinal+";"+descripcion+";"+fotoRuta+"\n";
+		return "<html><body> &nbsp;"+nombre + " <br> &nbsp;Monitor: " + monitor +" <br>  &nbsp;Hora de inicio: "+horaInicio+ "<br>  &nbsp;Hora de llegada: " + horaFinal + "<br>  &nbsp;Descripción: " + descripcion;
+	}
+	public String toString2() {
+		return monitor+";"+horaInicio+";"+horaFinal+";"+descripcion+";"+fotoRuta;
 	}
 	public int guardarRuta(Ruta r) throws IOException {
 		int valor=0;

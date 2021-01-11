@@ -489,7 +489,7 @@ public class DibujarRuta extends JPanel {
 				File file = fileChooser.getSelectedFile();
 				try {
 					ImageIO.write((BufferedImage) salida, "jpg", file); //$NON-NLS-1$
-					Ruta r = new Ruta(comboBoxMonitores.getSelectedItem().toString(),txtHoraInicio.getText(),txtHoraInicio.getText(),textArea.getText(),file.getAbsolutePath());
+					Ruta r = new Ruta("Ruta",comboBoxMonitores.getSelectedItem().toString(),txtHoraInicio.getText(),txtHoraInicio.getText(),textArea.getText(),file.getAbsolutePath());
 					gdao.guardarRuta(r);
 				} catch (IOException e1) {
 					e1.printStackTrace();

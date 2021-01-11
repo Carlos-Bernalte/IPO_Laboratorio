@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import dominio.Actividad;
 import dominio.Alojamiento;
 import dominio.GenericDAO;
+import dominio.Ruta;
 
 import javax.swing.JScrollPane;
 import javax.swing.JList;
@@ -84,7 +85,7 @@ public class ConsultarInformacion extends JPanel {
 	private JTextArea textFieldDescripcion;
 	private JScrollPane scrollPaneRutas;
 	@SuppressWarnings("rawtypes")
-	private JList list;
+	private JList<Ruta> listRutas;
 	private JLabel imagenRuta;
 
 	/**
@@ -213,9 +214,14 @@ public class ConsultarInformacion extends JPanel {
 		gbc_scrollPaneRutas.gridy = 1;
 		tabRutas.add(scrollPaneRutas, gbc_scrollPaneRutas);
 		
-		list = new JList();
-		list.setBackground(Paleta.blanco_gris);
-		scrollPaneRutas.setViewportView(list);
+		listRutas = new JList<Ruta>();
+		listRutas.addListSelectionListener(new ListaRutasListSelectionListener());
+		listRutas.setSelectedIndex(0);
+		listRutas.setBackground(Paleta.blanco_gris);
+		scrollPaneRutas.setViewportView(listRutas);
+		listRutas.setCellRenderer(new RenderizadoRuta());
+		
+		refreshRutas(gdao);
 		
 		imagenRuta = new JLabel(""); //$NON-NLS-1$
 		GridBagConstraints gbc_imagenRuta = new GridBagConstraints();
@@ -583,6 +589,15 @@ public class ConsultarInformacion extends JPanel {
 			}
 		}
 	}
+	public void refreshRutas(GenericDAO gdao) {
+		DefaultListModel<Ruta> modeloLista = new DefaultListModel<Ruta>();
+		listRutas.setModel(modeloLista);
+		Vector<Ruta> lRutas=gdao.getListaRutas();
+		for(int i=0; i<lRutas.size(); i++) {
+			modeloLista.addElement(lRutas.elementAt(i));
+		}
+	}
+		
 	public void refreshActividades(GenericDAO gdao) {
 		DefaultListModel<Actividad> modeloLista3 = new DefaultListModel<Actividad>();
 		listActividades.setModel(modeloLista3);
@@ -603,6 +618,13 @@ public class ConsultarInformacion extends JPanel {
 			lblImagen1.setIcon(new ImageIcon(MainWindow.class.getResource(a.getFoto())));
 		}
 	}
+	private class ListaRutasListSelectionListener implements ListSelectionListener {
+		public void valueChanged(ListSelectionEvent e) {
+			Alojamiento a = (Alojamiento) listaBungalows.getSelectedValue();
+			imagenRuta.setIcon(new ImageIcon(MainWindow.class.getResource(a.getFoto())));
+		}
+	}
+	
 	private class BtnCrearActividadActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			try {
